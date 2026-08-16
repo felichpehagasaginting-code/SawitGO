@@ -104,7 +104,8 @@ graph TD
 ### In-Scope (TKT 5 - 6 Bulan Riset):
 - Modul Inti: Agronomi / Panen & Ketertelusuran (*Traceability*).
 - Modul Restan & Estimasi FFA.
-- Sinkronisasi Offline-First & Resolusi Konflik RBAC 5 Jenjang.
+- Sinkronisasi Offline-First (Store-and-Forward) & Resolusi Konflik RBAC 5 Jenjang.
+- Modul Realtime Offline P2P Mesh (Wi-Fi Direct / BLE Local Sync & Data Mule Delivery).
 - Uji coba lapangan terbatas di kebun percontohan Politeknik CWE dengan 20 responden riil.
 
 ### Out of Scope (Pengembangan Pasca-Riset / Fase Lanjutan):
@@ -123,9 +124,9 @@ gantt
     section Fase 0: SSOT Docs
     Arsitektur, PRD & ERD          :done, 2026-08-01, 2026-08-31
     section Fase 1: Scaffolding
-    Backend & Mobile Setup         :active, 2026-09-01, 2026-09-30
+    Backend & Mobile Setup         :done, 2026-09-01, 2026-09-30
     section Fase 2: Core & Sync
-    Sync Engine & Weighted RBAC    :2026-10-01, 2026-10-31
+    Sync Engine, RBAC & P2P Mesh   :active, 2026-10-01, 2026-10-31
     section Fase 3: Geospatial & Web
     EUDR PostGIS & Web Dashboard   :2026-11-01, 2026-11-30
     section Fase 4: Lab & Security

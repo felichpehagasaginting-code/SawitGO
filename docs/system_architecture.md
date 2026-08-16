@@ -13,8 +13,9 @@ SawitGO (AgriSync) dirancang khusus untuk memecahkan problem operasional kebun k
 ### Prinsip Utama Arsitektur:
 1. **Offline-First & Local Persistence**: Aplikasi mobile berjalan 100% tanpa internet menggunakan local database (*Isar DB*) dengan enkripsi *AES-256*.
 2. **Store-and-Forward Sync Engine**: Setiap transaksi lokal diantrekan secara terstruktur (*pending sync queue*) dan dikirim otomatis ketika sinyal terdeteksi.
-3. **Domain-Specific Conflict Resolution**: Menyelesaikan benturan data (*data conflict*) dengan memprioritaskan hirarki manajerial perkebunan (*Weighted RBAC*) dan presisi stempel waktu milidetik (*BigInt Timestamp*).
-4. **Native Geospatial Traceability**: Pencatatan koordinat GPS batas poligon blok dan titik TPH (*Tempat Pengumpulan Hasil*) berakurasi tinggi (< 5 meter) berbasis standar PostGIS & GeoJSON.
+3. **P2P Realtime Offline Mesh (Ad-Hoc Sync)**: Mendukung sinkronisasi peer-to-peer antar-perangkat di lapangan via Wi-Fi Direct / BLE dan kurir data bergerak (*Data Mule* truk panen).
+4. **Domain-Specific Conflict Resolution**: Menyelesaikan benturan data (*data conflict*) dengan memprioritaskan hirarki manajerial perkebunan (*Weighted RBAC*) dan presisi stempel waktu milidetik (*BigInt Timestamp*).
+5. **Native Geospatial Traceability**: Pencatatan koordinat GPS batas poligon blok dan titik TPH (*Tempat Pengumpulan Hasil*) berakurasi tinggi (< 5 meter) berbasis standar PostGIS & GeoJSON.
 
 ---
 
@@ -28,11 +29,13 @@ graph TB
         REPO["Repository & Local Data Source"]
         ISAR[("Isar DB (AES-256 Encrypted)\n- HarvestLog Collection\n- Block & TPH Master\n- Pending Sync Queue")]
         SYNC_CLIENT["Flutter Local Sync Engine\n(Connectivity Monitor & Dio Client)"]
+        P2P_MESH["P2P Offline Mesh Sync Engine\n(Wi-Fi Direct / BLE Peer Discovery)"]
         
         UI <--> BLOC
         BLOC <--> REPO
         REPO <--> ISAR
         SYNC_CLIENT <--> ISAR
+        P2P_MESH <--> ISAR
     end
 
     subgraph NETWORK_TIER ["Network & Security Layer"]
