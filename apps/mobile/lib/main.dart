@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 import 'core/constants/app_colors.dart';
+import 'features/harvest/data/models/harvest_log_local.dart';
+import 'features/harvest/data/models/cached_master.dart';
+import 'features/sync/data/pending_sync_queue.dart';
+import 'features/harvest/data/repositories/harvest_repository.dart';
+import 'features/harvest/presentation/pages/harvest_input_page.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const SawitGoApp());
+  final dir = await getApplicationDocumentsDirectory();
+  final isar = await Isar.open(
+    [LocalHarvestLogSchema, PendingSyncQueueSchema, CachedBlockSchema, CachedTPHSchema],
+    directory: dir.path,
+    name: 'sawitgo_field_db',
+  );
+
+  final harvestRepository = HarvestRepository(isar);
+
+  runApp(SawitGoApp(harvestRepository: harvestRepository));
 }
 
 class SawitGoApp extends StatelessWidget {
-  const SawitGoApp({super.key});
+  final HarvestRepository harvestRepository;
+
+  const SawitGoApp({super.key, required this.harvestRepository});
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +33,16 @@ class SawitGoApp extends StatelessWidget {
       title: 'SawitGO',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        brightness: Brightness.dark,
         colorScheme: ColorScheme.fromSeed(
           seedColor: AppColors.primaryEmerald,
           primary: AppColors.primaryEmerald,
-          surface: AppColors.surfaceMatte,
+          surface: AppColors.backgroundDark,
+          brightness: Brightness.dark,
         ),
         useMaterial3: true,
       ),
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            'SawitGO Mobile Scaffolding Ready',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
+      home: HarvestInputPage(repository: harvestRepository),
     );
   }
 }

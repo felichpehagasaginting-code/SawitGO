@@ -6,3 +6,5 @@ analyzer:
     - "build/**"
   errors:
     experimental_member_use: ignore
+    deprecated_member_use: ignore
+    prefer_final_fields: ignore
