@@ -24,16 +24,16 @@ subprojects {
         val extension = extensions.findByName("android")
         if (extension != null) {
             try {
-                // Set compileSdk & buildToolsVersion for all subproject plugins
+                // Enforce latest SDK 36 on all subproject plugins
                 val setCompileSdkMethod = extension.javaClass.methods.firstOrNull { 
                     it.name == "setCompileSdkVersion" && it.parameterTypes.size == 1 && it.parameterTypes[0] == Int::class.javaPrimitiveType 
                 }
-                setCompileSdkMethod?.invoke(extension, 35)
+                setCompileSdkMethod?.invoke(extension, 36)
 
                 val setBuildToolsMethod = extension.javaClass.methods.firstOrNull { 
                     it.name == "setBuildToolsVersion" && it.parameterTypes.size == 1 && it.parameterTypes[0] == String::class.java 
                 }
-                setBuildToolsMethod?.invoke(extension, "35.0.0")
+                setBuildToolsMethod?.invoke(extension, "36.0.0")
 
                 // Inject namespace if missing
                 val getNamespaceMethod = extension.javaClass.methods.firstOrNull { it.name == "getNamespace" }
