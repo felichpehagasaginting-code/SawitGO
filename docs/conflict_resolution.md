@@ -26,12 +26,12 @@ Dalam kondisi *blankspot*, terdapat skenario di mana Krani mencatat di TPH-01 pa
 
 ### Rumus Perhitungan Nilai Prioritas (*Priority Score*):
 
-$$\mathbf{Priority\ Score} = (W_r \times 1.000.000) + T_{ms}$$
+$$\mathbf{Priority\ Score} = (W_r \times 1.000.000.000.000) + T_{ms}$$
 
 Di mana:
 - $W_r \in \{1, 2, 3, 4, 5\}$: Bobot Peran (*Role Weight*).
-- $T_{ms}$: Unix Epoch Timestamp dalam satuan milidetik (*milliseconds*) saat transaksi dibuat/diedit di perangkat client ($T_{ms} \in \mathbb{Z}^+$, format `BigInt` 64-bit).
-- Pengali $1.000.000$: Memastikan bobot hirarki peran menjadi penentu utama (*major component*), sedangkan timestamp menjadi penentu sekunder saat terjadi konflik antar-peran yang sama (*tie-breaker*).
+- $T_{ms}$: Unix Epoch Timestamp dalam satuan milidetik (*milliseconds*) saat transaksi dibuat/diedit di perangkat client ($T_{ms} \in \mathbb{Z}^+$, format `BigInt` 64-bit, berkisar $1.72 \times 10^{12}$).
+- Pengali $1.000.000.000.000$ ($10^{12}$): Menempatkan bobot peran di tingkat triliun sehingga bobot hirarki peran menjadi penentu utama (*major component*), sedangkan timestamp menjadi penentu sekunder saat terjadi konflik antar-peran yang sama (*tie-breaker*).
 
 ---
 
@@ -61,7 +61,7 @@ interface HarvestPayload {
 }
 
 function calculatePriorityScore(roleWeight: number, timestampMs: bigint): bigint {
-  const ROLE_MULTIPLIER = 1_000_000n;
+  const ROLE_MULTIPLIER = 1_000_000_000_000n;
   return (BigInt(roleWeight) * ROLE_MULTIPLIER) + timestampMs;
 }
 

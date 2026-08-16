@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { SyncModule } from './modules/sync/sync.module';
 
 @Module({
@@ -10,6 +11,7 @@ import { SyncModule } from './modules/sync/sync.module';
       envFilePath: '.env',
     }),
     DatabaseModule,
+    AuthModule,
     SyncModule,
   ],
 })
