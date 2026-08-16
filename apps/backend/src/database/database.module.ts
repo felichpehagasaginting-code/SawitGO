@@ -10,6 +10,7 @@ import { TPH } from '../modules/tph/tph.entity';
 import { HarvestLog } from '../modules/harvest/harvest-log.entity';
 import { SyncAuditTrail } from '../modules/sync/sync-audit-trail.entity';
 import { RestanTracker } from '../modules/restan/restan-tracker.entity';
+import { InitialSeedService } from './seeds/initial.seed';
 
 @Module({
   imports: [
@@ -38,6 +39,9 @@ import { RestanTracker } from '../modules/restan/restan-tracker.entity';
         logging: configService.get<string>('DATABASE_LOGGING', 'true') === 'true',
       }),
     }),
+    TypeOrmModule.forFeature([Role, User, Estate, Afdeling, Block, TPH]),
   ],
+  providers: [InitialSeedService],
+  exports: [InitialSeedService],
 })
 export class DatabaseModule {}
