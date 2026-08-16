@@ -130,7 +130,7 @@ sequenceDiagram
 Aplikasi mobile SawitGO mengimplementasikan Clean Architecture 3-Layer untuk memisahkan UI, logika bisnis, dan mekanisme database lokal:
 
 ```
-sawitgo_mobile/
+apps/mobile/
 ├── lib/
 │   ├── core/
 │   │   ├── constants/         # Role weights, API endpoints, error strings
@@ -155,10 +155,10 @@ sawitgo_mobile/
 
 ## 5. Pola Arsitektur Backend (Modular NestJS & PostGIS)
 
-Backend dirancang berbasis arsitektur modular (*micro-modular monolith*) yang siap di-scale:
+Backend dirancang berbasis arsitektur modular (*micro-modular monolith*):
 
 ```
-sawitgo_backend/
+apps/backend/
 ├── src/
 │   ├── common/
 │   │   ├── decorators/        # @Roles(), @CurrentUser()
@@ -182,11 +182,51 @@ sawitgo_backend/
 
 ---
 
-## 6. Standar Keamanan & Proteksi Integritas Data
-1. **At-Rest Encryption (Mobile)**:
-   - Data lokal di perangkat Android dienkripsi menggunakan algoritma **AES-256-CBC**.
-   - Kunci enkripsi (*encryption key*) disimpan di *Android Keystore* melalui `flutter_secure_storage` (tidak di-hardcode di kode program).
-2. **In-Transit Protection**:
-   - Komunikasi API mewajibkan TLS 1.3 dengan *Certificate Pinning* di aplikasi mobile untuk mencegah serangan *Man-In-The-Middle* (MITM) saat menggunakan koneksi seluler publik atau Wi-Fi pos kantor kebun.
-3. **Idempotency Key**:
-   - Setiap transaksi pengiriman *sync batch* dilengkapi dengan `idempotency_key` (berbasis hash UUID + client timestamp) untuk menjamin bahwa request yang dikirim berulang kali akibat sinyal putus tidak akan menduplikasi data di database pusat.
+## 6. Protokol Keamanan & Proteksi Data (Security & Cryptography)
+
+```mermaid
+graph LR
+    subgraph DEVICE ["Mobile Device (Offline)"]
+        KEYSTORE["Hardware Keystore / Keyring\n(Android Keystore)"]
+        SEC_STORE["Flutter Secure Storage\n(AES-256 Master Key)"]
+        DATA_PLAIN["Plaintext Harvest Data"]
+        CIPHER["AES-256-CBC Encryptor"]
+        ISAR_ENC[("Isar DB File on Flash Storage\n(Encrypted Payload / DB)")]
+        
+        KEYSTORE --> SEC_STORE
+        SEC_STORE --> CIPHER
+        DATA_PLAIN --> CIPHER
+        CIPHER --> ISAR_ENC
+    end
+
+    subgraph TRANSIT ["In-Transit (Store-and-Forward)"]
+        DIO["Dio HTTP Client"]
+        TLS_PIN["TLS 1.3 + SHA-256 Certificate Pinning"]
+        DIO --> TLS_PIN
+    end
+
+    subgraph BACKEND ["Cloud Backend (NestJS)"]
+        GATEWAY["API Gateway Ingress"]
+        JWT_GUARD["JWT Guard (RS256 Signature)"]
+        PG_DB[("PostgreSQL 16\n(Encrypted at Rest / TDE)")]
+        
+        TLS_PIN --> GATEWAY
+        GATEWAY --> JWT_GUARD
+        JWT_GUARD --> PG_DB
+    end
+
+    ISAR_ENC --> DIO
+```
+
+### A. At-Rest Encryption (Mobile AES-256-CBC)
+- **Algoritma**: `AES-256` dalam mode `CBC` dengan padding `PKCS7`.
+- **Master Key Security**: Kunci acak 256-bit dihasilkan via `Random.secure()` dan disimpan di *Hardware-backed Android Keystore* via `flutter_secure_storage` (tidak di-hardcode).
+- **Dynamic IV**: Prefix 16-byte acak disisipkan di depan ciphertext `[IV_16_BYTES + CIPHERTEXT]`.
+
+### B. In-Transit Security & TLS Pinning
+- Komunikasi API mewajibkan protokol TLS 1.3 dengan *SHA-256 Certificate Pinning* di mobile client.
+
+### C. Idempotency Key & Anti-Replay Guard
+- Setiap transaksi pengiriman batch memiliki token unik:
+  $$\text{idempotencyKey} = \text{SHA256}(\text{DeviceID} + \text{TransactionUUID} + \text{ClientTimestampMs})$$
+- Backend memanfaatkan Redis & `sync_audit_trails` untuk mencegah duplikasi data jika koneksi putus di tengah jalan.

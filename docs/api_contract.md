@@ -24,7 +24,61 @@
 
 ---
 
-## 2. OpenAPI 3.1.0 Contract Definition (YAML)
+## 2. Format Amplop Standard Respons API (Envelope Response)
+
+### A. Respons Sukses (`HTTP 200 / 201`)
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "message": "Operasi berhasil diproses.",
+  "data": {},
+  "meta": {
+    "requestId": "req-98f98a87-1234",
+    "timestamp": 1723850060000
+  }
+}
+```
+
+### B. Respons Error & Konflik (`HTTP 400 / 409 / 500`)
+```json
+{
+  "success": false,
+  "statusCode": 409,
+  "errorCode": "ERR_CONFLICT_STALE_SCORE",
+  "message": "Data transaksi ditolak karena data di server memiliki prioritas lebih tinggi.",
+  "errorDetails": {
+    "transactionId": "harv-trans-001-uuid",
+    "incomingScore": "1723851000000",
+    "serverWinningScore": "3723855400000",
+    "winningRole": "ASISTEN"
+  },
+  "meta": {
+    "requestId": "req-98f98a87-5678",
+    "timestamp": 1723850060000
+  }
+}
+```
+
+---
+
+## 3. Katalog Kode Error Domain Perkebunan
+
+| Error Code | HTTP Status | Kategori | Keterangan & Tindakan Mobile Client |
+|---|:---:|---|---|
+| `ERR_AUTH_INVALID_CREDENTIALS` | 401 | Auth | NIP atau Password/PIN salah. Tampilkan alert di form login. |
+| `ERR_AUTH_TOKEN_EXPIRED` | 401 | Auth | Token kadaluarsa. Picu auto refresh token atau redirect ke login. |
+| `ERR_ROLE_UNAUTHORIZED` | 403 | RBAC | Role pengguna tidak memiliki wewenang untuk aksi ini. |
+| `ERR_GPS_ACCURACY_LOW` | 422 | Geospatial | Akurasi GPS > 5.0 meter. Minta pengguna kalibrasi ulang. |
+| `ERR_GPS_OUTSIDE_BOUNDARY` | 422 | Geospatial | Koordinat GPS berada di luar poligon blok terpilih (> toleransi 15m). |
+| `ERR_CONFLICT_STALE_SCORE` | 409 | Sync | Priority score kalah dari data server. Mobile ubah status jadi stale. |
+| `ERR_IDEMPOTENT_DUPLICATE` | 200 | Sync | Transaksi duplikat terdeteksi. Diterima sebagai acknowledged no-op. |
+| `ERR_PAYLOAD_MALFORMED` | 400 | Validation | Tipe data JSON tidak valid / field wajib kosong. |
+| `ERR_SERVER_DATABASE_FAIL` | 500 | Internal | Gagal database server. Client melakukan *Exponential Backoff Retry*. |
+
+---
+
+## 4. OpenAPI 3.1.0 Contract Definition (YAML)
 
 ```yaml
 openapi: 3.1.0
@@ -61,7 +115,7 @@ paths:
                   example: "RahasiaKebun2026!"
       responses:
         '200':
-          description: Login berhasil, menghasilkan JWT token & role profile
+          description: Login berhasil
           content:
             application/json:
               schema:
@@ -72,9 +126,6 @@ paths:
   /sync/batch:
     post:
       summary: Ingestion Batch Sinkronisasi Data Panen Lapangan
-      description: >
-        Endpoint utama penampung data offline dari Flutter Local Sync Engine.
-        Mengevaluasi Priority Score untuk setiap record.
       tags: [Sync Engine]
       security:
         - BearerAuth: []
@@ -99,7 +150,7 @@ paths:
                     $ref: '#/components/schemas/HarvestPayloadItem'
       responses:
         '200':
-          description: Batch diproses. Berisi daftar record yang sukses dan konflik yang ditolak.
+          description: Batch diproses
           content:
             application/json:
               schema:
@@ -118,29 +169,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SyncItemResult'
-
-  /restan/warnings:
-    get:
-      summary: Ambil Data TPH dengan Potensi Restan TBS
-      tags: [Restan Monitoring]
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: estateId
-          in: query
-          required: false
-          schema:
-            type: string
-            format: uuid
-        - name: minHours
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 12
-      responses:
-        '200':
-          description: Daftar TPH yang belum terangkut dengan risiko kenaikan FFA
 
 components:
   securitySchemes:
@@ -192,7 +220,6 @@ components:
         id:
           type: string
           format: uuid
-          example: "a8098c1a-f86e-11da-bd1a-00112444be1e"
         tphId:
           type: string
           format: uuid
@@ -202,50 +229,35 @@ components:
         harvestDate:
           type: string
           format: date
-          example: "2026-08-17"
         janjangCount:
           type: integer
-          example: 120
         brondolanWeightKg:
           type: number
-          format: float
-          example: 45.5
         mentahCount:
           type: integer
-          example: 2
         masakCount:
           type: integer
-          example: 115
         lewatMasakCount:
           type: integer
-          example: 3
         tangkaiPanjangCount:
           type: integer
-          example: 0
         clientTimestampMs:
           type: integer
           format: int64
-          example: 1723850000000
         priorityScore:
           type: integer
           format: int64
-          example: 1723851000000
         idempotencyKey:
           type: string
-          example: "IDEMP-UUID-1723850000000"
         location:
           type: object
-          required: [latitude, longitude, accuracy]
           properties:
             latitude:
               type: number
-              example: 0.5386
             longitude:
               type: number
-              example: 101.4485
             accuracy:
               type: number
-              example: 3.2
 
     SyncItemResult:
       type: object
@@ -258,7 +270,6 @@ components:
           enum: [ACCEPTED_NEW, ACCEPTED_OVERWRITE, REJECTED_STALE, IGNORED_IDEMPOTENT]
         httpStatus:
           type: integer
-          example: 200
         message:
           type: string
         winningScore:
