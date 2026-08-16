@@ -1,62 +1,68 @@
 # UI/UX & FRONTEND ENGINEERING SPECIFICATION
 ## Proyek: SawitGO (AgriSync) — Executive Web Dashboard & Field Mobile Interface
-**Versi:** 1.0.0  
-**Status:** Single Source of Truth (SSOT) - Anti-AI Slop Frontend Architecture  
+**Versi:** 1.1.0  
+**Status:** Approved SSOT - Anti-AI Slop, Eye-Catchy & Inclusive Multi-Generational UI  
 **Tanggal:** 17 Agustus 2026  
 **Penulis:** Felich Pehagasa Ginting (Technical Lead & System Architect)
 
 ---
 
-## 1. Filosofi Desain: Anti-AI Slop & Premium Industrial Aesthetics
+## 1. Filosofi Desain: "Eye-Catchy Modernity Meets Multi-Generational Inclusivity"
 
-Mayoritas UI hasil template generic AI (*AI Slop UI*) memiliki penyakit umum: layout card serba mirip, font default sistem, warna ungu/biru gradien hampa, tanpa ritme tipografi (*typographic hierarchy*), dan animasi kaku atau berlebihan (*over-animated*).
+Desain SawitGO memadukan estetika *hyper-modern visual appeal* (yang memukau bagi juri riset/eksekutif muda) dengan *extreme readability & cognitive ease* (yang nyaman, ramah mata, dan intuitif bagi Mandor/Krani berusia 40–55+ tahun di lapangan).
 
-SawitGO menerapkan filosofi **"Industrial Agritech Command Center"**:
-1. **Curated Color Harmony**: Mengadopsi perpaduan warna tanah mineral dan daun sawit (*Deep Rainforest Slate `#0A1F18`*, *Tactical Forest Green `#143D30`*, *High-Contrast Signal Amber `#F59E0B`*, dan *OLED Carbon `#0B0F0E`*).
-2. **Intentional Micro-Animations (GSAP 3 + Lenis + Framer Motion)**:
-   - **Lenis**: Memberikan momentum *smooth inertial scrolling* 60fps tanpa lagging pada halaman analitik panjang.
-   - **GSAP (GreenSock) + ScrollTrigger**: Digunakan untuk animasi kompleks *timeline SVG geospasial*, transformasi koordinat poligon, serta efek *counter number ticking* pada metrik tonase BJR dan degradasi FFA.
-   - **Framer Motion**: Digunakan untuk transisi antar komponen mikro (modal drawer, swipeable cards, notification toast, status pill transition).
-3. **Typography Authority**: Menggunakan font modern **Plus Jakarta Sans** (untuk antarmuka/data) dipadukan dengan font monospace **JetBrains Mono** (untuk ID transaksi UUID, nilai koordinat GPS, dan Priority Score).
+### 4 Pilar Pengalaman Pengguna Lintas Generasi:
+1. **Tipografi Premium & Super-Legible (Outfit + Space Grotesk + Plus Jakarta Sans)**:
+   - **Outfit / Plus Jakarta Sans**: Font dengan geometri lingkaran terbuka (*high x-height*, *large counters*), membuat teks sangat mudah dibaca tanpa squinting/menyipitkan mata bagi pengguna usia lanjut.
+   - **Space Grotesk / JetBrains Mono**: Tipografi angka janjang & data metrik yang tegas, modern, berkarakter, dan berdaya tarik visual tinggi (*eye-catchy*).
+2. **Kombinasi Animasi Halus & Bermakna (Lenis + GSAP + Framer Motion)**:
+   - **Lenis Smooth Scroll**: Sensasi scrolling berbobot halus tanpa patah-patah yang ramah bagi mata.
+   - **GSAP + ScrollTrigger**: Efek *number counting odometer* pada tonase dan peta heatmap dinamis yang memanjakan mata eksekutif.
+   - **Framer Motion**: Transisi kartu dan modal drawer yang mengalir natural tanpa gerakan mendadak (*no motion sickness*).
+3. **Pembeda Visual Kuat Berbasis Tiga Sensorik (Warna + Ikon Simbol + Teks Jelas)**:
+   - Tidak hanya mengandalkan warna: Setiap status kritis selalu dilengkapi **Ikon Tebal** dan **Label Teks Bahasa Indonesia Sehari-hari** (misal: "🔴 ⚠️ PERHATIAN: 24 JAM BELUM DIANGKUT").
+4. **Ergonomi Sentuh Tanpa Salah Pencet (*Zero-Mistake Giant Touch Target*)**:
+   - Tombol aksi utama dengan ketinggian **60 dp**, radius sudut melengkung ramah (*Squircle 16px*), dan jarak renggang agar nyaman bagi tangan pekerja kebun.
 
 ---
 
-## 2. Palet Warna & Design Tokens (Tailored Industrial Agritech)
+## 2. Palet Warna & Design Tokens (Eye-Catchy Palm Theme)
 
 ```css
 :root {
-  /* Surface & Background Layers */
-  --bg-app-dark: #070D0B;          /* Carbon OLED Primary Background */
-  --bg-card-glass: rgba(14, 28, 23, 0.75); /* Frosted Glassmorphism Card */
-  --bg-card-hover: rgba(22, 45, 37, 0.85);
-  --border-subtle: rgba(46, 125, 50, 0.25);
-  --border-glow: rgba(52, 211, 153, 0.4);
+  /* Surface & Background */
+  --bg-app-dark: #070E0B;             /* Deep Emerald Carbon */
+  --bg-card-glass: rgba(13, 27, 21, 0.85); /* Frosted Jade Glass */
+  --bg-card-hover: rgba(20, 42, 33, 0.95);
+  --border-subtle: rgba(52, 211, 153, 0.2);
+  --border-glow: rgba(52, 211, 153, 0.45);
 
-  /* Primary Brand Tokens */
-  --color-primary: #10B981;        /* Emerald Active Glow */
-  --color-forest: #143D30;         /* Base Brand Palm */
-  --color-amber-harvest: #F59E0B;  /* Signal Harvest & Brondolan */
-  --color-restan-critical: #EF4444;/* Red Alert >24h Overdue */
-  --color-warning-12h: #FBBF24;    /* Yellow Warning 12h */
+  /* Eye-Catchy Brand Accents */
+  --color-primary-emerald: #10B981;   /* Neon Emerald Accent */
+  --color-forest-rich: #064E3B;       /* Deep Rich Forest */
+  --color-harvest-gold: #F59E0B;      /* Signal Gold & Amber */
+  --color-restan-crimson: #EF4444;    /* Crimson Red Warning */
+  --color-ocean-verified: #06B6D4;    /* Cyan EUDR Verified */
 
-  /* Text & Data Contrast */
-  --text-pure: #F8FAFC;            /* High Contrast Headings */
-  --text-muted: #94A3B8;           /* Subtitle & Axis Labels */
-  --text-data-mono: #6EE7B7;       /* Monospace Metric Ticking */
+  /* High-Contrast Typography */
+  --text-pure: #FFFFFF;               /* 100% White for Maximum Contrast */
+  --text-soft: #CBD5E1;               /* Slate Light Gray */
+  --text-muted: #94A3B8;              /* Secondary Label */
+  --text-data-glow: #34D399;          /* Glowing Monospace Numbers */
 
   /* Shadows & Glassmorphism Blur */
-  --backdrop-blur: blur(16px);
-  --shadow-elevation: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-  --shadow-glow-emerald: 0 0 25px -5px rgba(16, 185, 129, 0.3);
-  --shadow-glow-red: 0 0 25px -5px rgba(239, 68, 68, 0.4);
+  --backdrop-blur: blur(20px);
+  --shadow-elevation: 0 12px 32px -8px rgba(0, 0, 0, 0.6);
+  --shadow-glow-emerald: 0 0 30px -5px rgba(16, 185, 129, 0.35);
+  --shadow-glow-crimson: 0 0 30px -5px rgba(239, 68, 68, 0.45);
 }
 ```
 
 ---
 
-## 3. Arsitektur Frontend Web Dashboard (Next.js 14 / React + Lenis + GSAP)
+## 3. Komponen Web Dashboard: Bento Grid & Smooth Animation
 
-### A. Integrasi Lenis Smooth Scroll + GSAP ScrollTrigger
+### A. Lenis Smooth Scroll Provider + GSAP Sync
 ```tsx
 // providers/SmoothScrollProvider.tsx
 'use client';
@@ -79,12 +85,8 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
     });
 
     lenisRef.current = lenis;
-
-    // Sinkronisasi RAF Lenis dengan GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
     return () => {
@@ -93,11 +95,11 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
     };
   }, []);
 
-  return <div className="sawitgo-smooth-wrapper">{children}</div>;
+  return <div className="sawitgo-smooth-wrapper font-sans">{children}</div>;
 }
 ```
 
-### B. Komponen Executive KPI Bento Grid (Framer Motion + GSAP Counter)
+### B. Eye-Catchy KPI Metric Bento Card (GSAP Odometer + Framer Motion)
 ```tsx
 // components/dashboard/MetricBentoCard.tsx
 'use client';
@@ -109,26 +111,34 @@ interface MetricCardProps {
   title: string;
   value: number;
   suffix?: string;
-  trend: string;
-  status: 'normal' | 'warning' | 'critical';
+  subtitle: string;
+  badgeText: string;
+  isAlert?: boolean;
 }
 
-export function MetricBentoCard({ title, value, suffix = '', trend, status }: MetricCardProps) {
-  const countRef = useRef<HTMLSpanElement>(null);
+export function MetricBentoCard({
+  title,
+  value,
+  suffix = '',
+  subtitle,
+  badgeText,
+  isAlert = false,
+}: MetricCardProps) {
+  const counterRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (countRef.current) {
+    if (counterRef.current) {
       gsap.fromTo(
-        countRef.current,
+        counterRef.current,
         { innerText: 0 },
         {
           innerText: value,
-          duration: 2.0,
+          duration: 2.2,
           ease: 'power3.out',
           snap: { innerText: 1 },
           onUpdate: function () {
-            if (countRef.current) {
-              countRef.current.innerHTML = Number(this.targets()[0].innerText).toLocaleString('id-ID');
+            if (counterRef.current) {
+              counterRef.current.innerHTML = Number(this.targets()[0].innerText).toLocaleString('id-ID');
             }
           },
         }
@@ -138,28 +148,41 @@ export function MetricBentoCard({ title, value, suffix = '', trend, status }: Me
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-      className={`relative p-6 rounded-2xl border backdrop-blur-xl transition-colors ${
-        status === 'critical'
-          ? 'bg-red-950/20 border-red-500/30 shadow-glow-red'
-          : 'bg-emerald-950/20 border-emerald-500/20 shadow-glow-emerald'
+      whileHover={{ y: -4, transition: { duration: 0.25 } }}
+      className={`relative p-6 rounded-3xl border backdrop-blur-2xl transition-all duration-300 ${
+        isAlert
+          ? 'bg-gradient-to-b from-red-950/40 to-black/60 border-red-500/40 shadow-glow-crimson'
+          : 'bg-gradient-to-b from-emerald-950/30 to-black/50 border-emerald-500/25 shadow-glow-emerald'
       }`}
     >
-      <div className="flex justify-between items-start mb-4">
-        <h4 className="text-xs uppercase tracking-wider text-slate-400 font-semibold">{title}</h4>
-        <span className="text-xs px-2 py-0.5 rounded-full font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-          {trend}
+      <div className="flex justify-between items-center mb-3">
+        <span className="text-xs font-bold tracking-wider uppercase text-slate-300 font-sans">
+          {title}
+        </span>
+        <span
+          className={`text-xs px-3 py-1 rounded-full font-bold font-mono tracking-wide ${
+            isAlert
+              ? 'bg-red-500/20 text-red-300 border border-red-500/30'
+              : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+          }`}
+        >
+          {badgeText}
         </span>
       </div>
 
-      <div className="flex items-baseline gap-2">
-        <span ref={countRef} className="text-4xl font-bold font-mono tracking-tight text-slate-100">
+      <div className="flex items-baseline gap-2 mb-1">
+        <span
+          ref={counterRef}
+          className="text-4xl lg:text-5xl font-black font-mono tracking-tight text-white"
+        >
           0
         </span>
-        <span className="text-sm font-medium text-emerald-400">{suffix}</span>
+        <span className="text-lg font-bold text-emerald-400 font-sans">{suffix}</span>
       </div>
+
+      <p className="text-sm font-medium text-slate-400 font-sans mt-2">{subtitle}</p>
     </motion.div>
   );
 }
@@ -167,90 +190,66 @@ export function MetricBentoCard({ title, value, suffix = '', trend, status }: Me
 
 ---
 
-## 4. Visualisasi Konflik Terdistribusi (Visual Conflict Flow Inspector)
+## 4. Antarmuka Mobile (Flutter) Ramah Mandor & Krani (Segala Usia)
 
-Untuk kebutuhan audit ilmiah BPDPKS dan presentasi, dashboard web dilengkapi dengan **Interactive Conflict Timeline Inspector**:
-
-```
-+-----------------------------------------------------------------------------------------+
-| CONFLICT RESOLUTION AUDIT INSPECTOR (TRANSACTION: #harv-b012-001)                        |
-+-----------------------------------------------------------------------------------------+
-|                                                                                         |
-|  [DEVICE A: KRANI LAPANGAN]                  [DEVICE B: ASISTEN AFDELING]                |
-|  Role Weight: 1 (Krani)                      Role Weight: 3 (Asisten)                    |
-|  Input: 120 Janjang @ 08:00 (Offline)        Revisi: 110 Janjang @ 09:30 (Offline)       |
-|  Score: 1.723.851.000.000                    Score: 3.723.855.400.000                    |
-|             \                                              /                            |
-|              \                                            /                             |
-|               +------------------------------------------+                              |
-|               |  GSAP ANIMATED SERVER CONSENSUS ENGINE   |                              |
-|               |  Formula: (Weight * 1.000.000) + TimeMs  |                              |
-|               +------------------------------------------+                              |
-|                                    |                                                    |
-|                                    v                                                    |
-|                   [WINNING CONSENSUS: DATA ASISTEN]                                     |
-|                   Status: 200 Overwrite Server Database                                 |
-|                   Audit Log: sync_audit_trails ID: #audit-9921                          |
-|                                                                                         |
-+-----------------------------------------------------------------------------------------+
-```
+### A. Fitur Aksesibilitas Khusus Semua Kalangan Usia:
+1. **Super Giant Number Dial (+1, +5, +10, +50)**:
+   - Mandor cukup mengetuk tombol chip besar tanpa perlu mengetik satu per satu.
+2. **Ukuran Font Angka 36sp Bold**:
+   - Angka hasil panen terlihat jelas dari jarak pandang lengan terbuka tanpa kacamata baca.
+3. **Bahasa Operasional Sederhana & Ramah**:
+   - Tidak menggunakan istilah asing yang membingungkan: Digunakan istilah kebun yang sudah akrab (*Janjang TBS, Brondolan, Buah Mentah, Buah Masak, Restan, Sinyal Hilang*).
+4. **Vibrasi Getar Multimoda**:
+   - Mandor tahu inputnya berhasil tersimpan lewat getaran mantap HP tanpa harus mengecek layar berulang kali.
 
 ---
 
-## 5. Standar Ergonomi UI Mobile Lapangan (Flutter Client)
+## 5. Wireframe Layout Komprehensif
 
-### A. Numpad Dial Pad Khusus (Zero-Mistake Field Stepper)
-- Dilarang membuka keyboard sistem Android QWERTY penuh karena lambat dan rawan *mis-press*.
-- Disediakan *Custom Bottom Sheet Number Stepper* dengan tombol cepat: `+1`, `+5`, `+10`, `+50` dan tombol `-1` untuk koreksi cepat.
-
-### B. Dynamic Haptic Feedback Profile
-- **Tick Ringan (Light Haptic)**: Tiap sentuhan tombol stepper janjang.
-- **Getar Ganda (Medium Haptic)**: Saat berhasil mengunci koordinat GPS $<5$ meter.
-- **Getar Sukses (Heavy Haptic + Chime)**: Saat QR Code TPH terverifikasi atau batch berhasil tersimpan lokal di Isar DB.
-- **Getar Peringatan (Error Vibration)**: Saat akurasi GPS $>5$ meter atau koordinat terdeteksi di luar poligon blok.
-
----
-
-## 6. Layout Wireframe Blueprint (ASCII Representation)
-
-### A. Mobile Home & Ingestion Screen (Flutter)
+### A. Mobile Screen (Flutter Ingestion - Ramah Semua Usia)
 ```
-+------------------------------------------+
-|  SawitGO Mobile      [🔴 Offline: 5 Antre]
-+------------------------------------------+
-|  📍 BLOK: B012 | AFDELING: ALPHA         |
-|  📌 TPH : TPH-04 (QR-VERIFIED ✅)         |
-|  🛰️ GPS: 0.5378, 101.4450 (Akurasi 2.1m) |
-+------------------------------------------+
-|  JUMLAH JANJANG TBS                      |
-|  [ - ]        [  125  ]         [ + ]    |
-|  [ +1 ]      [ +5 ]     [ +10 ]  [ +50 ] |
-+------------------------------------------+
-|  BERAT BRONDOLAN (KG): [ 45.5 Kg ]       |
-+------------------------------------------+
-|  MUTU BUAH:                              |
-|  Masak: 120 | Mentah: 3 | Lewat: 2       |
-+------------------------------------------+
-|  [ 💾 SIMPAN PANEN (ENCRYPT TO ISAR) ]   |
-|  *Otomatis Dikirim saat Sinyal Terdeteksi |
-+------------------------------------------+
++-------------------------------------------------------------+
+|  🌾 SawitGO Mobile               [ 🔴 OFFLINE: 3 Antrean ]  |
++-------------------------------------------------------------+
+|  📍 LOKASI KEBUN                                            |
+|  Afdeling: ALPHA  |  Blok: B012 (TM 2017)                   |
+|  TPH     : TPH-04 (Terpindai QR ✅)                         |
+|  Sinyal  : 🛰️ GPS Presisi Tinggi (2.1m - Valid EUDR)        |
++-------------------------------------------------------------+
+|  JUMLAH JANJANG SAWIT                                       |
+|                                                             |
+|             [  -  ]      125 Janjang      [  +  ]           |
+|                                                             |
+|    [ +1 Janjang ]   [ +5 Janjang ]   [ +10 ]   [ +50 ]      |
++-------------------------------------------------------------+
+|  BERAT BRONDOLAN :  [  45.5 Kg  ]                           |
++-------------------------------------------------------------+
+|  KONDISI BUAH (MUTU) :                                      |
+|  🟢 Buah Masak : 120    |  🟡 Buah Mentah : 3               |
+|  🟠 Lewat Masak: 2      |  🔴 Tangkai Pjg : 0               |
++-------------------------------------------------------------+
+|                                                             |
+|       [ 💾 SIMPAN DATA PANEN (AMAN TANPA SINYAL) ]          |
+|                                                             |
++-------------------------------------------------------------+
 ```
 
-### B. Executive Web Dashboard (Next.js)
+### B. Web Dashboard (Command Center - Eye-Catchy Next.js)
 ```
-+---------------------------------------------------------------------------------------+
-| SawitGO Command Center   [Afdeling Alpha ▼]   [Auto-Refresh: 10s]   [👤 Manager Bambang] |
-+---------------------------------------------------------------------------------------+
-| [📦 Total Janjang]   [⚖️ Estimasi Tonase]   [⚠️ Potensi Restan]   [🧪 Rata-rata FFA]   |
-|   14.850 Janjang         245.2 Ton             3 TPH (2.1%)           1.68% (Aman)    |
-+---------------------------------------------------+-----------------------------------+
-|  🗺️ GIS REAL-TIME RESTAN HEATMAP (POSTGIS MAP)    |  📋 LIVE INGESTION FEED (SYNC)    |
-|  +---------------------------------------------+  |  [08:12] Krani TPH-01: 120 Janjang|
-|  | [Blok B012] 🟢 Normal                       |  |  [08:15] Mandor TPH-04: 95 Janjang|
-|  | [Blok B014] 🟡 Warning 12h (TPH-03)         |  |  [08:20] ⚖️ Conflict Resolved      |
-|  | [Blok C002] 🔴 RESTAN CRITICAL (TPH-08)     |  |         Asisten overwrite Krani   |
-|  |             Durasi: 26 Jam (FFA: 5.4%)      |  |  [08:25] Truk 04 Muat TPH-02      |
-|  +---------------------------------------------+  |-----------------------------------|
-|  [ 📥 EKSPOR EUDR GEOJSON ] [ 📄 LAPORAN TBS ]    |  [ 🔍 DETAIL AUDIT LOG TRAIL ]    |
-+---------------------------------------------------+-----------------------------------+
++-----------------------------------------------------------------------------------------+
+|  🌴 SawitGO Executive Command Center      [Kebun CWE ▼]  [Auto-Sync: 10s]  [👤 Mgr. Bambang] |
++-----------------------------------------------------------------------------------------+
+| [📦 Total Janjang Hari Ini] [⚖️ Tonase Estimasi]  [⚠️ Potensi Buah Restan] [🧪 Mutu FFA Rata²]|
+|      14.850 Janjang              245.2 Ton             3 TPH (2.1%)          1.68% (Aman)   |
+|      ▲ +8.2% vs Kemarin         BJR 16.5 Kg/Jjg       🚨 1 TPH >24 Jam       Standar <5%    |
++----------------------------------------------------+------------------------------------+
+|  🗺️ GIS REAL-TIME MAP (POSTGIS & HEATMAP RESTAN)   |  ⚡ LIVE SYNC INGESTION STREAM      |
+|  +----------------------------------------------+  |  [08:12] Krani TPH-01: 120 Janjang |
+|  | [Blok B012] 🟢 SELESAI (Semua Diangkut)      |  |  [08:18] Mandor TPH-04: 95 Janjang |
+|  | [Blok B014] 🟡 PERINGATAN 12 JAM (TPH-03)    |  |  [08:24] ⚖️ Resolusi Konflik:      |
+|  | [Blok C002] 🔴 RESTAN KRITIS 26 JAM (TPH-08) |  |         Asisten overwrite Krani    |
+|  |             Truk Terdekat: Truk-02 (2.4 Km)  |  |  [08:30] Truk-01 Berangkat ke PKS  |
+|  +----------------------------------------------+  |------------------------------------|
+|  [ 📥 EKSPOR SERTIFIKAT EUDR ] [ 📄 REKAP AFDELING ]|  [ 🔍 AUDIT LOG TRAIL DETAIL ]     |
++----------------------------------------------------+------------------------------------+
 ```
