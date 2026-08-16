@@ -1,19 +1,33 @@
 # UI/UX & FRONTEND ENGINEERING SPECIFICATION
 ## Proyek: SawitGO (AgriSync) — Executive Web Dashboard & Field Mobile Interface
-**Versi:** 1.1.0  
-**Status:** Approved SSOT - Anti-AI Slop, Eye-Catchy & Inclusive Multi-Generational UI  
+**Versi:** 1.2.0  
+**Status:** Approved SSOT - Anti-AI Slop, Eye-Catchy, Multi-Generational UI & 100% Vector SVG Standard  
 **Tanggal:** 17 Agustus 2026  
 **Penulis:** Felich Pehagasa Ginting (Technical Lead & System Architect)
 
 ---
 
-## 1. Filosofi Desain: "Eye-Catchy Modernity Meets Multi-Generational Inclusivity"
+## 1. Standar Mandatori Visual: 100% Format Vector SVG
+
+> [!IMPORTANT]
+> **ATURAN MANDATORI ASET GRAFIS:**
+> Seluruh logo resmi, stiker verifikasi, lencana sertifikasi (*badges*), dan ikon antarmuka di proyek SawitGO **WAJIB menggunakan format Scalable Vector Graphics (SVG)**. 
+> Dilarang menggunakan format raster bitmap (*PNG, JPG, JPEG, GIF*) untuk elemen branding dan ikon guna menjamin ketajaman visual di semua resolusi layar (Mobile FHD+, Tablet, Layar Monitor 4K Command Center), hemat memori RAM, dan mendukung manipulasi animasi interaktif berbasis GSAP/CSS.
+
+### Direktori Aset SVG Resmi:
+- **`assets/branding/`**: Logo utama aplikasi, simbol monogram, dan maskot grafis dalam format `.svg` (contoh: [`assets/branding/sawitgo_logo.svg`](file:///f:/Projects/SawitGO/assets/branding/sawitgo_logo.svg)).
+- **`assets/stickers/`**: Stiker status sertifikasi (*EUDR Verified*, *100% Offline Ready*) dalam format `.svg` (contoh: [`assets/stickers/sticker_offline_ready.svg`](file:///f:/Projects/SawitGO/assets/stickers/sticker_offline_ready.svg)).
+- **`assets/icons/`**: Ikon kontrol teknis (*GPS radar*, *truk angkut*, *timbangan brondolan*, *TBS sawit*) dalam format `.svg`.
+
+---
+
+## 2. Filosofi Desain: "Eye-Catchy Modernity Meets Multi-Generational Inclusivity"
 
 Desain SawitGO memadukan estetika *hyper-modern visual appeal* (yang memukau bagi juri riset/eksekutif muda) dengan *extreme readability & cognitive ease* (yang nyaman, ramah mata, dan intuitif bagi Mandor/Krani berusia 40–55+ tahun di lapangan).
 
 ### 4 Pilar Pengalaman Pengguna Lintas Generasi:
 1. **Tipografi Premium & Super-Legible (Outfit + Space Grotesk + Plus Jakarta Sans)**:
-   - **Outfit / Plus Jakarta Sans**: Font dengan geometri lingkaran terbuka (*high x-height*, *large counters*), membuat teks sangat mudah dibaca tanpa squinting/menyipitkan mata bagi pengguna usia lanjut.
+   - **Outfit / Plus Jakarta Sans**: Font dengan geometri lingkaran terbuka (*high x-height*, *large counters*), membuat teks sangat mudah dibaca tanpa menyipitkan mata bagi pengguna usia lanjut.
    - **Space Grotesk / JetBrains Mono**: Tipografi angka janjang & data metrik yang tegas, modern, berkarakter, dan berdaya tarik visual tinggi (*eye-catchy*).
 2. **Kombinasi Animasi Halus & Bermakna (Lenis + GSAP + Framer Motion)**:
    - **Lenis Smooth Scroll**: Sensasi scrolling berbobot halus tanpa patah-patah yang ramah bagi mata.
@@ -26,7 +40,7 @@ Desain SawitGO memadukan estetika *hyper-modern visual appeal* (yang memukau bag
 
 ---
 
-## 2. Palet Warna & Design Tokens (Eye-Catchy Palm Theme)
+## 3. Palet Warna & Design Tokens (Eye-Catchy Palm Theme)
 
 ```css
 :root {
@@ -60,7 +74,7 @@ Desain SawitGO memadukan estetika *hyper-modern visual appeal* (yang memukau bag
 
 ---
 
-## 3. Komponen Web Dashboard: Bento Grid & Smooth Animation
+## 4. Komponen Web Dashboard: Bento Grid & Smooth Animation
 
 ### A. Lenis Smooth Scroll Provider + GSAP Sync
 ```tsx
@@ -190,7 +204,7 @@ export function MetricBentoCard({
 
 ---
 
-## 4. Antarmuka Mobile (Flutter) Ramah Mandor & Krani (Segala Usia)
+## 5. Antarmuka Mobile (Flutter) Ramah Mandor & Krani (Segala Usia)
 
 ### A. Fitur Aksesibilitas Khusus Semua Kalangan Usia:
 1. **Super Giant Number Dial (+1, +5, +10, +50)**:
@@ -204,7 +218,7 @@ export function MetricBentoCard({
 
 ---
 
-## 5. Wireframe Layout Komprehensif
+## 6. Wireframe Layout Komprehensif
 
 ### A. Mobile Screen (Flutter Ingestion - Ramah Semua Usia)
 ```
