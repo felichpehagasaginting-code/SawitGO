@@ -23,15 +23,29 @@ subprojects {
     afterEvaluate {
         val extension = extensions.findByName("android")
         if (extension != null) {
-            val getNamespaceMethod = extension.javaClass.methods.firstOrNull { it.name == "getNamespace" }
-            val currentNamespace = getNamespaceMethod?.invoke(extension) as? String
-            if (currentNamespace.isNullOrEmpty()) {
-                val setNamespaceMethod = extension.javaClass.methods.firstOrNull { 
-                    it.name == "setNamespace" && it.parameterTypes.size == 1 && it.parameterTypes[0] == String::class.java 
+            try {
+                // Set compileSdk & buildToolsVersion for all subproject plugins
+                val setCompileSdkMethod = extension.javaClass.methods.firstOrNull { 
+                    it.name == "setCompileSdkVersion" && it.parameterTypes.size == 1 && it.parameterTypes[0] == Int::class.javaPrimitiveType 
                 }
-                val fallbackNamespace = "id.ac.cwe.sawitgo." + project.name.replace('-', '_')
-                setNamespaceMethod?.invoke(extension, fallbackNamespace)
-            }
+                setCompileSdkMethod?.invoke(extension, 35)
+
+                val setBuildToolsMethod = extension.javaClass.methods.firstOrNull { 
+                    it.name == "setBuildToolsVersion" && it.parameterTypes.size == 1 && it.parameterTypes[0] == String::class.java 
+                }
+                setBuildToolsMethod?.invoke(extension, "35.0.0")
+
+                // Inject namespace if missing
+                val getNamespaceMethod = extension.javaClass.methods.firstOrNull { it.name == "getNamespace" }
+                val currentNamespace = getNamespaceMethod?.invoke(extension) as? String
+                if (currentNamespace.isNullOrEmpty()) {
+                    val setNamespaceMethod = extension.javaClass.methods.firstOrNull { 
+                        it.name == "setNamespace" && it.parameterTypes.size == 1 && it.parameterTypes[0] == String::class.java 
+                    }
+                    val fallbackNamespace = "id.ac.cwe.sawitgo." + project.name.replace('-', '_')
+                    setNamespaceMethod?.invoke(extension, fallbackNamespace)
+                }
+            } catch (_: Exception) {}
         }
     }
 }
