@@ -17,10 +17,8 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(":app")
-}
-
-subprojects {
-    afterEvaluate {
+    
+    val configureSubproject = {
         val extension = extensions.findByName("android")
         if (extension != null) {
             try {
@@ -46,6 +44,14 @@ subprojects {
                     setNamespaceMethod?.invoke(extension, fallbackNamespace)
                 }
             } catch (_: Exception) {}
+        }
+    }
+
+    if (state.executed) {
+        configureSubproject()
+    } else {
+        afterEvaluate {
+            configureSubproject()
         }
     }
 }
