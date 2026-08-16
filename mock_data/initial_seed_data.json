@@ -1,0 +1,122 @@
+{
+  "project": "SawitGO (AgriSync)",
+  "version": "1.0.0",
+  "generated_at": "2026-08-17T01:00:00Z",
+  "description": "Mock initial master data & harvest records for local testing and seeding",
+  "roles": [
+    { "id": 1, "role_name": "MANAGER", "role_weight": 5, "description": "Estate Manager" },
+    { "id": 2, "role_name": "ASKEP", "role_weight": 4, "description": "Asisten Kepala Kebun" },
+    { "id": 3, "role_name": "ASISTEN", "role_weight": 3, "description": "Asisten Afdeling" },
+    { "id": 4, "role_name": "MANDOR", "role_weight": 2, "description": "Mandor Panen" },
+    { "id": 5, "role_name": "KRANI", "role_weight": 1, "description": "Krani TPH" }
+  ],
+  "users": [
+    {
+      "id": "e1111111-1111-1111-1111-111111111111",
+      "role_id": 1,
+      "role_name": "MANAGER",
+      "nip": "MGR-001",
+      "full_name": "Ir. Bambang Hariyanto",
+      "email": "manager.cwe@sawitgo.id"
+    },
+    {
+      "id": "e2222222-2222-2222-2222-222222222222",
+      "role_id": 3,
+      "role_name": "ASISTEN",
+      "nip": "AST-010",
+      "full_name": "Felich Pehagasa Ginting",
+      "email": "felich.ginting@sawitgo.id"
+    },
+    {
+      "id": "e3333333-3333-3333-3333-333333333333",
+      "role_id": 4,
+      "role_name": "MANDOR",
+      "nip": "MDR-045",
+      "full_name": "Ahmad Zulkifli",
+      "email": "zulkifli.mandor@sawitgo.id"
+    },
+    {
+      "id": "e4444444-4444-4444-4444-444444444444",
+      "role_id": 5,
+      "role_name": "KRANI",
+      "nip": "KRN-102",
+      "full_name": "Dika Prasetyawan",
+      "email": "dika.krani@sawitgo.id"
+    }
+  ],
+  "estates": [
+    {
+      "id": "est-cwe-01-uuid",
+      "code": "EST-CWE-01",
+      "name": "Kebun Percontohan Politeknik CWE",
+      "total_area_hectares": 120.50
+    }
+  ],
+  "afdelings": [
+    {
+      "id": "afd-cwe-a-uuid",
+      "estate_id": "est-cwe-01-uuid",
+      "code": "AFD-A",
+      "name": "Afdeling Alpha"
+    }
+  ],
+  "blocks": [
+    {
+      "id": "blk-b012-uuid",
+      "afdeling_id": "afd-cwe-a-uuid",
+      "block_code": "B012",
+      "planting_year": 2017,
+      "palm_variety": "DxP Marihat",
+      "total_palms": 2860,
+      "area_hectares": 20.45,
+      "coordinates_polygon": [
+        [101.445012, 0.537810],
+        [101.449850, 0.537810],
+        [101.449850, 0.534200],
+        [101.445012, 0.534200],
+        [101.445012, 0.537810]
+      ]
+    }
+  ],
+  "tph_list": [
+    {
+      "id": "tph-b012-01-uuid",
+      "block_id": "blk-b012-uuid",
+      "tph_number": "TPH-01",
+      "latitude": 0.537750,
+      "longitude": 101.445200,
+      "qr_code": "QR-CWE-EST01-B012-TPH01"
+    },
+    {
+      "id": "tph-b012-02-uuid",
+      "block_id": "blk-b012-uuid",
+      "tph_number": "TPH-02",
+      "latitude": 0.536900,
+      "longitude": 101.446100,
+      "qr_code": "QR-CWE-EST01-B012-TPH02"
+    }
+  ],
+  "sample_conflict_scenario": {
+    "description": "Krani mencatat TPH-01 jam 08:00 (offline). Asisten merevisi data jam 09:30 (offline).",
+    "krani_payload": {
+      "id": "harv-trans-001-uuid",
+      "tph_id": "tph-b012-01-uuid",
+      "user_role_weight": 1,
+      "janjang_count": 120,
+      "brondolan_weight_kg": 40.0,
+      "client_timestamp_ms": 1723850000000,
+      "calculated_priority_score": 1723851000000
+    },
+    "asisten_payload": {
+      "id": "harv-trans-001-uuid",
+      "tph_id": "tph-b012-01-uuid",
+      "user_role_weight": 3,
+      "janjang_count": 110,
+      "brondolan_weight_kg": 45.0,
+      "client_timestamp_ms": 1723855400000,
+      "calculated_priority_score": 3723855400000
+    },
+    "expected_winner": "asisten_payload",
+    "reason": "Role Weight 3 (Asisten) * 1.000.000 + Timestamp > Role Weight 1 (Krani) * 1.000.000 + Timestamp"
+  }
+}
