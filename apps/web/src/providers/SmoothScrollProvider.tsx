@@ -5,25 +5,37 @@ import Lenis from 'lenis';
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-    });
+    // Delay sedikit agar DOM telah ter-mount sempurna
+    const timer = setTimeout(() => {
+      const scrollContainer = document.querySelector<HTMLElement>('#main-scroll-container');
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+      if (!scrollContainer) return;
 
-    const rafId = requestAnimationFrame(raf);
+      const lenis = new Lenis({
+        wrapper: scrollContainer,
+        content: scrollContainer.firstElementChild as HTMLElement || scrollContainer,
+        duration: 0.8,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        autoRaf: false,
+      });
 
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
+      let rafId: number;
+      function raf(time: number) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+      rafId = requestAnimationFrame(raf);
+
+      return () => {
+        cancelAnimationFrame(rafId);
+        lenis.destroy();
+      };
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return <>{children}</>;

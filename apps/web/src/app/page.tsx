@@ -194,7 +194,7 @@ Restan Overdue: ${kpiQuery.data?.restanOverdueCount ?? 0} TPH`;
           </AnimatePresence>
 
           {/* Scrollable Dashboard Body */}
-          <main className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6 bg-[#F8F9FB] dark:bg-[#0B0F17] transition-colors duration-200">
+          <main id="main-scroll-container" className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6 bg-[#F8F9FB] dark:bg-[#0B0F17] transition-colors duration-200">
             {/* Greeting Hero Header with Motion */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
