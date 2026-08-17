@@ -17,6 +17,9 @@ export const apiEndpoints = {
   login(nip: string, password: string): Promise<LoginResponse> {
     return apiClient.post<LoginResponse>('/auth/login', { nip, password });
   },
+  googleLogin(email: string, idToken?: string): Promise<LoginResponse> {
+    return apiClient.post<LoginResponse>('/auth/google-login', { email, idToken });
+  },
   getProfile(): Promise<UserProfile> {
     return apiClient.get<UserProfile>('/auth/profile');
   },

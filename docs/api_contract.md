@@ -11,6 +11,7 @@
 | Modul | Method | Endpoint Path | Role Allowed | Deskripsi & Kegunaan |
 |---|---|---|---|---|
 | **Auth** | `POST` | `/api/v1/auth/login` | Public | Login pengguna via NIP & Password / PIN |
+| **Auth** | `POST` | `/api/v1/auth/google-login` | Manager (W5), Askep (W4) | Login Google OAuth Firebase (Dibatasi khusus level manajemen W4/W5) |
 | **Auth** | `POST` | `/api/v1/auth/refresh` | Public | Refresh token JWT |
 | **Auth** | `GET` | `/api/v1/auth/profile` | All Roles | Mengambil data sesi pengguna & assigned Afdeling/Estate |
 | **Master** | `GET` | `/api/v1/master/blocks` | All Roles | Download master polygon blok & varietas sawit (offline cache) |

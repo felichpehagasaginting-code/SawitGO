@@ -2,6 +2,7 @@ import {
   Injectable,
   UnauthorizedException,
   ConflictException,
+  ForbiddenException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,6 +11,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from '../users/user.entity';
 import { Role } from '../roles/role.entity';
 import { LoginDto } from './dto/login.dto';
+import { GoogleLoginDto } from './dto/google-login.dto';
 import { RegisterUserDto } from './dto/register.dto';
 import { JwtPayload } from './jwt.strategy';
 
@@ -78,6 +80,52 @@ export class AuthService {
     const isMatch = await bcrypt.compare(dto.password, user.passwordHash);
     if (!isMatch) {
       throw new UnauthorizedException('Kredensial tidak valid.');
+    }
+
+    const payload: JwtPayload = {
+      sub: user.id,
+      nip: user.nip,
+      roleName: user.role.roleName,
+      roleWeight: user.role.roleWeight,
+      assignedEstateId: user.assignedEstateId,
+      assignedAfdelingId: user.assignedAfdelingId,
+    };
+
+    const accessToken = this.jwtService.sign(payload);
+
+    return {
+      accessToken,
+      user: {
+        id: user.id,
+        nip: user.nip,
+        fullName: user.fullName,
+        email: user.email,
+        role: user.role.roleName,
+        roleWeight: user.role.roleWeight,
+        assignedEstateId: user.assignedEstateId,
+        assignedAfdelingId: user.assignedAfdelingId,
+      },
+    };
+  }
+
+  async googleLogin(dto: GoogleLoginDto) {
+    const cleanEmail = dto.email.trim().toLowerCase();
+    const user = await this.userRepo.findOne({
+      where: { email: cleanEmail },
+      relations: { role: true },
+    });
+
+    if (!user || !user.isActive) {
+      throw new UnauthorizedException(
+        `Email Google (${cleanEmail}) belum terdaftar dalam sistem SawitGO. Hubungi Administrator Kebun.`,
+      );
+    }
+
+    // Hanya izinkan Manajemen Eksekutif (Askep W4 & Manager W5)
+    if (user.role.roleWeight < 4) {
+      throw new ForbiddenException(
+        `Akses Ditolak: Akun (${user.fullName} - ${user.role.roleName}) memiliki bobot W${user.role.roleWeight}. Google Sign-In hanya diizinkan untuk level Manajemen (Estate Manager W5 & Kepala Afdeling/Askep W4). Untuk peran lapangan, silakan gunakan Login NIP.`,
+      );
     }
 
     const payload: JwtPayload = {

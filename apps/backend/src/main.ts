@@ -48,4 +48,5 @@ async function bootstrap() {
   );
   console.log(`Swagger OpenAPI Documentation: http://localhost:${port}/docs`);
 }
+// Backend Service Ready for Google Auth
 void bootstrap();

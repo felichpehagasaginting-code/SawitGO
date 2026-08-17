@@ -21,6 +21,7 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (nip: string, password: string) => Promise<void>;
+  loginWithGoogle: (email: string, idToken?: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -98,6 +99,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(response.user);
   }, []);
 
+  const loginWithGoogle = useCallback(async (email: string, idToken?: string) => {
+    const response = await apiEndpoints.googleLogin(email, idToken);
+    setAuthToken(response.accessToken);
+    localStorage.setItem(TOKEN_KEY, response.accessToken);
+    localStorage.setItem(USER_KEY, JSON.stringify(response.user));
+    setUser(response.user);
+  }, []);
+
   const logout = useCallback(() => {
     setAuthToken(null);
     localStorage.removeItem(TOKEN_KEY);
@@ -112,6 +121,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAuthenticated: user !== null,
         isLoading,
         login,
+        loginWithGoogle,
         logout,
       }}
     >

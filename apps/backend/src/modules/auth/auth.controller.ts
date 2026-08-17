@@ -14,6 +14,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import { GoogleLoginDto } from './dto/google-login.dto';
 import { RegisterUserDto } from './dto/register.dto';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 
@@ -30,13 +31,23 @@ export class AuthController {
   }
 
   @Post('login')
-  @ApiOperation({ summary: 'Login dan Autentikasi Pengguna' })
+  @ApiOperation({ summary: 'Login dan Autentikasi Pengguna NIP' })
   @ApiResponse({
     status: 200,
     description: 'Login berhasil, mengembalikan JWT token',
   })
   async login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
+  }
+
+  @Post('google-login')
+  @ApiOperation({ summary: 'Login Google OAuth khusus Manager & Askep' })
+  @ApiResponse({
+    status: 200,
+    description: 'Google login berhasil untuk Manager / Askep',
+  })
+  async googleLogin(@Body() dto: GoogleLoginDto) {
+    return this.authService.googleLogin(dto);
   }
 
   @Get('profile')
