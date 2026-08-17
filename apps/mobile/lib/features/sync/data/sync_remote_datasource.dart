@@ -18,6 +18,8 @@ class SyncRemoteDataSource {
         'id': item.serverId,
         'tphId': item.tphId,
         'blockId': item.blockId,
+        'userId': item.userId,
+        'userRoleWeight': item.userRoleWeight,
         'harvestDate': item.harvestDate.toIso8601String().split('T')[0],
         'janjangCount': item.janjangCount,
         'brondolanWeightKg': item.brondolanWeightKg,

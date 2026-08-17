@@ -59,19 +59,30 @@ export class SyncService {
     let conflictCount = 0;
 
     for (const record of batchDto.records) {
-      const result = await this.resolveSingleHarvest(
-        record,
-        batchDto.deviceId,
-        authenticatedUser,
-      );
-      results.push(result);
-      if (
-        result.status === 'ACCEPTED_NEW' ||
-        result.status === 'ACCEPTED_OVERWRITE' ||
-        result.status === 'IGNORED_IDEMPOTENT'
-      ) {
-        successCount++;
-      } else {
+      try {
+        const result = await this.resolveSingleHarvest(
+          record,
+          batchDto.deviceId,
+          authenticatedUser,
+        );
+        results.push(result);
+        if (
+          result.status === 'ACCEPTED_NEW' ||
+          result.status === 'ACCEPTED_OVERWRITE' ||
+          result.status === 'IGNORED_IDEMPOTENT'
+        ) {
+          successCount++;
+        } else {
+          conflictCount++;
+        }
+      } catch (err: any) {
+        this.logger.error(`Error processing harvest record ${record.id}:`, err?.stack || err?.message || err);
+        results.push({
+          id: record.id,
+          status: 'ERROR',
+          httpStatus: 400,
+          message: err?.message || 'Gagal menyimpan transaksi ke database.',
+        });
         conflictCount++;
       }
     }
@@ -103,7 +114,8 @@ export class SyncService {
     }
 
     if (!foundTph) {
-      foundTph = await this.tphRepo.findOne({ order: { tphNumber: 'ASC' } });
+      const fallbackList = await this.tphRepo.find({ order: { tphNumber: 'ASC' }, take: 1 });
+      foundTph = fallbackList[0] || null;
     }
 
     // 2. Cari Blok yang cocok
@@ -124,7 +136,8 @@ export class SyncService {
     }
 
     if (!foundBlock) {
-      foundBlock = await this.blockRepo.findOne({ order: { blockCode: 'ASC' } });
+      const fallbackList = await this.blockRepo.find({ order: { blockCode: 'ASC' }, take: 1 });
+      foundBlock = fallbackList[0] || null;
     }
 
     return {
@@ -141,8 +154,8 @@ export class SyncService {
       const user = await this.userRepo.findOne({ where: { id: itemUserId } });
       if (user) return user.id;
     }
-    const defaultUser = await this.userRepo.findOne({ order: { fullName: 'ASC' } });
-    return defaultUser?.id || 'e4444444-4444-4444-4444-444444444444';
+    const fallbackList = await this.userRepo.find({ order: { fullName: 'ASC' }, take: 1 });
+    return fallbackList[0]?.id || 'e4444444-4444-4444-4444-444444444444';
   }
 
   private async resolveSingleHarvest(
@@ -186,8 +199,10 @@ export class SyncService {
         idempotencyKey: item.idempotencyKey,
         gpsAccuracyMeters: item.location?.accuracy,
         gpsCoordinateRecorded: item.location
-          ? () =>
-              `ST_SetSRID(ST_MakePoint(${item.location.longitude}, ${item.location.latitude}), 4326)`
+          ? {
+              type: 'Point',
+              coordinates: [item.location.longitude, item.location.latitude],
+            }
           : null,
       });
 

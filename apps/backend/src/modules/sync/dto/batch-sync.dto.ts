@@ -33,6 +33,14 @@ export class HarvestPayloadItemDto {
   @IsNotEmpty()
   blockId: string;
 
+  @IsString()
+  @IsOptional()
+  userId?: string;
+
+  @IsNumber()
+  @IsOptional()
+  userRoleWeight?: number;
+
   @IsDateString()
   harvestDate: string;
 
@@ -69,9 +77,10 @@ export class HarvestPayloadItemDto {
   @IsNotEmpty()
   idempotencyKey: string;
 
+  @IsOptional()
   @ValidateNested()
   @Type(() => GeoPointDto)
-  location: GeoPointDto;
+  location?: GeoPointDto;
 }
 
 export class BatchSyncDto {
