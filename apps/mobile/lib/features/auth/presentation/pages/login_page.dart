@@ -142,13 +142,15 @@ class _LoginPageState extends State<LoginPage> {
 
                   Row(
                     children: [
-                      _buildRoleChip('KRANI', 'KRN-102', 'KRN'),
-                      const SizedBox(width: 8),
-                      _buildRoleChip('MANDOR', 'MDR-201', 'MDR'),
-                      const SizedBox(width: 8),
-                      _buildRoleChip('ASISTEN', 'AST-301', 'AST'),
-                      const SizedBox(width: 8),
-                      _buildRoleChip('MANAGER', 'MGR-501', 'MGR'),
+                      _buildRoleChip('KRANI', 'KRN-102', 'KRN (W1)'),
+                      const SizedBox(width: 6),
+                      _buildRoleChip('MANDOR', 'MDR-201', 'MDR (W2)'),
+                      const SizedBox(width: 6),
+                      _buildRoleChip('ASISTEN', 'AST-301', 'AST (W3)'),
+                      const SizedBox(width: 6),
+                      _buildRoleChip('ASKEP', 'ASK-401', 'ASK (W4)'),
+                      const SizedBox(width: 6),
+                      _buildRoleChip('MANAGER', 'MGR-501', 'MGR (W5)'),
                     ],
                   ),
                   const SizedBox(height: 20),

@@ -441,7 +441,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HarvestInputPage(
+                    builder: (context) => HarvestStatsPage(
                       repository: widget.repository,
                       user: widget.user,
                     ),

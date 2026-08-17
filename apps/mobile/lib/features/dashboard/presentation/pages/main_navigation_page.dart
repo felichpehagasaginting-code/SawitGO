@@ -7,8 +7,10 @@ import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
 import '../../../geospatial/presentation/pages/spatial_map_page.dart';
 import '../../../harvest/data/repositories/harvest_repository.dart';
+import '../../../harvest/presentation/pages/asisten_override_page.dart';
 import '../../../harvest/presentation/pages/harvest_input_page.dart';
 import '../../../harvest/presentation/pages/harvest_stats_page.dart';
+import '../../../harvest/presentation/pages/manager_audit_page.dart';
 import '../../../harvest/presentation/pages/mobile_home_page.dart';
 import '../../../sync/presentation/pages/p2p_mesh_page.dart';
 
@@ -123,22 +125,51 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
 
   @override
   Widget build(BuildContext context) {
-    // 4 Fixed Bottom Navigation Views
+    final int weight = widget.user.roleWeight;
+
+    // 4 Fixed Bottom Navigation Views (Disesuaikan Peran Pengguna)
     final List<Widget> pages = [
       MobileHomePage(
         repository: widget.harvestRepository,
         user: widget.user,
         onNavigateToHistory: () => setState(() => _currentIndex = 1),
         onNavigateToInput: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HarvestInputPage(
-                repository: widget.harvestRepository,
-                user: widget.user,
+          if (weight >= 5) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ManagerAuditPage(user: widget.user)),
+            );
+          } else if (weight == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AsistenOverridePage(
+                  repository: widget.harvestRepository,
+                  user: widget.user,
+                ),
               ),
-            ),
-          );
+            );
+          } else if (weight == 2 || weight == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HarvestStatsPage(
+                  repository: widget.harvestRepository,
+                  user: widget.user,
+                ),
+              ),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HarvestInputPage(
+                  repository: widget.harvestRepository,
+                  user: widget.user,
+                ),
+              ),
+            );
+          }
         },
       ),
       P2pMeshPage(
@@ -148,10 +179,12 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
       SpatialMapPage(
         user: widget.user,
       ),
-      HarvestStatsPage(
-        repository: widget.harvestRepository,
-        user: widget.user,
-      ),
+      weight >= 5
+          ? ManagerAuditPage(user: widget.user)
+          : HarvestStatsPage(
+              repository: widget.harvestRepository,
+              user: widget.user,
+            ),
     ];
 
     return Scaffold(
