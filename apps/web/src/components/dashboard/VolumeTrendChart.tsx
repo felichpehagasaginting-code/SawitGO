@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Tag, Calendar, ArrowUpRight, ChevronDown, BarChart3 } from 'lucide-react';
+import { Tag, Calendar, ArrowUpRight, ArrowDownRight, ChevronDown, BarChart3 } from 'lucide-react';
 import { apiEndpoints } from '@/lib/api/endpoints';
 import { formatNumber, formatDecimal, weekdayLabel, fullDateLabel } from '@/lib/format';
 
@@ -20,6 +20,28 @@ export function VolumeTrendChart() {
   const maxJanjang = Math.max(...days.map((d) => d.totalJanjang), 1);
   const totalJanjang = days.reduce((acc, d) => acc + d.totalJanjang, 0);
   const totalTonase = days.reduce((acc, d) => acc + d.tonaseTon, 0);
+
+  // Kalkulasi Tren Riil (Bandingkan separuh periode kedua vs pertama)
+  const trendMetrics = useMemo(() => {
+    if (days.length < 2) return { percent: 0, isPositive: true };
+
+    const mid = Math.floor(days.length / 2);
+    const firstHalf = days.slice(0, mid).reduce((sum, d) => sum + d.totalJanjang, 0);
+    const secondHalf = days.slice(mid).reduce((sum, d) => sum + d.totalJanjang, 0);
+
+    if (firstHalf === 0) {
+      return {
+        percent: secondHalf > 0 ? 100 : 0,
+        isPositive: secondHalf >= 0,
+      };
+    }
+
+    const pct = Math.round(((secondHalf - firstHalf) / firstHalf) * 1000) / 10;
+    return {
+      percent: pct,
+      isPositive: pct >= 0,
+    };
+  }, [days]);
 
   const activeItem = days.find((d) => d.date === activeDate) ?? null;
 
@@ -73,7 +95,7 @@ export function VolumeTrendChart() {
         </div>
       </div>
 
-      {/* Primary KPI Header */}
+      {/* Primary KPI Header with Real Calculated Trend */}
       <div className="mt-4 flex flex-wrap items-baseline gap-3">
         <span className="text-3xl font-extrabold text-[#101828] dark:text-[#F8FAFC] tracking-tight font-sans">
           {isPending ? '—' : `${formatNumber(totalJanjang)} Jjg`}
@@ -81,9 +103,19 @@ export function VolumeTrendChart() {
         <span className="text-sm font-semibold text-[#667085] dark:text-[#94A3B8]">
           ≈ {isPending ? '—' : `${formatDecimal(totalTonase)} Ton`}
         </span>
-        <span className="inline-flex items-center gap-0.5 text-xs font-bold text-[#10B981] bg-[#ECFDF5] dark:bg-[#064E3B]/40 px-2 py-0.5 rounded-full border border-[#A7F3D0] dark:border-[#059669]/40">
-          <ArrowUpRight className="w-3 h-3" />
-          +12.4%
+        <span
+          className={`inline-flex items-center gap-0.5 text-xs font-bold px-2 py-0.5 rounded-full border ${
+            trendMetrics.isPositive
+              ? 'text-[#10B981] bg-[#ECFDF5] dark:bg-[#064E3B]/40 border-[#A7F3D0] dark:border-[#059669]/40'
+              : 'text-[#EF4444] bg-[#FEF2F2] dark:bg-[#7F1D1D]/40 border-[#FECACA] dark:border-[#DC2626]/40'
+          }`}
+        >
+          {trendMetrics.isPositive ? (
+            <ArrowUpRight className="w-3 h-3" />
+          ) : (
+            <ArrowDownRight className="w-3 h-3" />
+          )}
+          {trendMetrics.percent >= 0 ? `+${formatDecimal(trendMetrics.percent, 1)}%` : `${formatDecimal(trendMetrics.percent, 1)}%`}
         </span>
       </div>
 
@@ -155,7 +187,7 @@ export function VolumeTrendChart() {
           <span>Klik salah satu batang untuk melihat detail per hari</span>
         )}
         <span className="text-[11px] text-[#98A2B3] dark:text-[#64748B] font-mono">
-          Basis: 18.8 Kg/Jjg
+          Basis: 18.5 Kg/Jjg
         </span>
       </div>
     </div>

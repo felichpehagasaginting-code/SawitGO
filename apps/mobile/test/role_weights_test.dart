@@ -16,8 +16,8 @@ void main() {
       final kraniScore = RoleWeights.calculatePriorityScore(1, timestamp);
       final asistenScore = RoleWeights.calculatePriorityScore(3, timestamp);
 
-      expect(kraniScore, equals(1000000 + timestamp));
-      expect(asistenScore, equals(3000000 + timestamp));
+      expect(kraniScore, equals(1000000000000 + timestamp));
+      expect(asistenScore, equals(3000000000000 + timestamp));
       expect(asistenScore > kraniScore, isTrue);
     });
   });

@@ -5,6 +5,8 @@ class RoleWeights {
   static const int mandor = 2;
   static const int krani = 1;
 
+  static const int roleMultiplier = 1000000000000; // 10^12
+
   static int getWeight(String role) {
     switch (role.toUpperCase()) {
       case 'MANAGER':
@@ -22,6 +24,6 @@ class RoleWeights {
   }
 
   static int calculatePriorityScore(int roleWeight, int timestampMs) {
-    return (roleWeight * 1000000) + timestampMs;
+    return (roleWeight * roleMultiplier) + timestampMs;
   }
 }

@@ -26,8 +26,15 @@ class SyncBloc extends Bloc<SyncEvent, SyncState> {
   }
 
   void _initPeriodicSyncObserver() {
-    // Memantau konektivitas setiap 30 detik (Sesuai Spesifikasi Panduan)
-    _autoSyncTimer = Timer.periodic(const Duration(seconds: 30), (timer) async {
+    // 1. Sinkronisasi instan otomatis saat jaringan terhubung (Reactive Fast Sync)
+    connectivity.onConnectivityChanged.listen((results) {
+      if (!results.contains(ConnectivityResult.none)) {
+        add(const TriggerAutoSyncEvent('DEVICE-REACTIVE-CONNECTIVITY'));
+      }
+    });
+
+    // 2. Heartbeat timer setiap 15 detik untuk verifikasi antrean offline
+    _autoSyncTimer = Timer.periodic(const Duration(seconds: 15), (timer) async {
       final connectivityResult = await connectivity.checkConnectivity();
       if (!connectivityResult.contains(ConnectivityResult.none)) {
         add(const TriggerAutoSyncEvent('DEVICE-AUTO-TIMER'));

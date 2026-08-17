@@ -192,10 +192,10 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
                 <motion.button
                   whileHover={{ x: 2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => handleItemClick('tph-queue', 1, 'Antrean TPH')}
+                  onClick={() => handleItemClick('tph-queue', 1, 'Data Transaksi Panen')}
                   className={subNavClass('tph-queue', false, 1)}
                 >
-                  <span>Semua Antrean TPH</span>
+                  <span>Data Transaksi Panen</span>
                 </motion.button>
 
                 <motion.button
