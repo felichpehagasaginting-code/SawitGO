@@ -23,9 +23,7 @@ class LocalCryptoService {
       return enc.Key.fromBase64(base64Key);
     } catch (_) {
       // Fallback in-memory jika platform storage tidak tersedia (e.g. Windows dev / web)
-      if (_memoryFallbackKey == null) {
-        _memoryFallbackKey = enc.Key.fromSecureRandom(32).base64;
-      }
+      _memoryFallbackKey ??= enc.Key.fromSecureRandom(32).base64;
       return enc.Key.fromBase64(_memoryFallbackKey!);
     }
   }

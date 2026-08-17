@@ -1,6 +1,7 @@
 class RoleWeights {
   static const int manager = 5;
   static const int askep = 4;
+  static const int kepalaAfdeling = 4;
   static const int asisten = 3;
   static const int mandor = 2;
   static const int krani = 1;
@@ -12,6 +13,7 @@ class RoleWeights {
       case 'MANAGER':
         return manager;
       case 'ASKEP':
+      case 'KEPALA_AFDELING':
         return askep;
       case 'ASISTEN':
         return asisten;
