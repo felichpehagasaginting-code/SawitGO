@@ -54,10 +54,22 @@ export class HarvestLog {
   @Column({ name: 'janjang_count', type: 'int' })
   janjangCount: number;
 
-  @Column({ name: 'brondolan_weight_kg', type: 'numeric', precision: 8, scale: 2, default: 0.0 })
+  @Column({
+    name: 'brondolan_weight_kg',
+    type: 'numeric',
+    precision: 8,
+    scale: 2,
+    default: 0.0,
+  })
   brondolanWeightKg: number;
 
-  @Column({ name: 'estimated_weight_kg', type: 'numeric', precision: 10, scale: 2, default: 0.0 })
+  @Column({
+    name: 'estimated_weight_kg',
+    type: 'numeric',
+    precision: 10,
+    scale: 2,
+    default: 0.0,
+  })
   estimatedWeightKg: number;
 
   @Column({ name: 'mentah_count', type: 'int', default: 0 })
@@ -92,7 +104,13 @@ export class HarvestLog {
   })
   gpsCoordinateRecorded: any;
 
-  @Column({ name: 'gps_accuracy_meters', type: 'numeric', precision: 5, scale: 2, nullable: true })
+  @Column({
+    name: 'gps_accuracy_meters',
+    type: 'numeric',
+    precision: 5,
+    scale: 2,
+    nullable: true,
+  })
   gpsAccuracyMeters: number;
 
   @Column({ name: 'idempotency_key', length: 128, unique: true })

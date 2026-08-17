@@ -1,6 +1,6 @@
 # API CONTRACT & OPENAPI 3.1 SPECIFICATION (SSOT)
 ## Proyek: SawitGO (AgriSync) - Offline-First Mobile & Cloud Gateway
-**Versi:** 1.0.0  
+**Versi:** 1.1.0  
 **Status:** Single Source of Truth (SSOT) - Fase 0  
 **Tanggal:** 17 Agustus 2026
 
@@ -18,9 +18,15 @@
 | **Sync** | `POST` | `/api/v1/sync/batch` | All Roles | Ingestion batch data panen offline (Core Store-and-Forward) |
 | **Harvest** | `GET` | `/api/v1/harvest/daily` | All Roles | Mengambil rekapitulasi panen harian per TPH / Afdeling |
 | **Harvest** | `PUT` | `/api/v1/harvest/:id/verify`| Asisten, Askep, Manager | Verifikasi dan approval resmi data panen lapangan |
-| **Restan** | `GET` | `/api/v1/restan/warnings` | All Roles | Monitoring daftar TPH dengan potensi restan > 12h / > 24h |
-| **Restan** | `POST`| `/api/v1/restan/:id/pickup` | Mandor, Asisten, Krani | Update status buah telah diangkut truk ke PKS |
-| **Export** | `GET` | `/api/v1/analytics/eudr-geojson`| Askep, Manager | Export GeoJSON polygon & koordinat panen untuk audit EUDR/RSPO |
+| **Restan** | `GET` | `/api/v1/restan/warnings` | All Roles (JWT) | Monitoring daftar TPH dengan potensi restan > 12h / > 24h |
+| **Restan** | `POST`| `/api/v1/restan/:id/pickup` | Mandor, Asisten, Krani (JWT) | Update status buah telah diangkut truk ke PKS |
+| **Export** | `GET` | `/api/v1/analytics/eudr-geojson`| Askep, Manager (JWT) | Export GeoJSON polygon & koordinat panen untuk audit EUDR/RSPO |
+| **Analytics** | `GET` | `/api/v1/analytics/kpi-metrics` | All Roles (JWT) | KPI eksekutif real: total janjang, tonase estimasi, BJR rata-rata, SLA sync, FFA rata-rata, restan overdue |
+| **Analytics** | `GET` | `/api/v1/analytics/volume-trend?days=7` | All Roles (JWT) | Tren volume panen harian: `[{ date, transactions, totalJanjang, totalBrondolanKg, estimatedTonaseKg, tonaseTon, bjrAvgKg }]` |
+| **Analytics** | `GET` | `/api/v1/analytics/activity-feed?limit=15&category=all|conflict` | All Roles (JWT) | Feed aktivitas sync terbaru (INSERT/UPDATE_OVERWRITE/REJECT_STALE); `category=conflict` memfilter konflik saja |
+| **Analytics** | `GET` | `/api/v1/analytics/tph-status` | All Roles (JWT) | Status real-time semua TPH: harvest terakhir, elapsed hours, stage restan (NORMAL/WARNING_12H/CRITICAL_20H/RESTAN_OVERDUE), estimasi FFA |
+
+> **Catatan keamanan:** Seluruh endpoint modul `analytics/*` dan `restan/*` dilindungi `JwtAuthGuard` (header `Authorization: Bearer <token>` dari `POST /auth/login`). Endpoint `master/*` dan `sync/batch` sengaja **tidak** dilindungi untuk mendukung mobile offline & stress test.
 
 ---
 

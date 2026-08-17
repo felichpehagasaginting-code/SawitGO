@@ -26,7 +26,13 @@ export class Estate {
   })
   boundary: any;
 
-  @Column({ name: 'total_area_hectares', type: 'numeric', precision: 10, scale: 2, nullable: true })
+  @Column({
+    name: 'total_area_hectares',
+    type: 'numeric',
+    precision: 10,
+    scale: 2,
+    nullable: true,
+  })
   totalAreaHectares: number;
 
   @CreateDateColumn({ name: 'created_at' })

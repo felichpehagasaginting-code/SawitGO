@@ -6,7 +6,15 @@ class DioClient {
   late final Dio dio;
 
   DioClient._internal() {
-    final baseUrl = dotenv.env['API_BASE_URL'] ?? 'http://10.0.2.2:3000/api/v1';
+    String baseUrl = 'http://10.0.2.2:3000/api/v1';
+    try {
+      if (dotenv.isInitialized) {
+        baseUrl = dotenv.env['API_BASE_URL'] ?? baseUrl;
+      }
+    } catch (_) {
+      // Fallback default baseUrl if dotenv is not loaded
+    }
+
     dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,

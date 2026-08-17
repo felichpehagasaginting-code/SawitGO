@@ -18,11 +18,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>('JWT_SECRET', 'super_secret_jwt_signing_key_at_least_32_chars_long_12345'),
+      secretOrKey: configService.get<string>(
+        'JWT_SECRET',
+        'super_secret_jwt_signing_key_at_least_32_chars_long_12345',
+      ),
     });
   }
 
-  async validate(payload: JwtPayload) {
+  validate(payload: JwtPayload) {
     if (!payload || !payload.sub) {
       throw new UnauthorizedException('Token tidak valid.');
     }

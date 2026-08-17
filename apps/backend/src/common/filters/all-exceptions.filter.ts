@@ -23,14 +23,23 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     let message = 'Terjadi kesalahan pada server internal.';
     let errorCode = 'ERR_INTERNAL_SERVER';
-    let errorDetails: any = null;
+    let errorDetails: unknown = null;
 
     if (typeof exceptionResponse === 'string') {
       message = exceptionResponse;
-    } else if (typeof exceptionResponse === 'object' && exceptionResponse !== null) {
-      const resObj = exceptionResponse as any;
+    } else if (
+      typeof exceptionResponse === 'object' &&
+      exceptionResponse !== null
+    ) {
+      const resObj = exceptionResponse as {
+        message?: string;
+        errorCode?: string;
+        errorDetails?: unknown;
+      };
       message = resObj.message || message;
-      errorCode = resObj.errorCode || (status === 409 ? 'ERR_CONFLICT_STALE_SCORE' : errorCode);
+      errorCode =
+        resObj.errorCode ||
+        (status === 409 ? 'ERR_CONFLICT_STALE_SCORE' : errorCode);
       errorDetails = resObj.errorDetails || null;
     }
 

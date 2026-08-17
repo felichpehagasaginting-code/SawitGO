@@ -17,7 +17,9 @@ export class SyncAuditTrail {
   @Column({ name: 'harvest_log_id', type: 'uuid' })
   harvestLogId: string;
 
-  @ManyToOne(() => HarvestLog, (harvest) => harvest.auditTrails, { onDelete: 'CASCADE' })
+  @ManyToOne(() => HarvestLog, (harvest) => harvest.auditTrails, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'harvest_log_id' })
   harvestLog: HarvestLog;
 
@@ -44,7 +46,7 @@ export class SyncAuditTrail {
   payloadSnapshot: any;
 
   @Column({ name: 'conflict_reason', type: 'text', nullable: true })
-  conflictReason: string;
+  conflictReason: string | null;
 
   @Column({ name: 'ip_address', length: 45, nullable: true })
   ipAddress: string;

@@ -1,10 +1,16 @@
 import { SyncService } from './sync.service';
+import { HarvestLog } from '../harvest/harvest-log.entity';
+import { SyncAuditTrail } from './sync-audit-trail.entity';
+import { Repository } from 'typeorm';
 
 describe('SyncService - Conflict Resolution Tests', () => {
   let syncService: SyncService;
 
   beforeEach(() => {
-    syncService = new SyncService(null as any, null as any);
+    syncService = new SyncService(
+      null as unknown as Repository<HarvestLog>,
+      null as unknown as Repository<SyncAuditTrail>,
+    );
   });
 
   it('harus menghitung Priority Score secara benar dan deterministik', () => {

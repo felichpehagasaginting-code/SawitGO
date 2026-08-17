@@ -1,4 +1,8 @@
-import { Injectable, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
@@ -7,9 +11,14 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     return super.canActivate(context);
   }
 
-  handleRequest(err: any, user: any) {
+  handleRequest<TUser = any>(err: any, user: TUser): TUser {
     if (err || !user) {
-      throw err || new UnauthorizedException('Sesi otentikasi tidak valid atau telah kadaluarsa.');
+      throw (
+        err ||
+        new UnauthorizedException(
+          'Sesi otentikasi tidak valid atau telah kadaluarsa.',
+        )
+      );
     }
     return user;
   }

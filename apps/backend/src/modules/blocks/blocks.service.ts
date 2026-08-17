@@ -4,6 +4,13 @@ import { Repository } from 'typeorm';
 import { Block } from './block.entity';
 import { TPH } from '../tph/tph.entity';
 
+interface PointInBlockRow {
+  id: string;
+  block_code: string;
+  is_inside: boolean;
+  distance_meters: number | string;
+}
+
 @Injectable()
 export class BlocksService {
   constructor(
@@ -25,8 +32,12 @@ export class BlocksService {
     });
   }
 
-  async verifyPointInBlock(blockId: string, latitude: number, longitude: number) {
-    const rawResult = await this.blockRepo.query(
+  async verifyPointInBlock(
+    blockId: string,
+    latitude: number,
+    longitude: number,
+  ) {
+    const rawResult = await this.blockRepo.query<PointInBlockRow[]>(
       `
       SELECT 
         id,
@@ -43,7 +54,11 @@ export class BlocksService {
     );
 
     if (!rawResult || rawResult.length === 0) {
-      return { isInside: false, distanceMeters: 9999, message: 'Blok tidak ditemukan.' };
+      return {
+        isInside: false,
+        distanceMeters: 9999,
+        message: 'Blok tidak ditemukan.',
+      };
     }
 
     const row = rawResult[0];
@@ -52,7 +67,8 @@ export class BlocksService {
       blockCode: row.block_code,
       isInside: Boolean(row.is_inside),
       distanceMeters: Number(row.distance_meters || 0),
-      isEudrValid: Boolean(row.is_inside) || Number(row.distance_meters || 0) <= 15.0,
+      isEudrValid:
+        Boolean(row.is_inside) || Number(row.distance_meters || 0) <= 15.0,
     };
   }
 }

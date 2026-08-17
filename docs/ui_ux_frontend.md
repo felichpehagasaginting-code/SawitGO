@@ -1,269 +1,180 @@
-# UI/UX & FRONTEND ENGINEERING SPECIFICATION
-## Proyek: SawitGO (AgriSync) — Executive Web Dashboard & Field Mobile Interface
-**Versi:** 1.2.0  
-**Status:** Approved SSOT - Anti-AI Slop, Eye-Catchy, Multi-Generational UI & 100% Vector SVG Standard  
+# UI/UX & FRONTEND ENGINEERING SPECIFICATION (SSOT)
+
+## Proyek: SawitGO (AgriSync) — Tactile Neo-Modern Mobile & Command Center System
+
+**Dokumen:** Spesifikasi Sistem Desain, Visual Aesthetics, Ergonomi Lapangan & Rekayasa Frontend  
+**Versi:** 2.1.0 (Neo-Tactile Modernist / FAANG & Top-Tier Consumer Agritech Standard)  
+**Status:** Approved SSOT (Single Source of Truth)  
 **Tanggal:** 17 Agustus 2026  
 **Penulis:** Felich Pehagasa Ginting (Technical Lead & System Architect)
 
 ---
 
-## 1. Standar Mandatori Visual: 100% Format Vector SVG
+## 1. Filosofi Desain: "Tactile Minimalist Agritech"
 
-> [!IMPORTANT]
-> **ATURAN MANDATORI ASET GRAFIS:**
-> Seluruh logo resmi, stiker verifikasi, lencana sertifikasi (*badges*), dan ikon antarmuka di proyek SawitGO **WAJIB menggunakan format Scalable Vector Graphics (SVG)**. 
-> Dilarang menggunakan format raster bitmap (*PNG, JPG, JPEG, GIF*) untuk elemen branding dan ikon guna menjamin ketajaman visual di semua resolusi layar (Mobile FHD+, Tablet, Layar Monitor 4K Command Center), hemat memori RAM, dan mendukung manipulasi animasi interaktif berbasis GSAP/CSS.
+Mengadopsi bahasa desain **Neo-Tactile Consumer-Industrial** (perpaduan estetika *Apple Fitness / WHOOP / Linear Mobile / DJI Enterprise*):
 
-### Direktori Aset SVG Resmi:
-- **`assets/branding/`**: Logo utama aplikasi, simbol monogram, dan maskot grafis dalam format `.svg` (contoh: [`assets/branding/sawitgo_logo.svg`](file:///f:/Projects/SawitGO/assets/branding/sawitgo_logo.svg)).
-- **`assets/stickers/`**: Stiker status sertifikasi (*EUDR Verified*, *100% Offline Ready*) dalam format `.svg` (contoh: [`assets/stickers/sticker_offline_ready.svg`](file:///f:/Projects/SawitGO/assets/stickers/sticker_offline_ready.svg)).
-- **`assets/icons/`**: Ikon kontrol teknis (*GPS radar*, *truk angkut*, *timbangan brondolan*, *TBS sawit*) dalam format `.svg`.
+- **Kartu Squircle Tebal (*Chunky Squircle 28–36px*)**: Sudut membulat organik yang ramah jempol dan nyaman dipandang.
+- **Kontras Dual-Tone (Dark Obsidian & Soft Tinted Pastels)**:
+  - Kartu kontrol utama menggunakan *Dark Charcoal / Obsidian* (`#121815`) dengan *glow gradient* lembut.
+  - Kartu metrik & analitik menggunakan blok warna *Pastel Tinted Containers* (Soft Mint/Sage `#E8F8F0`, Soft Lavender `#F3E8FF`, Soft Peach `#FFF4E6`, Soft Sky `#E0F2FE`).
+- **Segmented Pill Controls**: Tab filter berbentuk kapsul dengan animasi geser halus (*Smooth Pill Tabs*).
+- **Slide-to-Confirm Bottom Pill**: Tombol aksi utama dengan mekanisme geser (*Slide-to-Action*) `[ 🌾 Geser untuk Simpan >> ]` untuk mencegah salah pencet di lapangan.
+- **Timeline Checkpoint Stream**: Garis linier vertikal dengan bulatan status yang menghubungkan siklus panen dari TPH $\rightarrow$ Truk Mule $\rightarrow$ Pabrik PKS.
+- **Donut Progress Rings & Tabular Pills**: Indikator target panen melingkar dan grafik batang kapsul (*vertical pill bars*).
+
+```text
+   ┌──────────────────────────────────────────────────────────────────────────┐
+   │            ANATOMI VISUAL SAWITGO NEO-TACTILE MODERNIST                  │
+   ├──────────────────────────────────────────────────────────────────────────┤
+   │                                                                          │
+   │   (←)                       13:13                          (📅) (👤)     │
+   │                                                                          │
+   │   Pencatatan Panen Lapangan                                              │
+   │   [ ( Panen )     ( Statistik )     ( P2P Mesh ) ]   <- SEGMENTED PILLS  │
+   │                                                                          │
+   │   +----------------------------------------------+                       │
+   │   |  Terminal TPH-04 (Blok B012)        [ 📷 QR ]|                       │
+   │   |                                              |                       │
+   │   |    + 125                                     | <- DARK HERO CARD     │
+   │   |    JANJANG TBS                               |    (Obsidian + Glow)  │
+   │   |    Est: 2.312 Kg                             |                       │
+   │   +----------------------------------------------+                       │
+   │                                                                          │
+   │   |●|  Afdeling Alpha — Hari Ini                 |                       │
+   │   | |  +--------------------------------------+  |                       │
+   │   | |  | 🟢 Mutu Prima (95.2% Masak)    2.3 Ton|  | <- SOFT MINT PASTEL  │
+   │   | |  | [||||||||||||||||||||.....]           |  |    CONTAINER CARD    │
+   │   | |  +--------------------------------------+  |                       │
+   │   |                                              |                       │
+   │   |○|  Blok B014 — Restan Warning 14 Jam         |                       │
+   │   |    +--------------------------------------+  |                       │
+   │   |    | 🟡 85 Janjang Belum Diangkut    1.6 Ton |  | <- SOFT PEACH PASTEL │
+   │   |    +--------------------------------------+  |    CONTAINER CARD     │
+   │                                                                          │
+   │   +----------------------------------------------+                       │
+   │   |  ( 🌾 )   Geser untuk Simpan Data Panen >>   | <- SLIDE-TO-ACTION    │
+   │   +----------------------------------------------+    BOTTOM PILL        │
+   └──────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 2. Filosofi Desain: "Eye-Catchy Modernity Meets Multi-Generational Inclusivity"
-
-Desain SawitGO memadukan estetika *hyper-modern visual appeal* (yang memukau bagi juri riset/eksekutif muda) dengan *extreme readability & cognitive ease* (yang nyaman, ramah mata, dan intuitif bagi Mandor/Krani berusia 40–55+ tahun di lapangan).
-
-### 4 Pilar Pengalaman Pengguna Lintas Generasi:
-1. **Tipografi Premium & Super-Legible (Outfit + Space Grotesk + Plus Jakarta Sans)**:
-   - **Outfit / Plus Jakarta Sans**: Font dengan geometri lingkaran terbuka (*high x-height*, *large counters*), membuat teks sangat mudah dibaca tanpa menyipitkan mata bagi pengguna usia lanjut.
-   - **Space Grotesk / JetBrains Mono**: Tipografi angka janjang & data metrik yang tegas, modern, berkarakter, dan berdaya tarik visual tinggi (*eye-catchy*).
-2. **Kombinasi Animasi Halus & Bermakna (Lenis + GSAP + Framer Motion)**:
-   - **Lenis Smooth Scroll**: Sensasi scrolling berbobot halus tanpa patah-patah yang ramah bagi mata.
-   - **GSAP + ScrollTrigger**: Efek *number counting odometer* pada tonase dan peta heatmap dinamis yang memanjakan mata eksekutif.
-   - **Framer Motion**: Transisi kartu dan modal drawer yang mengalir natural tanpa gerakan mendadak (*no motion sickness*).
-3. **Pembeda Visual Kuat Berbasis Tiga Sensorik (Warna + Ikon Simbol + Teks Jelas)**:
-   - Tidak hanya mengandalkan warna: Setiap status kritis selalu dilengkapi **Ikon Tebal** dan **Label Teks Bahasa Indonesia Sehari-hari** (misal: "🔴 ⚠️ PERHATIAN: 24 JAM BELUM DIANGKUT").
-4. **Ergonomi Sentuh Tanpa Salah Pencet (*Zero-Mistake Giant Touch Target*)**:
-   - Tombol aksi utama dengan ketinggian **60 dp**, radius sudut melengkung ramah (*Squircle 16px*), dan jarak renggang agar nyaman bagi tangan pekerja kebun.
-
----
-
-## 3. Palet Warna & Design Tokens (Eye-Catchy Palm Theme)
+## 2. Palet Warna & Design Tokens (Neo-Tactile Palette)
 
 ```css
 :root {
-  /* Surface & Background */
-  --bg-app-dark: #070E0B;             /* Deep Emerald Carbon */
-  --bg-card-glass: rgba(13, 27, 21, 0.85); /* Frosted Jade Glass */
-  --bg-card-hover: rgba(20, 42, 33, 0.95);
-  --border-subtle: rgba(52, 211, 153, 0.2);
-  --border-glow: rgba(52, 211, 153, 0.45);
+  /* --- BASE SURFACES --- */
+  --surface-app-bg: #F8FAF9;          /* Crisp Clean Light Background */
+  --surface-dark-card: #0D1612;       /* Charcoal Obsidian Inset Card */
+  --surface-dark-hover: #14221C;
+  --surface-white-card: #FFFFFF;      /* Clean White Elevated Surface */
+  
+  /* --- SOFT TINTED PASTEL CONTAINERS --- */
+  --pastel-mint-bg: #E8F8F0;          /* Fresh Panen / Selesai Diangkut */
+  --pastel-mint-border: #A7F3D0;
+  --pastel-mint-text: #065F46;
 
-  /* Eye-Catchy Brand Accents */
-  --color-primary-emerald: #10B981;   /* Neon Emerald Accent */
-  --color-forest-rich: #064E3B;       /* Deep Rich Forest */
-  --color-harvest-gold: #F59E0B;      /* Signal Gold & Amber */
-  --color-restan-crimson: #EF4444;    /* Crimson Red Warning */
-  --color-ocean-verified: #06B6D4;    /* Cyan EUDR Verified */
+  --pastel-lavender-bg: #F3E8FF;      /* Statistik & Ringkasan Kemandoran */
+  --pastel-lavender-border: #DDD6FE;
+  --pastel-lavender-text: #5B21B6;
 
-  /* High-Contrast Typography */
-  --text-pure: #FFFFFF;               /* 100% White for Maximum Contrast */
-  --text-soft: #CBD5E1;               /* Slate Light Gray */
-  --text-muted: #94A3B8;              /* Secondary Label */
-  --text-data-glow: #34D399;          /* Glowing Monospace Numbers */
+  --pastel-peach-bg: #FFF4E6;         /* Peringatan Restan 12–14 Jam */
+  --pastel-peach-border: #FED7AA;
+  --pastel-peach-text: #9A3412;
 
-  /* Shadows & Glassmorphism Blur */
-  --backdrop-blur: blur(20px);
-  --shadow-elevation: 0 12px 32px -8px rgba(0, 0, 0, 0.6);
-  --shadow-glow-emerald: 0 0 30px -5px rgba(16, 185, 129, 0.35);
-  --shadow-glow-crimson: 0 0 30px -5px rgba(239, 68, 68, 0.45);
+  --pastel-coral-bg: #FEE2E2;         /* Restan Kritis > 24 Jam */
+  --pastel-coral-border: #FECACA;
+  --pastel-coral-text: #991B1B;
+
+  --pastel-sky-bg: #E0F2FE;           /* EUDR & RSPO Spasial Terverifikasi */
+  --pastel-sky-border: #BAE6FD;
+  --pastel-sky-text: #075985;
+
+  /* --- BRAND ACCENTS & CONTRAST --- */
+  --brand-emerald: #10B981;           /* Neon Emerald Highlight */
+  --brand-emerald-dark: #064E3B;
+  --brand-charcoal: #18181B;          /* Deep Black Controls */
+  --brand-amber: #F59E0B;             /* Warning State */
+  --brand-crimson: #EF4444;           /* Alert State */
+
+  /* --- TYPOGRAPHY SCALES --- */
+  --text-headline-dark: #0F172A;      /* Slate 900 for Light Containers */
+  --text-body-dark: #334155;          /* Slate 700 */
+  --text-muted-dark: #64748B;         /* Slate 500 */
+  --text-headline-light: #FFFFFF;     /* Pure White for Dark Hero Cards */
+  --text-body-light: #CBD5E1;
+
+  /* --- SQUIRCLE BORDER RADIUS TOKENS --- */
+  --radius-pill: 9999px;              /* Full Pill Controls */
+  --radius-card-lg: 32px;             /* Hero & Container Cards */
+  --radius-card-md: 24px;             /* Inner Metric Cards */
+  --radius-button: 20px;              /* Action Buttons */
+  --radius-chip: 14px;                /* Quick Counters */
 }
 ```
 
 ---
 
-## 4. Komponen Web Dashboard: Bento Grid & Smooth Animation
+## 3. Spesifikasi Komponen Inti (Mobile & Web)
 
-### A. Lenis Smooth Scroll Provider + GSAP Sync
-```tsx
-// providers/SmoothScrollProvider.tsx
-'use client';
-import { useEffect, useRef } from 'react';
-import Lenis from '@studio-freight/lenis';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+### A. Segmented Pill Tab Bar
 
-gsap.registerPlugin(ScrollTrigger);
+- **Anatomi**: Baris kapsul horizontal berlatar abu-abu lembut (`#F1F5F9` atau `#1A2621`).
+- **Pill Aktif**: Berwarna hitam solid (`#18181B`) atau Emerald Neon (`#10B981`) dengan teks putih tebal dan bayangan halus (*soft elevation*).
+- **Pill Inaktif**: Berlatar transparan dengan teks abu-abu medium (`#64748B`), berganti warna saat di-hover/tap.
 
-export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null);
+### B. Dark Hero Card dengan Viewfinder QR & Counter Besar
 
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      smoothWheel: true,
-    });
+- **Anatomi**:
+  - Latar belakang: *Charcoal Obsidian* (`#0D1612`) dengan sudut membulat $32\text{px}$.
+  - Header: Nama TPH & Blok (Font Plus Jakarta Sans 16px Bold).
+  - Counter Utama: **`+ 125`** (Font JetBrains Mono / Space Grotesk 48sp Black, Tabular Numbers).
+  - Sisi Kanan: Mini viewfinder scanner QR TPH berlatar gradien lembut dengan sudut laser siku.
+  - Footer: Indikator pagination dots (`● ○ ○ ○ ○`).
 
-    lenisRef.current = lenis;
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => lenis.raf(time * 1000));
-    gsap.ticker.lagSmoothing(0);
+### C. Pastel Timeline Container Cards
 
-    return () => {
-      lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
-    };
-  }, []);
+- **Garis Timeline Vertikal**: Garis berketebalan 2px yang menghubungkan titik-titik panen harian.
+- **Node Bulat (*Checkpoint Node*)**:
+  - `[ ✓ ]` Hitam/Hijau: Transaksi panen di TPH selesai dicatat & terverifikasi.
+  - `[ ||| ]` Biru/Mint: Sesi panen sedang aktif berlangsung.
+  - `[ ○ ]` Abu-abu: Titik TPH berikutnya dalam rute.
+- **Kartu Pastel**:
+  - *Soft Mint Card*: Menampilkan total janjang buah masak & tonase estimasi.
+  - *Soft Lavender Card*: Menampilkan durasi pencatatan, grafik batang jam panen, dan BJR.
+  - *Soft Peach Card*: Menampilkan status restan TBS dengan waktu tunggu armada truk.
 
-  return <div className="sawitgo-smooth-wrapper font-sans">{children}</div>;
-}
-```
+### D. Slide-to-Action Bottom Slider (Geser untuk Konfirmasi)
 
-### B. Eye-Catchy KPI Metric Bento Card (GSAP Odometer + Framer Motion)
-```tsx
-// components/dashboard/MetricBentoCard.tsx
-'use client';
-import { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { gsap } from 'gsap';
+- **Mekanisme**:
+  - Drag handle bundar berisi ikon (`🌾` atau `🚀`) di sisi kiri kapsul.
+  - Pengguna menggeser handle ke arah kanan hingga $100\%$ lebar track untuk mengeksekusi simpan/sinkronisasi.
+  - Memicu getaran haptic `HeavyImpact` saat penggeseran tuntas, mencegah *accidental tap* di medan kebun bergelombang.
 
-interface MetricCardProps {
-  title: string;
-  value: number;
-  suffix?: string;
-  subtitle: string;
-  badgeText: string;
-  isAlert?: boolean;
-}
+### E. Donut Progress Ring & Vertical Battery/GPS Sliders
 
-export function MetricBentoCard({
-  title,
-  value,
-  suffix = '',
-  subtitle,
-  badgeText,
-  isAlert = false,
-}: MetricCardProps) {
-  const counterRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (counterRef.current) {
-      gsap.fromTo(
-        counterRef.current,
-        { innerText: 0 },
-        {
-          innerText: value,
-          duration: 2.2,
-          ease: 'power3.out',
-          snap: { innerText: 1 },
-          onUpdate: function () {
-            if (counterRef.current) {
-              counterRef.current.innerHTML = Number(this.targets()[0].innerText).toLocaleString('id-ID');
-            }
-          },
-        }
-      );
-    }
-  }, [value]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -4, transition: { duration: 0.25 } }}
-      className={`relative p-6 rounded-3xl border backdrop-blur-2xl transition-all duration-300 ${
-        isAlert
-          ? 'bg-gradient-to-b from-red-950/40 to-black/60 border-red-500/40 shadow-glow-crimson'
-          : 'bg-gradient-to-b from-emerald-950/30 to-black/50 border-emerald-500/25 shadow-glow-emerald'
-      }`}
-    >
-      <div className="flex justify-between items-center mb-3">
-        <span className="text-xs font-bold tracking-wider uppercase text-slate-300 font-sans">
-          {title}
-        </span>
-        <span
-          className={`text-xs px-3 py-1 rounded-full font-bold font-mono tracking-wide ${
-            isAlert
-              ? 'bg-red-500/20 text-red-300 border border-red-500/30'
-              : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-          }`}
-        >
-          {badgeText}
-        </span>
-      </div>
-
-      <div className="flex items-baseline gap-2 mb-1">
-        <span
-          ref={counterRef}
-          className="text-4xl lg:text-5xl font-black font-mono tracking-tight text-white"
-        >
-          0
-        </span>
-        <span className="text-lg font-bold text-emerald-400 font-sans">{suffix}</span>
-      </div>
-
-      <p className="text-sm font-medium text-slate-400 font-sans mt-2">{subtitle}</p>
-    </motion.div>
-  );
-}
-```
+- **Donut Ring**: Menampilkan persentase pencapaian target harian (misal: 14.850 / 16.000 janjang = 92.8%) dengan stroke gradien neon.
+- **Vertical Pill Slider**: Menampilkan indikator akurasi GPS satelit (Hijau 2.1m) dan status baterai terminal.
 
 ---
 
-## 5. Antarmuka Mobile (Flutter) Ramah Mandor & Krani (Segala Usia)
+## 4. Spesifikasi Executive Command Center (Next.js 14)
 
-### A. Fitur Aksesibilitas Khusus Semua Kalangan Usia:
-1. **Super Giant Number Dial (+1, +5, +10, +50)**:
-   - Mandor cukup mengetuk tombol chip besar tanpa perlu mengetik satu per satu.
-2. **Ukuran Font Angka 36sp Bold**:
-   - Angka hasil panen terlihat jelas dari jarak pandang lengan terbuka tanpa kacamata baca.
-3. **Bahasa Operasional Sederhana & Ramah**:
-   - Tidak menggunakan istilah asing yang membingungkan: Digunakan istilah kebun yang sudah akrab (*Janjang TBS, Brondolan, Buah Mentah, Buah Masak, Restan, Sinyal Hilang*).
-4. **Vibrasi Getar Multimoda**:
-   - Mandor tahu inputnya berhasil tersimpan lewat getaran mantap HP tanpa harus mengecek layar berulang kali.
+Dashboard web mengadopsi bahasa visual yang sama dalam skala desktop/layar besar:
+
+1. **Top Nav Bar**: Header mengambang (*floating pill bar*) dengan logo SawitGO, tab navigasi kapsul (`[ Peta Kebun ] [ Live Ingestion ] [ EUDR Audit ]`), dan avatar pengguna.
+2. **Modular Bento Grid dengan Soft Pastels & Dark Obsidian Cards**:
+   - Kartu Metrik Janjang (Dark Charcoal Hero Card dengan Donut Target Ring).
+   - Kartu Tonase BJR (Soft Mint Container dengan Grafik Batang Kapsul).
+   - Kartu Rendemen CPO (Soft Lavender Container dengan Rasio Mutu Buah).
+   - Kartu Restan Alert (Soft Peach / Soft Coral Container dengan Animasi Pulse Restan).
+3. **Interactive PostGIS Map & Timeline Stream**: Peta GIS berlatar gelap kontras tinggi yang terintegrasi dengan timeline transaksi real-time di sisi kanan.
 
 ---
 
-## 6. Wireframe Layout Komprehensif
+## 5. Ringkasan Kesiapan & Standar Kualitas
 
-### A. Mobile Screen (Flutter Ingestion - Ramah Semua Usia)
-```
-+-------------------------------------------------------------+
-|  🌾 SawitGO Mobile               [ 🔴 OFFLINE: 3 Antrean ]  |
-+-------------------------------------------------------------+
-|  📍 LOKASI KEBUN                                            |
-|  Afdeling: ALPHA  |  Blok: B012 (TM 2017)                   |
-|  TPH     : TPH-04 (Terpindai QR ✅)                         |
-|  Sinyal  : 🛰️ GPS Presisi Tinggi (2.1m - Valid EUDR)        |
-+-------------------------------------------------------------+
-|  JUMLAH JANJANG SAWIT                                       |
-|                                                             |
-|             [  -  ]      125 Janjang      [  +  ]           |
-|                                                             |
-|    [ +1 Janjang ]   [ +5 Janjang ]   [ +10 ]   [ +50 ]      |
-+-------------------------------------------------------------+
-|  BERAT BRONDOLAN :  [  45.5 Kg  ]                           |
-+-------------------------------------------------------------+
-|  KONDISI BUAH (MUTU) :                                      |
-|  🟢 Buah Masak : 120    |  🟡 Buah Mentah : 3               |
-|  🟠 Lewat Masak: 2      |  🔴 Tangkai Pjg : 0               |
-+-------------------------------------------------------------+
-|                                                             |
-|       [ 💾 SIMPAN DATA PANEN (AMAN TANPA SINYAL) ]          |
-|                                                             |
-+-------------------------------------------------------------+
-```
-
-### B. Web Dashboard (Command Center - Eye-Catchy Next.js)
-```
-+-----------------------------------------------------------------------------------------+
-|  🌴 SawitGO Executive Command Center      [Kebun CWE ▼]  [Auto-Sync: 10s]  [👤 Mgr. Bambang] |
-+-----------------------------------------------------------------------------------------+
-| [📦 Total Janjang Hari Ini] [⚖️ Tonase Estimasi]  [⚠️ Potensi Buah Restan] [🧪 Mutu FFA Rata²]|
-|      14.850 Janjang              245.2 Ton             3 TPH (2.1%)          1.68% (Aman)   |
-|      ▲ +8.2% vs Kemarin         BJR 16.5 Kg/Jjg       🚨 1 TPH >24 Jam       Standar <5%    |
-+----------------------------------------------------+------------------------------------+
-|  🗺️ GIS REAL-TIME MAP (POSTGIS & HEATMAP RESTAN)   |  ⚡ LIVE SYNC INGESTION STREAM      |
-|  +----------------------------------------------+  |  [08:12] Krani TPH-01: 120 Janjang |
-|  | [Blok B012] 🟢 SELESAI (Semua Diangkut)      |  |  [08:18] Mandor TPH-04: 95 Janjang |
-|  | [Blok B014] 🟡 PERINGATAN 12 JAM (TPH-03)    |  |  [08:24] ⚖️ Resolusi Konflik:      |
-|  | [Blok C002] 🔴 RESTAN KRITIS 26 JAM (TPH-08) |  |         Asisten overwrite Krani    |
-|  |             Truk Terdekat: Truk-02 (2.4 Km)  |  |  [08:30] Truk-01 Berangkat ke PKS  |
-|  +----------------------------------------------+  |------------------------------------|
-|  [ 📥 EKSPOR SERTIFIKAT EUDR ] [ 📄 REKAP AFDELING ]|  [ 🔍 AUDIT LOG TRAIL DETAIL ]     |
-+----------------------------------------------------+------------------------------------+
-```
+- [x] **100% Mengadopsi Bahasa Desain Neo-Tactile Modernist** (Chunky squircle 32px, dual-tone contrast, soft pastel containers, slide-to-confirm, donut rings).
+- [x] **Inklusif & Tahan Medan Ekstrem** (One-Thumb reach zone, haptic feedback, anti-glare).
+- [x] **Konsisten di Seluruh Ekosistem** (Flutter Mobile & Next.js Web Command Center).

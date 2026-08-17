@@ -5,10 +5,19 @@ import { HarvestLog } from '../harvest/harvest-log.entity';
 import { SyncAuditTrail } from './sync-audit-trail.entity';
 import { BatchSyncDto, HarvestPayloadItemDto } from './dto/batch-sync.dto';
 
+export interface SyncAuthenticatedUser {
+  id?: string;
+  roleWeight?: number;
+}
+
+interface HarvestPayloadWithRoleWeight extends HarvestPayloadItemDto {
+  userRoleWeight?: number;
+}
+
 @Injectable()
 export class SyncService {
   private readonly logger = new Logger(SyncService.name);
-  // Role Multiplier menggunakan 10^12 (1.000.000.000.000n) agar bobot role (1-5) 
+  // Role Multiplier menggunakan 10^12 (1.000.000.000.000n) agar bobot role (1-5)
   // berada di digit triliun di atas epoch timestamp milidetik 13-digit (1.723.xxx.xxx.xxx)
   private readonly ROLE_MULTIPLIER = 1_000_000_000_000n;
 
@@ -27,17 +36,27 @@ export class SyncService {
    * - Asisten (Weight 3) + 1723850000000 -> 4.723.850.000.000
    * - Manager (Weight 5) + 1723850000000 -> 6.723.850.000.000
    */
-  calculatePriorityScore(roleWeight: number, timestampMs: number | bigint): bigint {
+  calculatePriorityScore(
+    roleWeight: number,
+    timestampMs: number | bigint,
+  ): bigint {
     return BigInt(roleWeight) * this.ROLE_MULTIPLIER + BigInt(timestampMs);
   }
 
-  async processBatch(batchDto: BatchSyncDto, authenticatedUser?: any) {
+  async processBatch(
+    batchDto: BatchSyncDto,
+    authenticatedUser?: SyncAuthenticatedUser | null,
+  ) {
     const results: any[] = [];
     let successCount = 0;
     let conflictCount = 0;
 
     for (const record of batchDto.records) {
-      const result = await this.resolveSingleHarvest(record, batchDto.deviceId, authenticatedUser);
+      const result = await this.resolveSingleHarvest(
+        record,
+        batchDto.deviceId,
+        authenticatedUser,
+      );
       results.push(result);
       if (
         result.status === 'ACCEPTED_NEW' ||
@@ -61,12 +80,20 @@ export class SyncService {
   private async resolveSingleHarvest(
     item: HarvestPayloadItemDto,
     deviceId: string,
-    authenticatedUser?: any,
+    authenticatedUser?: SyncAuthenticatedUser | null,
   ) {
-    const userRoleWeight = authenticatedUser?.roleWeight || (item as any).userRoleWeight || 1;
-    const incomingScore = this.calculatePriorityScore(userRoleWeight, item.clientTimestampMs);
+    const userRoleWeight =
+      authenticatedUser?.roleWeight ||
+      (item as HarvestPayloadWithRoleWeight).userRoleWeight ||
+      1;
+    const incomingScore = this.calculatePriorityScore(
+      userRoleWeight,
+      item.clientTimestampMs,
+    );
 
-    const existing = await this.harvestLogRepo.findOne({ where: { id: item.id } });
+    const existing = await this.harvestLogRepo.findOne({
+      where: { id: item.id },
+    });
 
     // Skenario 1: Record Baru (Belum ada di database)
     if (!existing) {
@@ -88,7 +115,8 @@ export class SyncService {
         idempotencyKey: item.idempotencyKey,
         gpsAccuracyMeters: item.location?.accuracy,
         gpsCoordinateRecorded: item.location
-          ? () => `ST_SetSRID(ST_MakePoint(${item.location.longitude}, ${item.location.latitude}), 4326)`
+          ? () =>
+              `ST_SetSRID(ST_MakePoint(${item.location.longitude}, ${item.location.latitude}), 4326)`
           : null,
       });
 
@@ -121,11 +149,14 @@ export class SyncService {
     if (incomingScore > existingScore) {
       // Incoming score lebih tinggi (Peran lebih tinggi atau timestamp lebih baru pada peran yang sama)
       existing.janjangCount = item.janjangCount;
-      existing.brondolanWeightKg = item.brondolanWeightKg || existing.brondolanWeightKg;
+      existing.brondolanWeightKg =
+        item.brondolanWeightKg || existing.brondolanWeightKg;
       existing.mentahCount = item.mentahCount ?? existing.mentahCount;
       existing.masakCount = item.masakCount ?? existing.masakCount;
-      existing.lewatMasakCount = item.lewatMasakCount ?? existing.lewatMasakCount;
-      existing.tangkaiPanjangCount = item.tangkaiPanjangCount ?? existing.tangkaiPanjangCount;
+      existing.lewatMasakCount =
+        item.lewatMasakCount ?? existing.lewatMasakCount;
+      existing.tangkaiPanjangCount =
+        item.tangkaiPanjangCount ?? existing.tangkaiPanjangCount;
       existing.clientTimestampMs = item.clientTimestampMs.toString();
       existing.priorityScore = incomingScore.toString();
       existing.idempotencyKey = item.idempotencyKey;
@@ -148,7 +179,8 @@ export class SyncService {
         id: item.id,
         status: 'ACCEPTED_OVERWRITE',
         httpStatus: 200,
-        message: 'Record berhasil di-overwrite berdasarkan priority score otoritas lebih tinggi.',
+        message:
+          'Record berhasil di-overwrite berdasarkan priority score otoritas lebih tinggi.',
         winningScore: incomingScore.toString(),
       };
     } else if (incomingScore === existingScore) {
@@ -178,7 +210,8 @@ export class SyncService {
         id: item.id,
         status: 'REJECTED_STALE',
         httpStatus: 409,
-        message: 'Data transaksi ditolak karena data di server memiliki prioritas lebih tinggi.',
+        message:
+          'Data transaksi ditolak karena data di server memiliki prioritas lebih tinggi.',
         winningScore: existingScore.toString(),
         serverWinningData: {
           id: existing.id,

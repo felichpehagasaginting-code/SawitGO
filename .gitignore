@@ -8,10 +8,13 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Node.js / NestJS Backend
+# Node.js / NestJS Backend / Next.js Web
 node_modules/
 dist/
 build/
+.next/
+out/
+coverage/
 .npm/
 *.log
 npm-debug.log*

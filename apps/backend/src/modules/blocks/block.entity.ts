@@ -23,7 +23,9 @@ export class Block {
   @Column({ name: 'afdeling_id', type: 'uuid' })
   afdelingId: string;
 
-  @ManyToOne(() => Afdeling, (afdeling) => afdeling.blocks, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Afdeling, (afdeling) => afdeling.blocks, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'afdeling_id' })
   afdeling: Afdeling;
 

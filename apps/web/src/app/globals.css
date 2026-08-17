@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surface & Canvas Tokens (Light Mode) */
+  --bg-app: #F8F9FB;
+  --bg-sidebar: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --border-subtle: #EAECF0;
+  --border-hover: #D0D5DD;
+
+  /* Brand Accents */
+  --color-palm: #2E7D32;
+  --color-palm-hover: #1B5E20;
+  --color-palm-light: #E8F5E9;
+  --color-emerald-neon: #10B981;
+  --color-amber-cpo: #F59E0B;
+  --color-crimson-restan: #EF4444;
+  --color-cyan-eudr: #06B6D4;
+  --color-purple-exec: #8B5CF6;
+
+  /* Typography Scales */
+  --text-primary: #101828;
+  --text-secondary: #475467;
+  --text-muted: #98A2B3;
+  --text-disabled: #D0D5DD;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  /* Surface & Canvas Tokens (Dark Mode - Deep OLED Slate) */
+  --bg-app: #0B0F17;
+  --bg-sidebar: #111827;
+  --bg-card: #151D2C;
+  --border-subtle: #1E293B;
+  --border-hover: #334155;
+
+  /* Typography Scales */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-disabled: #334155;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Sleek Industrial Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Tabular Numerics Utility */
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }

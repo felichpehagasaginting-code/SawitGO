@@ -18,7 +18,9 @@ export class RestanTracker {
   @Column({ name: 'harvest_log_id', type: 'uuid' })
   harvestLogId: string;
 
-  @ManyToOne(() => HarvestLog, (harvest) => harvest.restanTrackers, { onDelete: 'CASCADE' })
+  @ManyToOne(() => HarvestLog, (harvest) => harvest.restanTrackers, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'harvest_log_id' })
   harvestLog: HarvestLog;
 

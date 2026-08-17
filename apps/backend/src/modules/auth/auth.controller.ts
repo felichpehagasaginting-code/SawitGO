@@ -1,5 +1,17 @@
-import { Controller, Post, Get, Body, UseGuards, Request } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterUserDto } from './dto/register.dto';
@@ -19,7 +31,10 @@ export class AuthController {
 
   @Post('login')
   @ApiOperation({ summary: 'Login dan Autentikasi Pengguna' })
-  @ApiResponse({ status: 200, description: 'Login berhasil, mengembalikan JWT token' })
+  @ApiResponse({
+    status: 200,
+    description: 'Login berhasil, mengembalikan JWT token',
+  })
   async login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
@@ -28,7 +43,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Mengambil data profil pengguna yang sedang login' })
-  async getProfile(@Request() req: any) {
+  async getProfile(@Request() req: { user: { id: string } }) {
     return this.authService.getProfile(req.user.id);
   }
 }

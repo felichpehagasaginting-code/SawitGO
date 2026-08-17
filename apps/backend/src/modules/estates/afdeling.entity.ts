@@ -20,7 +20,9 @@ export class Afdeling {
   @Column({ name: 'estate_id', type: 'uuid' })
   estateId: string;
 
-  @ManyToOne(() => Estate, (estate) => estate.afdelings, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Estate, (estate) => estate.afdelings, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'estate_id' })
   estate: Estate;
 

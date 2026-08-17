@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
@@ -24,7 +28,9 @@ export class AuthService {
       where: [{ nip: dto.nip }, { email: dto.email }],
     });
     if (existing) {
-      throw new ConflictException('NIP atau Email sudah terdaftar dalam sistem.');
+      throw new ConflictException(
+        'NIP atau Email sudah terdaftar dalam sistem.',
+      );
     }
 
     const role = await this.roleRepo.findOne({ where: { id: dto.roleId } });
@@ -64,7 +70,9 @@ export class AuthService {
     });
 
     if (!user || !user.isActive) {
-      throw new UnauthorizedException('Kredensial tidak valid atau akun tidak aktif.');
+      throw new UnauthorizedException(
+        'Kredensial tidak valid atau akun tidak aktif.',
+      );
     }
 
     const isMatch = await bcrypt.compare(dto.password, user.passwordHash);

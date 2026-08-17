@@ -43,7 +43,9 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
-  console.log(`SawitGO Backend Service berjalan di: http://localhost:${port}/api/v1`);
+  console.log(
+    `SawitGO Backend Service berjalan di: http://localhost:${port}/api/v1`,
+  );
   console.log(`Swagger OpenAPI Documentation: http://localhost:${port}/docs`);
 }
-bootstrap();
+void bootstrap();
