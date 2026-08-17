@@ -62,6 +62,31 @@ export function getBackendOnline(): boolean {
   return lastRequestSucceeded;
 }
 
+export async function checkBackendHealth(): Promise<boolean> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+  try {
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (authToken) {
+      headers.Authorization = `Bearer ${authToken}`;
+    }
+    const response = await fetch(`${API_BASE_URL}/analytics/kpi-metrics`, {
+      method: 'GET',
+      headers,
+      signal: controller.signal,
+    });
+    const isOnline = response.ok || response.status === 401 || response.status === 403;
+    reportBackendStatus(isOnline);
+    return isOnline;
+  } catch {
+    reportBackendStatus(false);
+    return false;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 function reportBackendStatus(isOnline: boolean) {
   if (lastRequestSucceeded === isOnline) {
     return;

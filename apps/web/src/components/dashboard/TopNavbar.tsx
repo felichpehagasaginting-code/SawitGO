@@ -1,22 +1,27 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Bell,
   Settings,
   HelpCircle,
   LayoutGrid,
-  Wifi,
-  WifiOff,
   Search,
   ChevronRight,
   Sun,
-  Moon
+  Moon,
+  Server,
+  ServerCrash,
+  RotateCw,
+  Loader2,
+  CheckCircle2,
+  XCircle,
 } from 'lucide-react';
 import { useAuth } from '@/lib/auth/auth-context';
-import { subscribeBackendStatus } from '@/lib/api/client';
+import { subscribeBackendStatus, checkBackendHealth } from '@/lib/api/client';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface TopNavbarProps {
   currentView?: string;
@@ -28,12 +33,16 @@ interface TopNavbarProps {
 
 const VIEW_TITLES: Record<string, string> = {
   overview: 'Halaman Utama Dashboard',
+  'data-panen': 'Data Transaksi Panen',
   'tph-queue': 'Antrean Panen TPH',
   'restan-risk': 'Risiko Restan >24 Jam',
+  restan: 'Monitoring Restan & FFA',
   conflict: 'Resolusi Konflik & Priority Score',
+  kemandoran: 'Kemandoran & Regu Panen',
   pemanen: 'Kemandoran & Regu Panen',
   p2p: 'Data Mule P2P & Truk',
   eudr: 'Peta Spasial EUDR',
+  analitik: 'Tren BJR & Rendemen CPO',
   integrations: 'Integrasi Pabrik Kelapa Sawit (PKS)',
   'sla-ffa': 'Monitoring SLA Restan & Asam Lemak Bebas',
   'bjr-cpo': 'Tren BJR & Rendemen CPO',
@@ -41,6 +50,8 @@ const VIEW_TITLES: Record<string, string> = {
   settings: 'Pengaturan Sistem & Kebun',
   help: 'Buku Panduan & SOP',
 };
+
+type ConnectionStatus = 'online' | 'offline' | 'checking';
 
 export function TopNavbar({
   currentView = 'overview',
@@ -51,12 +62,42 @@ export function TopNavbar({
 }: TopNavbarProps) {
   const { user } = useAuth();
   const { resolvedTheme, toggleTheme } = useTheme();
-  const [backendOnline, setBackendOnline] = useState(true);
+  const queryClient = useQueryClient();
+  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>('checking');
 
+  // Initial check and subscription
   useEffect(() => {
-    const unsubscribe = subscribeBackendStatus((isOnline) => setBackendOnline(isOnline));
-    return unsubscribe;
+    let isMounted = true;
+    checkBackendHealth().then((online) => {
+      if (isMounted) {
+        setConnectionStatus(online ? 'online' : 'offline');
+      }
+    });
+
+    const unsubscribe = subscribeBackendStatus((isOnline) => {
+      if (isMounted) {
+        setConnectionStatus(isOnline ? 'online' : 'offline');
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
   }, []);
+
+  const handleRefreshData = useCallback(async () => {
+    setConnectionStatus('checking');
+    try {
+      const [isOnline] = await Promise.all([
+        checkBackendHealth(),
+        queryClient.invalidateQueries(),
+      ]);
+      setConnectionStatus(isOnline ? 'online' : 'offline');
+    } catch {
+      setConnectionStatus('offline');
+    }
+  }, [queryClient]);
 
   const pageTitle = VIEW_TITLES[currentView] ?? 'Halaman Utama Dashboard';
 
@@ -144,28 +185,80 @@ export function TopNavbar({
 
         <div className="h-4 w-px bg-[#EAECF0] dark:bg-[#1F2937] mx-1"></div>
 
-        {/* Backend Online/Offline Badge */}
-        <motion.div
-          whileHover={{ scale: 1.03 }}
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-colors ${
-            backendOnline
-              ? 'bg-[#E8F5E9] dark:bg-[#064E3B]/40 text-[#2E7D32] dark:text-[#34D399] border border-[#A7F3D0] dark:border-[#059669]/40'
-              : 'bg-[#FEF3F2] dark:bg-[#7F1D1D]/40 text-[#B42318] dark:text-[#F87171] border border-[#FECDCA] dark:border-[#DC2626]/40'
-          }`}
-          title={backendOnline ? 'Backend NestJS terhubung di :3000' : 'Backend terputus (data offline)'}
-        >
-          {backendOnline ? (
-            <>
-              <Wifi className="w-3 h-3" />
-              <span className="hidden sm:inline">Backend Terhubung</span>
-            </>
-          ) : (
-            <>
-              <WifiOff className="w-3 h-3" />
-              <span className="hidden sm:inline">Mode Offline</span>
-            </>
-          )}
-        </motion.div>
+        {/* ======================================================== */}
+        {/* BACKEND CONNECTION STATUS PILL & QUICK REFRESH BUTTON */}
+        {/* ======================================================== */}
+        <div className="flex items-center gap-1.5">
+          {/* Status Badge */}
+          <AnimatePresence mode="wait">
+            {connectionStatus === 'online' && (
+              <motion.div
+                key="online"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#ECFDF5] dark:bg-[#064E3B]/40 text-[#027A48] dark:text-[#34D399] border border-[#A7F3D0] dark:border-[#059669]/40 shadow-2xs"
+                title="Backend NestJS terhubung di port :3000 (Database PostGIS Aktif)"
+              >
+                <div className="relative flex items-center justify-center">
+                  <Server className="w-3.5 h-3.5" />
+                  <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-[#10B981] ring-1 ring-white dark:ring-[#064E3B] animate-pulse" />
+                </div>
+                <span className="hidden sm:inline">Backend Terhubung</span>
+              </motion.div>
+            )}
+
+            {connectionStatus === 'offline' && (
+              <motion.div
+                key="offline"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#FEF2F2] dark:bg-[#7F1D1D]/40 text-[#B42318] dark:text-[#F87171] border border-[#FECDCA] dark:border-[#DC2626]/40 shadow-2xs"
+                title="Backend terputus. Pastikan service NestJS di port :3000 sedang berjalan."
+              >
+                <div className="relative flex items-center justify-center">
+                  <ServerCrash className="w-3.5 h-3.5 text-[#D92D20]" />
+                </div>
+                <span className="hidden sm:inline">Backend Terputus</span>
+              </motion.div>
+            )}
+
+            {connectionStatus === 'checking' && (
+              <motion.div
+                key="checking"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#FFFBEB] dark:bg-[#78350F]/40 text-[#B45309] dark:text-[#FCD34D] border border-[#FDE68A] dark:border-[#D97706]/40 shadow-2xs"
+                title="Sedang menghubungkan & memverifikasi backend server..."
+              >
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-[#D97706] dark:text-[#FBBF24]" />
+                <span className="hidden sm:inline">Menghubungkan…</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Quick Refresh / Fetch Data Button */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={handleRefreshData}
+            disabled={connectionStatus === 'checking'}
+            aria-label="Tarik dan Segarkan Data Backend"
+            className="w-7 h-7 rounded-full bg-[#F8F9FB] dark:bg-[#1E293B] border border-[#EAECF0] dark:border-[#334155] hover:bg-[#F2F4F7] dark:hover:bg-[#334155] text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] flex items-center justify-center shadow-2xs transition-colors cursor-pointer disabled:opacity-60"
+            title="Tarik dan Segarkan Data Backend"
+          >
+            <RotateCw
+              className={`w-3.5 h-3.5 transition-transform ${
+                connectionStatus === 'checking' ? 'animate-spin text-[#F59E0B]' : ''
+              }`}
+            />
+          </motion.button>
+        </div>
 
         {/* Role Pill Indicator */}
         <motion.button
