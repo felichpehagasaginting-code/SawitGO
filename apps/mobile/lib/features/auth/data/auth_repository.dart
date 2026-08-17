@@ -35,8 +35,8 @@ class AuthRepository {
     const UserModel(
       id: 'e2222222-2222-2222-2222-222222222222',
       nip: 'AST-010',
-      fullName: 'Felich Pehagasa Ginting (Asisten)',
-      email: 'felich.ginting@sawitgo.id',
+      fullName: 'Ahmad Sukron Yusuf (Asisten)',
+      email: 'sukron.asisten@sawitgo.id',
       role: 'ASISTEN',
       roleWeight: RoleWeights.asisten,
       assignedAfdelingId: 'afd-cwe-a-uuid',
@@ -44,8 +44,8 @@ class AuthRepository {
     const UserModel(
       id: 'e1111111-1111-1111-1111-111111111111',
       nip: 'MGR-001',
-      fullName: 'Ir. Bambang Hariyanto (Estate Manager)',
-      email: 'manager.cwe@sawitgo.id',
+      fullName: 'Felich Pehagasa Ginting (Estate Manager)',
+      email: 'felich.manager@sawitgo.id',
       role: 'MANAGER',
       roleWeight: RoleWeights.manager,
       assignedEstateId: 'est-cwe-01-uuid',

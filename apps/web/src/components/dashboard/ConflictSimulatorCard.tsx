@@ -34,7 +34,7 @@ const DEMO_ROLES = [
   { nip: 'MDR-045', name: 'Rifki Hakim', role: 'Mandor Panen', weight: 2, color: 'text-[#2563EB] bg-[#DBEAFE] dark:bg-[#1E3A8A]/40' },
   { nip: 'AST-010', name: 'Ahmad Sukron', role: 'Asisten Afdeling', weight: 3, color: 'text-[#0891B2] bg-[#CFFAFE] dark:bg-[#164E63]/40' },
   { nip: 'ASK-005', name: 'Ahmad Zulkifli', role: 'Kepala Afdeling', weight: 4, color: 'text-[#D97706] bg-[#FEF3C7] dark:bg-[#78350F]/40' },
-  { nip: 'MGR-001', name: 'Ir. Bambang Hariyanto', role: 'Estate Manager', weight: 5, color: 'text-[#9333EA] bg-[#F3E8FF] dark:bg-[#581C87]/40' },
+  { nip: 'MGR-001', name: 'Felich Pehagasa Ginting', role: 'Estate Manager', weight: 5, color: 'text-[#9333EA] bg-[#F3E8FF] dark:bg-[#581C87]/40' },
 ];
 
 export function ConflictSimulatorCard() {

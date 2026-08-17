@@ -137,13 +137,13 @@ graph TB
 
 Seluruh peran operasional telah disiapkan untuk pengujian end-to-end:
 
-| Role | NIP | Bobot | Level Otoritas | Password |
-| :--- | :--- | :---: | :--- | :--- |
-| **Estate Manager** | `MGR-001` | **W5** | Full Estate Audit & Executive Control | `RahasiaKebun2026!` |
-| **Kepala Afdeling (Askep)** | `ASK-005` | **W4** | Supervisi Lintas Afdeling | `RahasiaKebun2026!` |
-| **Asisten Afdeling** | `AST-010` | **W3** | Verifikasi & Override Lapangan | `RahasiaKebun2026!` |
-| **Mandor Panen** | `MDR-045` | **W2** | Pengawasan Regu Pemanen | `RahasiaKebun2026!` |
-| **Krani TPH** | `KRN-102` | **W1** | Pencatatan Fisik di TPH | `RahasiaKebun2026!` |
+| Role | NIP | Bobot | Pemegang Akun | Level Otoritas | Password |
+| :--- | :--- | :---: | :--- | :--- | :--- |
+| **Estate Manager** | `MGR-001` | **W5** | **Felich Pehagasa Ginting** | Full Estate Audit & Executive Control | `RahasiaKebun2026!` |
+| **Kepala Afdeling (Askep)** | `ASK-005` | **W4** | Rifki Hakim Pradana | Supervisi Lintas Afdeling | `RahasiaKebun2026!` |
+| **Asisten Afdeling** | `AST-010` | **W3** | Ahmad Sukron Yusuf | Verifikasi & Override Lapangan | `RahasiaKebun2026!` |
+| **Mandor Panen** | `MDR-045` | **W2** | Ahmad Zulkifli | Pengawasan Regu Pemanen | `RahasiaKebun2026!` |
+| **Krani TPH** | `KRN-102` | **W1** | Dika Prasetyawan | Pencatatan Fisik di TPH | `RahasiaKebun2026!` |
 
 ---
 

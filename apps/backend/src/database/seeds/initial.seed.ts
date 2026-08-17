@@ -195,33 +195,33 @@ export class InitialSeedService implements OnApplicationBootstrap {
     const usersData = [
       {
         nip: 'MGR-001',
-        name: 'Ir. Bambang Hariyanto',
-        email: 'manager@sawitgo.cwe.ac.id',
-        roleId: 1,
+        name: 'Felich Pehagasa Ginting',
+        email: 'felich@sawitgo.cwe.ac.id',
+        roleId: 1, // MANAGER (W5)
       },
       {
         nip: 'ASK-005',
         name: 'Rifki Hakim Pradana',
         email: 'askep@sawitgo.cwe.ac.id',
-        roleId: 2,
+        roleId: 2, // ASKEP (W4)
       },
       {
         nip: 'AST-010',
-        name: 'Felich Pehagasa Ginting',
-        email: 'felich@sawitgo.cwe.ac.id',
-        roleId: 3,
+        name: 'Ahmad Sukron Yusuf',
+        email: 'sukron@sawitgo.cwe.ac.id',
+        roleId: 3, // ASISTEN (W3)
       },
       {
         nip: 'MDR-045',
         name: 'Ahmad Zulkifli',
         email: 'zulkifli@sawitgo.cwe.ac.id',
-        roleId: 4,
+        roleId: 4, // MANDOR (W2)
       },
       {
         nip: 'KRN-102',
         name: 'Dika Prasetyawan',
         email: 'dika@sawitgo.cwe.ac.id',
-        roleId: 5,
+        roleId: 5, // KRANI (W1)
       },
     ];
 
@@ -242,6 +242,14 @@ export class InitialSeedService implements OnApplicationBootstrap {
         await this.userRepo.save(user);
         this.logger.log(
           `Seeded User: ${u.nip} - ${u.name} (Role ID: ${u.roleId})`,
+        );
+      } else {
+        existingUser.fullName = u.name;
+        existingUser.email = u.email;
+        existingUser.roleId = u.roleId;
+        await this.userRepo.save(existingUser);
+        this.logger.log(
+          `Updated User: ${u.nip} - ${u.name} (Role ID: ${u.roleId})`,
         );
       }
     }
