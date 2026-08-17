@@ -35,6 +35,7 @@ import { NotificationDrawerModal } from '@/components/dashboard/NotificationDraw
 import { CommandPaletteModal } from '@/components/dashboard/CommandPaletteModal';
 import { QuickHelpModal } from '@/components/dashboard/QuickHelpModal';
 import { SettingsModal } from '@/components/dashboard/SettingsModal';
+import { ConflictSimulatorCard } from '@/components/dashboard/ConflictSimulatorCard';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useAuth } from '@/lib/auth/auth-context';
 import { apiEndpoints } from '@/lib/api/endpoints';
@@ -159,6 +160,11 @@ Restan Overdue: ${kpiQuery.data?.restanOverdueCount ?? 0} TPH`;
             }
           }}
           onSearchClick={() => setIsCommandPaletteOpen(true)}
+          onLockedClick={(minWeight, moduleName) => {
+            showNotification(
+              `🔒 Akses Terkunci: Modul '${moduleName}' memerlukan hak akses minimal Bobot W${minWeight}. Role aktif Anda: ${user?.role ?? 'Krani'} (W${user?.roleWeight ?? 1}).`
+            );
+          }}
         />
 
         {/* 2. MAIN APP CONTAINER */}
@@ -425,6 +431,9 @@ Restan Overdue: ${kpiQuery.data?.restanOverdueCount ?? 0} TPH`;
                   transition={{ duration: 0.3 }}
                   className="space-y-6"
                 >
+                  {/* Interactive Conflict Engine Simulator */}
+                  <ConflictSimulatorCard />
+
                   {/* 2:1 Grid (Volume Trend + Activity Feed) */}
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2">
@@ -546,6 +555,7 @@ Restan Overdue: ${kpiQuery.data?.restanOverdueCount ?? 0} TPH`;
                       ← Kembali ke Dashboard
                     </motion.button>
                   </div>
+                  <ConflictSimulatorCard />
                   <MonitoringTable />
                 </motion.div>
               )}
