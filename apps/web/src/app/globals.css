@@ -47,7 +47,14 @@ html, body {
   color: var(--text-primary);
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   overflow-x: hidden;
+  scroll-behavior: smooth;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#main-scroll-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 /* Custom Sleek Industrial Scrollbars */
