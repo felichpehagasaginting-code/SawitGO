@@ -101,7 +101,7 @@ export function MonitoringTable() {
   };
 
   return (
-    <div className="bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] shadow-xs font-sans overflow-hidden transition-colors">
+    <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] shadow-xs font-sans overflow-hidden transition-colors">
       {/* Header Controls */}
       <div className="p-6 border-b border-[#EAECF0] dark:border-[#1E293B] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -173,7 +173,7 @@ export function MonitoringTable() {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[#EAECF0] dark:border-[#1E293B] bg-[#F8F9FB] dark:bg-[#111827] text-[#667085] dark:text-[#94A3B8] font-semibold">
+            <tr className="border-b border-[#EAECF0] dark:border-[#1E293B] bg-[#F8F9FB] dark:bg-[#050811] text-[#667085] dark:text-[#94A3B8] font-semibold">
               <th className="py-3 px-4 w-12 text-center">
                 <input
                   type="checkbox"

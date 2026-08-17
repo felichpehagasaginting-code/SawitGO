@@ -4,16 +4,20 @@
 
 :root {
   /* Surface & Canvas Tokens (Light Mode) */
-  --bg-app: #F8F9FB;
+  --bg-app: #F8F9FA;
   --bg-sidebar: #FFFFFF;
   --bg-card: #FFFFFF;
-  --border-subtle: #EAECF0;
-  --border-hover: #D0D5DD;
+  --border-subtle: #E5E7EB;
+  --border-hover: #D1D5DB;
 
-  /* Brand Accents */
-  --color-palm: #2E7D32;
-  --color-palm-hover: #1B5E20;
-  --color-palm-light: #E8F5E9;
+  /* Monochrome High-Contrast Accents (Light Mode = Jet Black) */
+  --accent-primary: #0F172A;
+  --accent-primary-text: #FFFFFF;
+  --accent-surface: #F1F5F9;
+
+  --color-palm: #0F172A;
+  --color-palm-hover: #020617;
+  --color-palm-light: #F1F5F9;
   --color-emerald-neon: #10B981;
   --color-amber-cpo: #F59E0B;
   --color-crimson-restan: #EF4444;
@@ -21,22 +25,31 @@
   --color-purple-exec: #8B5CF6;
 
   /* Typography Scales */
-  --text-primary: #101828;
+  --text-primary: #0F172A;
   --text-secondary: #475467;
   --text-muted: #98A2B3;
   --text-disabled: #D0D5DD;
 }
 
 .dark {
-  /* Surface & Canvas Tokens (Dark Mode - Deep OLED Slate) */
-  --bg-app: #0B0F17;
-  --bg-sidebar: #111827;
-  --bg-card: #151D2C;
+  /* Surface & Canvas Tokens (Dark Mode - Pure Deep Jet/OLED Black) */
+  --bg-app: #030712;
+  --bg-sidebar: #050811;
+  --bg-card: #0A0F1D;
   --border-subtle: #1E293B;
   --border-hover: #334155;
 
+  /* Monochrome High-Contrast Accents (Dark Mode = Pure White) */
+  --accent-primary: #FFFFFF;
+  --accent-primary-text: #030712;
+  --accent-surface: #1E293B;
+
+  --color-palm: #FFFFFF;
+  --color-palm-hover: #F8FAFC;
+  --color-palm-light: #1E293B;
+
   /* Typography Scales */
-  --text-primary: #F8FAFC;
+  --text-primary: #FFFFFF;
   --text-secondary: #94A3B8;
   --text-muted: #64748B;
   --text-disabled: #334155;

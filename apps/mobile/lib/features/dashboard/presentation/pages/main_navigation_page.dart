@@ -5,7 +5,6 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../auth/domain/models/user_model.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
-import '../../../auth/presentation/widgets/login_success_overlay.dart';
 import '../../../geospatial/presentation/pages/spatial_map_page.dart';
 import '../../../harvest/data/repositories/harvest_repository.dart';
 import '../../../harvest/presentation/pages/harvest_input_page.dart';
@@ -29,19 +28,6 @@ class MainNavigationPage extends StatefulWidget {
 
 class _MainNavigationPageState extends State<MainNavigationPage> {
   int _currentIndex = 0;
-  bool _showWelcomeSplash = true;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 1800), () {
-        if (mounted) {
-          setState(() => _showWelcomeSplash = false);
-        }
-      });
-    });
-  }
 
   void _showProfileModal() {
     HapticFeedback.mediumImpact();
@@ -170,31 +156,15 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
 
     return Scaffold(
       backgroundColor: AppColors.appBackground,
-      body: Stack(
-        children: [
-          // MAIN APPLICATION CONTENT
-          SafeArea(
-            bottom: false,
-            child: IndexedStack(
-              index: _currentIndex.clamp(0, pages.length - 1),
-              children: pages,
-            ),
-          ),
-
-          // LOGIN SUCCESS SPLASH OVERLAY
-          if (_showWelcomeSplash)
-            Positioned.fill(
-              child: LoginSuccessOverlay(
-                user: widget.user,
-                onFinished: () {
-                  if (mounted) setState(() => _showWelcomeSplash = false);
-                },
-              ),
-            ),
-        ],
+      body: SafeArea(
+        bottom: false,
+        child: IndexedStack(
+          index: _currentIndex.clamp(0, pages.length - 1),
+          children: pages,
+        ),
       ),
 
-      // ==================== 7. FIXED BOTTOM NAVIGATION BAR ====================
+      // Fixed Bottom Navigation Bar
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: AppColors.cardBackground,

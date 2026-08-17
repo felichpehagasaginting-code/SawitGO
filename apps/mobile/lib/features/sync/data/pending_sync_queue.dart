@@ -14,8 +14,8 @@ class PendingSyncQueue {
 
   late String payloadJson; // AES-256 Encrypted on disk
 
-  late int retryCount;
-  late String? lastErrorMessage;
-  late DateTime createdAt;
-  late DateTime? lastAttemptAt;
+  int retryCount = 0;
+  String? lastErrorMessage;
+  DateTime createdAt = DateTime.now();
+  DateTime? lastAttemptAt;
 }

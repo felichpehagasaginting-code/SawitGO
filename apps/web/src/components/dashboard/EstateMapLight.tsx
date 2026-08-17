@@ -144,7 +144,7 @@ export function EstateMapLight() {
   };
 
   return (
-    <div className="bg-white dark:bg-[#151D2C] rounded-2xl p-6 border border-[#EAECF0] dark:border-[#1E293B] shadow-xs flex flex-col font-sans transition-colors">
+    <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl p-6 border border-[#EAECF0] dark:border-[#1E293B] shadow-xs flex flex-col font-sans transition-colors">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAECF0] dark:border-[#1E293B] pb-4 mb-5">
         <div>

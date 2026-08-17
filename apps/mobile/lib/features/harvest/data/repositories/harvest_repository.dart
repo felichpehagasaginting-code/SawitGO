@@ -85,6 +85,8 @@ class HarvestRepository {
       ..endpoint = '/api/v1/sync/batch'
       ..payloadJson = encryptedJson
       ..retryCount = 0
+      ..lastErrorMessage = null
+      ..lastAttemptAt = null
       ..createdAt = DateTime.now();
 
     await isar.writeTxn(() async {

@@ -19,7 +19,7 @@ export function ConflictAuditPage() {
   return (
     <div className="space-y-5 font-sans">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] shadow-xs">
         <div className="flex items-center gap-3.5">
           <div className="w-12 h-12 rounded-xl bg-[#EFF8FF] dark:bg-[#1E3A8A]/40 text-[#175CD3] dark:text-[#60A5FA] flex items-center justify-center font-bold shadow-xs">
             <Layers className="w-6 h-6" />
@@ -52,7 +52,7 @@ export function ConflictAuditPage() {
         ].map((item) => (
           <div
             key={item.weight}
-            className="p-3 rounded-xl bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] text-center"
+            className="p-3 rounded-xl bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] text-center"
           >
             <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold ${item.color}`}>
               W{item.weight} ({item.multiplier})

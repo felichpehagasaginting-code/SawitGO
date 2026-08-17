@@ -29,7 +29,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs font-sans">
       <div 
-        className="w-full max-w-xl bg-white dark:bg-[#151D2C] rounded-2xl shadow-2xl border border-[#EAECF0] dark:border-[#1E293B] overflow-hidden animate-in fade-in zoom-in-95 duration-150 transition-colors"
+        className="w-full max-w-xl bg-white dark:bg-[#0A0F1D] rounded-2xl shadow-2xl border border-[#EAECF0] dark:border-[#1E293B] overflow-hidden animate-in fade-in zoom-in-95 duration-150 transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -124,7 +124,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-[#EAECF0] dark:border-[#1E293B] bg-[#F8F9FB] dark:bg-[#111827] flex items-center justify-between">
+        <div className="p-4 border-t border-[#EAECF0] dark:border-[#1E293B] bg-[#F8F9FB] dark:bg-[#050811] flex items-center justify-between">
           <span className="text-[11px] text-[#98A2B3] dark:text-[#64748B]">Semua perubahan tersimpan di local configuration</span>
           <button
             onClick={handleSave}

@@ -158,7 +158,7 @@ export function OverviewDashboard({
         {/* Kolom Kiri (8 of 12 columns) - Tren & Cuplikan Data Panen */}
         <div className="lg:col-span-8 space-y-5">
           {/* Mini Volume Chart with Link to Analytics */}
-          <div className="bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-5 shadow-xs">
+          <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-5 shadow-xs">
             <div className="flex items-center justify-between pb-3 mb-2 border-b border-[#EAECF0] dark:border-[#1E293B]">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-lg bg-[#E8F5E9] text-[#2E7D32] flex items-center justify-center">
@@ -187,7 +187,7 @@ export function OverviewDashboard({
           </div>
 
           {/* Cuplikan Sekilas Data Panen Terkini */}
-          <div className="bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-5 shadow-xs">
+          <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-5 shadow-xs">
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#EAECF0] dark:border-[#1E293B]">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-lg bg-[#E8F5E9] text-[#2E7D32] flex items-center justify-center">
@@ -274,7 +274,7 @@ export function OverviewDashboard({
         {/* Kolom Kanan (4 of 12 columns) - Cuplikan Cepat Modul-Modul Kunci */}
         <div className="lg:col-span-4 space-y-5">
           {/* Restan & FFA Early Warning Widget */}
-          <div className="bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-4.5 shadow-xs">
+          <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-4.5 shadow-xs">
             <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#EAECF0] dark:border-[#1E293B]">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg bg-[#FEF3F2] text-[#D92D20] flex items-center justify-center">
@@ -321,7 +321,7 @@ export function OverviewDashboard({
           </div>
 
           {/* Kemandoran Highlight */}
-          <div className="bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-4.5 shadow-xs">
+          <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-4.5 shadow-xs">
             <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#EAECF0] dark:border-[#1E293B]">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg bg-[#EFF8FF] text-[#175CD3] flex items-center justify-center">
@@ -362,7 +362,7 @@ export function OverviewDashboard({
           </div>
 
           {/* Mini Spasial & EUDR Card */}
-          <div className="bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-4.5 shadow-xs">
+          <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-4.5 shadow-xs">
             <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#EAECF0] dark:border-[#1E293B]">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg bg-[#E8F5E9] text-[#2E7D32] flex items-center justify-center">
@@ -392,7 +392,7 @@ export function OverviewDashboard({
           </div>
 
           {/* Mini Live Sync & Conflict Stream */}
-          <div className="bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-4.5 shadow-xs">
+          <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] p-4.5 shadow-xs">
             <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#EAECF0] dark:border-[#1E293B]">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg bg-[#F4F3FF] text-[#5925DC] flex items-center justify-center">

@@ -138,7 +138,7 @@ export function ConflictSimulatorCard() {
   };
 
   return (
-    <div className="bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] rounded-2xl p-6 shadow-xs space-y-6 transition-colors">
+    <div className="bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] rounded-2xl p-6 shadow-xs space-y-6 transition-colors">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EAECF0] dark:border-[#1E293B] pb-4">
         <div className="flex items-center gap-3">

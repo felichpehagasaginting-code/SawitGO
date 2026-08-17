@@ -100,7 +100,7 @@ export function KpiSparklineCard({
   );
 
   return (
-    <div className="bg-white dark:bg-[#151D2C] rounded-2xl p-5 border border-[#EAECF0] dark:border-[#1E293B] shadow-xs hover:shadow-md dark:hover:border-[#334155] transition-all duration-200 flex flex-col justify-between">
+    <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl p-5 border border-[#EAECF0] dark:border-[#1E293B] shadow-xs hover:shadow-md dark:hover:border-[#334155] transition-all duration-200 flex flex-col justify-between">
       {/* Header with Title and Icon */}
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold text-[#475467] dark:text-[#94A3B8] tracking-tight">

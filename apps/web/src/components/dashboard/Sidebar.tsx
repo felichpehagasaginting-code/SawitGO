@@ -61,8 +61,8 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
     }
     return `w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
       currentView === viewKey
-        ? 'bg-[#E8F5E9] dark:bg-[#064E3B]/40 text-[#2E7D32] dark:text-[#34D399] border border-[#A7F3D0]/60 dark:border-[#059669]/40 shadow-xs'
-        : 'text-[#475467] dark:text-[#94A3B8] hover:bg-[#F9FAFB] dark:hover:bg-[#1E293B] hover:text-[#101828] dark:hover:text-[#F8FAFC]'
+        ? 'bg-[#0F172A] text-white border border-[#0F172A] dark:bg-white dark:text-[#030712] dark:border-white shadow-xs font-bold'
+        : 'text-[#475467] dark:text-[#94A3B8] hover:bg-[#F1F5F9] dark:hover:bg-[#111827] hover:text-[#0F172A] dark:hover:text-white'
     }`;
   };
 
@@ -75,29 +75,29 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
       currentView === viewKey
         ? isDanger 
           ? 'bg-[#FEF3F2] dark:bg-[#7F1D1D]/40 text-[#B42318] dark:text-[#F87171] font-bold' 
-          : 'bg-[#E8F5E9] dark:bg-[#064E3B]/40 text-[#2E7D32] dark:text-[#34D399] font-bold'
+          : 'bg-[#0F172A] text-white border border-[#0F172A] dark:bg-white dark:text-[#030712] dark:border-white font-bold'
         : isDanger 
           ? 'text-[#D92D20] dark:text-[#F87171] hover:bg-[#FEF3F2] dark:hover:bg-[#7F1D1D]/30' 
-          : 'text-[#475467] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F9FAFB] dark:hover:bg-[#1E293B]'
+          : 'text-[#475467] dark:text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white hover:bg-[#F1F5F9] dark:hover:bg-[#111827]'
     }`;
   };
 
   return (
-    <aside className="w-64 bg-white dark:bg-[#111827] border-r border-[#EAECF0] dark:border-[#1F2937] flex flex-col h-screen shrink-0 font-sans select-none z-10 transition-colors">
+    <aside className="w-64 bg-white dark:bg-[#050811] border-r border-[#EAECF0] dark:border-[#1E293B] flex flex-col h-screen shrink-0 font-sans select-none z-10 transition-colors">
       {/* Brand Header */}
-      <div className="h-16 flex items-center justify-between px-5 border-b border-[#EAECF0] dark:border-[#1F2937]">
+      <div className="h-16 flex items-center justify-between px-5 border-b border-[#EAECF0] dark:border-[#1E293B]">
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => onViewChange?.('overview')}
           className="flex items-center gap-2.5 cursor-pointer text-left"
         >
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#2E7D32] to-[#10B981] flex items-center justify-center text-white font-black text-sm shadow-sm">
+          <div className="w-8 h-8 rounded-lg bg-[#0F172A] text-white dark:bg-white dark:text-[#030712] flex items-center justify-center font-black text-sm shadow-sm">
             <Sprout className="w-4 h-4" />
           </div>
           <div>
-            <span className="text-base font-extrabold text-[#101828] dark:text-[#F8FAFC] tracking-tight font-sans">
-              Sawit<span className="text-[#2E7D32] dark:text-[#34D399]">Go</span>
+            <span className="text-base font-extrabold text-[#0F172A] dark:text-white tracking-tight font-sans">
+              Sawit<span className="text-[#0F172A] dark:text-white font-black">Go</span>
             </span>
           </div>
         </motion.button>
@@ -115,9 +115,9 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
 
       {/* Role Weight Badge Card */}
       <div className="px-4 pt-3">
-        <div className="p-2.5 rounded-xl bg-[#F8F9FB] dark:bg-[#1E293B] border border-[#EAECF0] dark:border-[#334155] flex items-center justify-between">
+        <div className="p-2.5 rounded-xl bg-[#F8F9FB] dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
           <div className="flex items-center gap-2 min-w-0">
-            <Scale className="w-4 h-4 text-[#2E7D32] dark:text-[#34D399] shrink-0" />
+            <Scale className="w-4 h-4 text-[#0F172A] dark:text-white shrink-0" />
             <div className="min-w-0">
               <p className="text-[10px] text-[#667085] dark:text-[#94A3B8] font-medium leading-none">Otoritas RBAC</p>
               <p className="text-xs font-bold text-[#101828] dark:text-[#F8FAFC] truncate mt-0.5">
@@ -125,7 +125,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
               </p>
             </div>
           </div>
-          <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[#E8F5E9] dark:bg-[#064E3B]/50 text-[#2E7D32] dark:text-[#34D399] border border-[#A7F3D0]/60 dark:border-[#059669]/40">
+          <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[#0F172A] text-white dark:bg-white dark:text-[#030712] border border-[#0F172A] dark:border-white">
             {userWeight}×10¹²
           </span>
         </div>
@@ -137,7 +137,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.98 }}
           onClick={onSearchClick}
-          className="w-full relative flex items-center bg-[#F8F9FB] dark:bg-[#1E293B] hover:bg-[#F2F4F7] dark:hover:bg-[#334155] border border-[#EAECF0] dark:border-[#334155] rounded-xl pl-9 pr-10 py-2 text-xs text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] text-left transition-all cursor-pointer"
+          className="w-full relative flex items-center bg-[#F8F9FB] dark:bg-[#0A0F1D] hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B] border border-[#EAECF0] dark:border-[#1E293B] rounded-xl pl-9 pr-10 py-2 text-xs text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] text-left transition-all cursor-pointer"
         >
           <Search className="w-4 h-4 text-[#98A2B3] dark:text-[#64748B] absolute left-3 pointer-events-none" />
           <span>Cari data &amp; modul...</span>
@@ -357,7 +357,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
       </div>
 
       {/* Bottom User Card */}
-      <div className="p-3 border-t border-[#EAECF0] dark:border-[#1F2937] bg-white dark:bg-[#111827]">
+      <div className="p-3 border-t border-[#EAECF0] dark:border-[#1F2937] bg-white dark:bg-[#050811]">
         <motion.button
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.98 }}

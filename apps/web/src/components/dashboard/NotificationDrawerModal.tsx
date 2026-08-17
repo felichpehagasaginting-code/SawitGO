@@ -59,11 +59,11 @@ export function NotificationDrawerModal({
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-end bg-black/60 backdrop-blur-xs font-sans">
       <div 
-        className="w-full max-w-md bg-white dark:bg-[#151D2C] h-full shadow-2xl border-l border-[#EAECF0] dark:border-[#1E293B] flex flex-col animate-in slide-in-from-right duration-200 transition-colors"
+        className="w-full max-w-md bg-white dark:bg-[#0A0F1D] h-full shadow-2xl border-l border-[#EAECF0] dark:border-[#1E293B] flex flex-col animate-in slide-in-from-right duration-200 transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
-        <div className="p-5 border-b border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between bg-white dark:bg-[#151D2C]">
+        <div className="p-5 border-b border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between bg-white dark:bg-[#0A0F1D]">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-[#FEF3F2] dark:bg-[#7F1D1D]/30 text-[#D92D20] dark:text-[#F87171] flex items-center justify-center font-bold relative">
               <Bell className="w-5 h-5" />
@@ -87,7 +87,7 @@ export function NotificationDrawerModal({
         </div>
 
         {/* Tab Filters */}
-        <div className="flex items-center gap-2 px-5 py-3 border-b border-[#EAECF0] dark:border-[#1E293B] bg-[#F8F9FB] dark:bg-[#111827]">
+        <div className="flex items-center gap-2 px-5 py-3 border-b border-[#EAECF0] dark:border-[#1E293B] bg-[#F8F9FB] dark:bg-[#050811]">
           <button
             onClick={() => setActiveTab('all')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
@@ -138,7 +138,7 @@ export function NotificationDrawerModal({
                     <div>
                       <div className="text-xs font-bold text-[#B42318] dark:text-[#F87171] flex items-center gap-1.5">
                         <span>{item.tphNumber} ({item.blockCode})</span>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-white dark:bg-[#111827] text-[#B42318] dark:text-[#F87171] border border-[#FECDCA] dark:border-[#DC2626]/40">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-white dark:bg-[#050811] text-[#B42318] dark:text-[#F87171] border border-[#FECDCA] dark:border-[#DC2626]/40">
                           {item.elapsedHours} Jam
                         </span>
                       </div>
@@ -203,7 +203,7 @@ export function NotificationDrawerModal({
         </div>
 
         {/* Drawer Footer */}
-        <div className="p-4 border-t border-[#EAECF0] dark:border-[#1E293B] bg-[#F8F9FB] dark:bg-[#111827] flex items-center justify-between">
+        <div className="p-4 border-t border-[#EAECF0] dark:border-[#1E293B] bg-[#F8F9FB] dark:bg-[#050811] flex items-center justify-between">
           <button
             onClick={() => {
               if (onNavigateToView) {

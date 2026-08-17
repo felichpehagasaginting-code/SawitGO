@@ -161,7 +161,7 @@ export function CommandPaletteModal({ isOpen, onClose, onSelectView }: CommandPa
         aria-hidden="true"
       />
 
-      <div className="relative w-full max-w-xl bg-white dark:bg-[#151D2C] rounded-2xl shadow-2xl border border-[#EAECF0] dark:border-[#1E293B] overflow-hidden z-10">
+      <div className="relative w-full max-w-xl bg-white dark:bg-[#0A0F1D] rounded-2xl shadow-2xl border border-[#EAECF0] dark:border-[#1E293B] overflow-hidden z-10">
         {/* Search Header */}
         <div className="flex items-center px-4 border-b border-[#EAECF0] dark:border-[#1E293B]">
           <Search className="w-5 h-5 text-[#98A2B3] dark:text-[#64748B] shrink-0" />
@@ -222,7 +222,7 @@ export function CommandPaletteModal({ isOpen, onClose, onSelectView }: CommandPa
         </div>
 
         {/* Footer Shortcut Guide */}
-        <div className="px-4 py-2.5 bg-[#F8F9FB] dark:bg-[#111827] border-t border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between text-[11px] text-[#667085] dark:text-[#94A3B8]">
+        <div className="px-4 py-2.5 bg-[#F8F9FB] dark:bg-[#050811] border-t border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between text-[11px] text-[#667085] dark:text-[#94A3B8]">
           <span>Gunakan panah untuk navigasi &amp; tekan Enter untuk memilih</span>
           <span className="font-mono text-[10px] bg-white dark:bg-[#1E293B] border border-[#EAECF0] dark:border-[#334155] px-1.5 py-0.5 rounded">
             ESC untuk menutup

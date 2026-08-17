@@ -46,7 +46,7 @@ export function VolumeTrendChart() {
   const activeItem = days.find((d) => d.date === activeDate) ?? null;
 
   return (
-    <div className="bg-white dark:bg-[#151D2C] rounded-2xl p-6 border border-[#EAECF0] dark:border-[#1E293B] shadow-xs flex flex-col justify-between h-full font-sans transition-colors">
+    <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl p-6 border border-[#EAECF0] dark:border-[#1E293B] shadow-xs flex flex-col justify-between h-full font-sans transition-colors">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">

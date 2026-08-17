@@ -71,7 +71,7 @@ export function RestanMonitoringPage() {
   return (
     <div className="space-y-5 font-sans">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] shadow-xs">
         <div className="flex items-center gap-3.5">
           <div className="w-12 h-12 rounded-xl bg-[#FEF3F2] dark:bg-[#7F1D1D]/40 text-[#D92D20] dark:text-[#F87171] flex items-center justify-center font-bold shadow-xs">
             <Flame className="w-6 h-6" />
@@ -116,7 +116,7 @@ export function RestanMonitoringPage() {
 
       {/* Summary KPI Cards for Restan */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
           <div>
             <span className="text-xs font-medium text-[#667085] dark:text-[#94A3B8]">Restan Kritis (&gt;24 Jam)</span>
             <p className="text-xl font-extrabold text-[#D92D20] dark:text-[#F87171] mt-0.5">
@@ -128,7 +128,7 @@ export function RestanMonitoringPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
           <div>
             <span className="text-xs font-medium text-[#667085] dark:text-[#94A3B8]">Restan Waspada (12-24 Jam)</span>
             <p className="text-xl font-extrabold text-[#F79009] dark:text-[#FBBF24] mt-0.5">
@@ -140,7 +140,7 @@ export function RestanMonitoringPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
           <div>
             <span className="text-xs font-medium text-[#667085] dark:text-[#94A3B8]">Total Janjang Berisiko Restan</span>
             <p className="text-xl font-extrabold text-[#101828] dark:text-[#F8FAFC] mt-0.5">
@@ -170,7 +170,7 @@ export function RestanMonitoringPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="p-4 bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="relative w-full md:w-80">
           <Search className="w-4 h-4 text-[#98A2B3] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -200,7 +200,7 @@ export function RestanMonitoringPage() {
       </div>
 
       {/* Restan Data Table */}
-      <div className="bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] overflow-hidden shadow-xs">
+      <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-[#F8F9FB] dark:bg-[#1E293B] border-b border-[#EAECF0] dark:border-[#334155] text-[#667085] dark:text-[#94A3B8] font-bold">

@@ -62,9 +62,315 @@ class _HarvestInputPageState extends State<HarvestInputPage> {
   void _adjustJanjang(int delta) {
     HapticFeedback.lightImpact();
     setState(() {
-      _janjangCount = (_janjangCount + delta).clamp(0, 9999);
+      _janjangCount = (_janjangCount + delta).clamp(0, 99999);
       _masakCount = (_janjangCount - _mentahCount - _lewatMasakCount).clamp(0, _janjangCount);
     });
+  }
+
+  void _showCustomNumericKeypad() {
+    HapticFeedback.mediumImpact();
+    String tempValue = _janjangCount.toString();
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => StatefulBuilder(
+        builder: (context, setModalState) {
+          void appendDigit(String digit) {
+            HapticFeedback.lightImpact();
+            setModalState(() {
+              if (tempValue == '0') {
+                tempValue = digit;
+              } else if (tempValue.length < 6) {
+                tempValue += digit;
+              }
+            });
+          }
+
+          void backspace() {
+            HapticFeedback.lightImpact();
+            setModalState(() {
+              if (tempValue.length > 1) {
+                tempValue = tempValue.substring(0, tempValue.length - 1);
+              } else {
+                tempValue = '0';
+              }
+            });
+          }
+
+          void clear() {
+            HapticFeedback.mediumImpact();
+            setModalState(() => tempValue = '0');
+          }
+
+          void addQuick(int delta) {
+            HapticFeedback.lightImpact();
+            setModalState(() {
+              final val = (int.tryParse(tempValue) ?? 0) + delta;
+              tempValue = val.clamp(0, 99999).toString();
+            });
+          }
+
+          final currentVal = int.tryParse(tempValue) ?? 0;
+          final estKg = (currentVal * 18.5) + _brondolanWeightKg;
+
+          return Container(
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Modal Handle
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE2E8F0),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+
+                // Header
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Input Manual Jumlah Janjang',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close_rounded, size: 20, color: AppColors.textSecondary),
+                      onPressed: () => Navigator.pop(ctx),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+
+                // Display Screen
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF8FAFC),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: const Color(0xFFE2E8F0)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tempValue,
+                            style: const TextStyle(
+                              fontFamily: 'JetBrains Mono',
+                              fontSize: 36,
+                              fontWeight: FontWeight.w900,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          Text(
+                            '≈ ${(estKg / 1000).toStringAsFixed(2)} Ton TBS',
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.primaryPalm,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Text(
+                        'Janjang',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                // Quick Increment Chips
+                Row(
+                  children: [
+                    Expanded(child: _buildQuickChip('+10', () => addQuick(10))),
+                    const SizedBox(width: 6),
+                    Expanded(child: _buildQuickChip('+50', () => addQuick(50))),
+                    const SizedBox(width: 6),
+                    Expanded(child: _buildQuickChip('+100', () => addQuick(100))),
+                    const SizedBox(width: 6),
+                    Expanded(child: _buildQuickChip('+250', () => addQuick(250))),
+                  ],
+                ),
+                const SizedBox(height: 14),
+
+                // Custom In-App Numeric Keypad Grid
+                _buildKeypadRow(['1', '2', '3'], appendDigit),
+                const SizedBox(height: 8),
+                _buildKeypadRow(['4', '5', '6'], appendDigit),
+                const SizedBox(height: 8),
+                _buildKeypadRow(['7', '8', '9'], appendDigit),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildKeypadButton(
+                        label: 'C',
+                        isAction: true,
+                        color: const Color(0xFFEF4444),
+                        onTap: clear,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: _buildKeypadButton(
+                        label: '0',
+                        onTap: () => appendDigit('0'),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: _buildKeypadButton(
+                        icon: Icons.backspace_outlined,
+                        isAction: true,
+                        color: const Color(0xFF64748B),
+                        onTap: backspace,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+
+                // Submit / Confirm Button
+                SizedBox(
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      HapticFeedback.heavyImpact();
+                      final parsed = int.tryParse(tempValue) ?? 0;
+                      setState(() {
+                        _janjangCount = parsed;
+                        _masakCount = (_janjangCount - _mentahCount - _lewatMasakCount).clamp(0, _janjangCount);
+                      });
+                      Navigator.pop(ctx);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryPalm,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                    ),
+                    child: const Text(
+                      'Terapkan Jumlah Janjang',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  static Widget _buildQuickChip(String label, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF1F5F9),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: const Color(0xFFE2E8F0)),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          label,
+          style: const TextStyle(
+            fontFamily: 'JetBrains Mono',
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF334155),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Widget _buildKeypadRow(List<String> digits, Function(String) onAppend) {
+    return Row(
+      children: digits.map((digit) {
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: _buildKeypadButton(
+              label: digit,
+              onTap: () => onAppend(digit),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  static Widget _buildKeypadButton({
+    String? label,
+    IconData? icon,
+    bool isAction = false,
+    Color? color,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          color: isAction ? const Color(0xFFF1F5F9) : const Color(0xFFFAFAFA),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFFE2E8F0)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.02),
+              blurRadius: 2,
+              offset: const Offset(0, 1),
+            ),
+          ],
+        ),
+        alignment: Alignment.center,
+        child: icon != null
+            ? Icon(icon, size: 20, color: color ?? const Color(0xFF0F172A))
+            : Text(
+                label ?? '',
+                style: TextStyle(
+                  fontFamily: 'JetBrains Mono',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: color ?? const Color(0xFF0F172A),
+                ),
+              ),
+      ),
+    );
   }
 
   Future<void> _scanQrCode() async {
@@ -252,44 +558,82 @@ class _HarvestInputPageState extends State<HarvestInputPage> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Giant Janjang Number Counter
-                  Center(
-                    child: Column(
-                      children: [
-                        const Text(
-                          'TOTAL JANJANG PANEN',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: AppColors.textSecondary,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.8,
+                  // Giant Janjang Number Counter (Tap to open Custom In-App Keypad)
+                  GestureDetector(
+                    onTap: _showCustomNumericKeypad,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF8FAFC),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: const Color(0xFFE2E8F0)),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'TOTAL JANJANG PANEN',
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  color: AppColors.textSecondary,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.8,
+                                ),
+                              ),
+                              const SizedBox(width: 6),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: AppColors.palmLight,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: const Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.keyboard_rounded, size: 12, color: AppColors.primaryPalm),
+                                    SizedBox(width: 3),
+                                    Text(
+                                      'Ubah Manual',
+                                      style: TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.primaryPalm,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          '$_janjangCount',
-                          style: const TextStyle(
-                            fontFamily: 'JetBrains Mono',
-                            color: AppColors.textPrimary,
-                            fontSize: 64,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: -2,
+                          const SizedBox(height: 4),
+                          Text(
+                            '$_janjangCount',
+                            style: const TextStyle(
+                              fontFamily: 'JetBrains Mono',
+                              color: AppColors.textPrimary,
+                              fontSize: 64,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: -2,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Est: ${(estimatedWeightKg / 1000).toStringAsFixed(2)} Ton • BJR 18.5 Kg',
-                          style: const TextStyle(
-                            fontFamily: 'Inter',
-                            color: AppColors.primaryPalm,
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
+                          Text(
+                            'Est: ${(estimatedWeightKg / 1000).toStringAsFixed(2)} Ton • BJR 18.5 Kg',
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              color: AppColors.primaryPalm,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 16),
 
                   // Stepper Adjusters
                   Row(

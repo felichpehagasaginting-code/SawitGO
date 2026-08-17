@@ -102,7 +102,7 @@ export function TopNavbar({
   const pageTitle = VIEW_TITLES[currentView] ?? 'Halaman Utama Dashboard';
 
   return (
-    <header className="h-16 bg-white dark:bg-[#111827] border-b border-[#EAECF0] dark:border-[#1F2937] flex items-center justify-between px-6 shrink-0 z-20 font-sans transition-colors">
+    <header className="h-16 bg-white dark:bg-[#050811] border-b border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between px-6 shrink-0 z-20 font-sans transition-colors">
       {/* Left: Breadcrumbs */}
       <div className="flex items-center gap-2 text-xs text-[#667085] dark:text-[#94A3B8]">
         <div className="flex items-center gap-1.5 font-medium text-[#344054] dark:text-[#E2E8F0]">
@@ -110,7 +110,7 @@ export function TopNavbar({
           <span>Beranda</span>
         </div>
         <ChevronRight className="w-3 h-3 text-[#D0D5DD] dark:text-[#475467]" />
-        <span className="font-semibold text-[#101828] dark:text-[#F8FAFC] capitalize">{pageTitle}</span>
+        <span className="font-semibold text-[#0F172A] dark:text-white capitalize">{pageTitle}</span>
       </div>
 
       {/* Right: Actions */}
@@ -121,11 +121,11 @@ export function TopNavbar({
           whileTap={{ scale: 0.98 }}
           onClick={onSearchClick}
           aria-label="Cari data"
-          className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#EAECF0] dark:border-[#1F2937] bg-[#F8F9FB] dark:bg-[#1E293B] hover:bg-[#F2F4F7] dark:hover:bg-[#334155] text-xs text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] transition-colors cursor-pointer"
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#EAECF0] dark:border-[#1E293B] bg-[#F8F9FB] dark:bg-[#0A0F1D] hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B] text-xs text-[#667085] dark:text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white transition-colors cursor-pointer"
         >
           <Search className="w-3.5 h-3.5" />
           <span>Cari cepat...</span>
-          <span className="text-[10px] font-mono text-[#98A2B3] dark:text-[#64748B] bg-white dark:bg-[#0F172A] border border-[#EAECF0] dark:border-[#334155] px-1 rounded shadow-xs">
+          <span className="text-[10px] font-mono text-[#98A2B3] dark:text-[#64748B] bg-white dark:bg-[#050811] border border-[#EAECF0] dark:border-[#1E293B] px-1 rounded shadow-xs">
             ⌘K
           </span>
         </motion.button>
@@ -136,7 +136,7 @@ export function TopNavbar({
           whileTap={{ scale: 0.9 }}
           onClick={toggleTheme}
           aria-label="Ganti Tema Terang/Gelap"
-          className="w-8 h-8 rounded-lg hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B] text-[#667085] dark:text-[#FDE047] hover:text-[#101828] flex items-center justify-center transition-colors cursor-pointer"
+          className="w-8 h-8 rounded-lg hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B] text-[#667085] dark:text-[#FDE047] hover:text-[#0F172A] flex items-center justify-center transition-colors cursor-pointer"
           title={resolvedTheme === 'dark' ? 'Beralih ke Mode Terang' : 'Beralih ke Mode Gelap'}
         >
           {resolvedTheme === 'dark' ? (
@@ -265,7 +265,7 @@ export function TopNavbar({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={onSettingsClick}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#F2F4F7] dark:bg-[#1E293B] text-[#344054] dark:text-[#E2E8F0] text-[11px] font-bold border border-[#EAECF0] dark:border-[#334155] hover:bg-[#EAECF0] dark:hover:bg-[#334155] transition-colors cursor-pointer"
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0F172A] text-white dark:bg-white dark:text-[#030712] text-[11px] font-bold border border-[#0F172A] dark:border-white shadow-2xs transition-colors cursor-pointer"
           title="Klik untuk melihat detail hak akses"
         >
           <span className="w-2 h-2 rounded-full bg-[#10B981]"></span>

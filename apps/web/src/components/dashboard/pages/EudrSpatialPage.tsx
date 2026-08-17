@@ -42,7 +42,7 @@ export function EudrSpatialPage() {
   return (
     <div className="space-y-5 font-sans">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] shadow-xs">
         <div className="flex items-center gap-3.5">
           <div className="w-12 h-12 rounded-xl bg-[#E8F5E9] dark:bg-[#064E3B]/40 text-[#2E7D32] dark:text-[#34D399] flex items-center justify-center font-bold shadow-xs">
             <Globe2 className="w-6 h-6" />
@@ -83,7 +83,7 @@ export function EudrSpatialPage() {
 
       {/* Spasial Info Strip */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
           <div>
             <span className="text-xs font-medium text-[#667085] dark:text-[#94A3B8]">Sistem Koordinat Acuan</span>
             <p className="text-base font-extrabold text-[#101828] dark:text-[#F8FAFC] mt-0.5">
@@ -95,7 +95,7 @@ export function EudrSpatialPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
           <div>
             <span className="text-xs font-medium text-[#667085] dark:text-[#94A3B8]">Batas Deforestasi (EUDR Cut-off)</span>
             <p className="text-base font-extrabold text-[#2E7D32] dark:text-[#34D399] mt-0.5">
@@ -107,7 +107,7 @@ export function EudrSpatialPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
           <div>
             <span className="text-xs font-medium text-[#667085] dark:text-[#94A3B8]">Toleransi Deviasi Kanopi</span>
             <p className="text-base font-extrabold text-[#101828] dark:text-[#F8FAFC] mt-0.5">

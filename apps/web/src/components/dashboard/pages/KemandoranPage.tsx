@@ -154,7 +154,7 @@ export function KemandoranPage() {
   return (
     <div className="space-y-5 font-sans">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] shadow-xs">
         <div className="flex items-center gap-3.5">
           <div className="w-12 h-12 rounded-xl bg-[#EFF8FF] dark:bg-[#1E3A8A]/40 text-[#175CD3] dark:text-[#60A5FA] flex items-center justify-center font-bold shadow-xs">
             <Users className="w-6 h-6" />
@@ -179,7 +179,7 @@ export function KemandoranPage() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
           <div>
             <span className="text-xs font-medium text-[#667085] dark:text-[#94A3B8]">Total Tenaga Pemanen Aktif</span>
             <p className="text-xl font-extrabold text-[#101828] dark:text-[#F8FAFC] mt-0.5">
@@ -191,7 +191,7 @@ export function KemandoranPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
           <div>
             <span className="text-xs font-medium text-[#667085] dark:text-[#94A3B8]">Total Hasil Panen Kemandoran</span>
             <p className="text-xl font-extrabold text-[#2E7D32] dark:text-[#34D399] mt-0.5">
@@ -203,7 +203,7 @@ export function KemandoranPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-[#151D2C] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-white dark:bg-[#0A0F1D] border border-[#EAECF0] dark:border-[#1E293B] flex items-center justify-between">
           <div>
             <span className="text-xs font-medium text-[#667085] dark:text-[#94A3B8]">Rata-rata Kepatuhan Mutu Matang</span>
             <p className="text-xl font-extrabold text-[#101828] dark:text-[#F8FAFC] mt-0.5">
@@ -217,7 +217,7 @@ export function KemandoranPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="p-4 bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="relative w-full md:w-80">
           <Search className="w-4 h-4 text-[#98A2B3] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -261,7 +261,7 @@ export function KemandoranPage() {
       </div>
 
       {/* Regu Kemandoran Table */}
-      <div className="bg-white dark:bg-[#151D2C] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] overflow-hidden shadow-xs">
+      <div className="bg-white dark:bg-[#0A0F1D] rounded-2xl border border-[#EAECF0] dark:border-[#1E293B] overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-[#F8F9FB] dark:bg-[#1E293B] border-b border-[#EAECF0] dark:border-[#334155] text-[#667085] dark:text-[#94A3B8] font-bold">
