@@ -253,9 +253,8 @@ export function TopNavbar({
             title="Tarik dan Segarkan Data Backend"
           >
             <RotateCw
-              className={`w-3.5 h-3.5 transition-transform ${
-                connectionStatus === 'checking' ? 'animate-spin text-[#F59E0B]' : ''
-              }`}
+              className={`w-3.5 h-3.5 transition-transform ${connectionStatus === 'checking' ? 'animate-spin text-[#F59E0B]' : ''
+                }`}
             />
           </motion.button>
         </div>

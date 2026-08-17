@@ -123,9 +123,8 @@ export function KpiSparklineCard({
           {/* Micro Trend Badge */}
           <div className="flex items-center gap-1.5 mt-2">
             <span
-              className={`inline-flex items-center text-xs font-bold ${
-                isPositive ? 'text-[#10B981]' : 'text-[#EF4444]'
-              }`}
+              className={`inline-flex items-center text-xs font-bold ${isPositive ? 'text-[#10B981]' : 'text-[#EF4444]'
+                }`}
             >
               {isPositive ? (
                 <ArrowUpRight className="w-3.5 h-3.5" />

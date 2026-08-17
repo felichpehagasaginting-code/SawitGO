@@ -59,11 +59,10 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
     if (isLocked) {
       return 'w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-[#98A2B3] dark:text-[#475467] hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B]/50 transition-all cursor-not-allowed opacity-75';
     }
-    return `w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-      currentView === viewKey
+    return `w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${currentView === viewKey
         ? 'bg-[#0F172A] text-white border border-[#0F172A] dark:bg-white dark:text-[#030712] dark:border-white shadow-xs font-bold'
         : 'text-[#475467] dark:text-[#94A3B8] hover:bg-[#F1F5F9] dark:hover:bg-[#111827] hover:text-[#0F172A] dark:hover:text-white'
-    }`;
+      }`;
   };
 
   const subNavClass = (viewKey: string, isDanger = false, minWeight = 1) => {
@@ -71,15 +70,14 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
     if (isLocked) {
       return 'w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium text-[#98A2B3] dark:text-[#475467] hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B]/50 transition-all cursor-not-allowed opacity-75';
     }
-    return `w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium transition-all text-left cursor-pointer ${
-      currentView === viewKey
-        ? isDanger 
-          ? 'bg-[#FEF3F2] dark:bg-[#7F1D1D]/40 text-[#B42318] dark:text-[#F87171] font-bold' 
+    return `w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-xs font-medium transition-all text-left cursor-pointer ${currentView === viewKey
+        ? isDanger
+          ? 'bg-[#FEF3F2] dark:bg-[#7F1D1D]/40 text-[#B42318] dark:text-[#F87171] font-bold'
           : 'bg-[#0F172A] text-white border border-[#0F172A] dark:bg-white dark:text-[#030712] dark:border-white font-bold'
-        : isDanger 
-          ? 'text-[#D92D20] dark:text-[#F87171] hover:bg-[#FEF3F2] dark:hover:bg-[#7F1D1D]/30' 
+        : isDanger
+          ? 'text-[#D92D20] dark:text-[#F87171] hover:bg-[#FEF3F2] dark:hover:bg-[#7F1D1D]/30'
           : 'text-[#475467] dark:text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white hover:bg-[#F1F5F9] dark:hover:bg-[#111827]'
-    }`;
+      }`;
   };
 
   return (
@@ -102,7 +100,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           </div>
         </motion.button>
 
-        <motion.button 
+        <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           aria-label="Tutup menu samping"

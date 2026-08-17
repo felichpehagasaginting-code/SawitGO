@@ -153,11 +153,10 @@ export function MonitoringTable() {
                         setFilterPriority(option);
                         setIsFilterOpen(false);
                       }}
-                      className={`w-full text-left px-3.5 py-2 text-xs font-medium hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer ${
-                        filterPriority === option
+                      className={`w-full text-left px-3.5 py-2 text-xs font-medium hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer ${filterPriority === option
                           ? 'text-[#2E7D32] dark:text-[#34D399] font-bold bg-[#E8F5E9]/60 dark:bg-[#064E3B]/40'
                           : 'text-[#344054] dark:text-[#E2E8F0]'
-                      }`}
+                        }`}
                     >
                       {option === 'all' ? 'Semua Prioritas' : option}
                     </button>
@@ -228,9 +227,8 @@ export function MonitoringTable() {
                 return (
                   <tr
                     key={row.id}
-                    className={`hover:bg-[#F9FAFB] dark:hover:bg-[#1E293B]/60 transition-colors ${
-                      isSelected ? 'bg-[#E8F5E9]/30 dark:bg-[#064E3B]/20' : ''
-                    }`}
+                    className={`hover:bg-[#F9FAFB] dark:hover:bg-[#1E293B]/60 transition-colors ${isSelected ? 'bg-[#E8F5E9]/30 dark:bg-[#064E3B]/20' : ''
+                      }`}
                   >
                     <td className="py-3.5 px-4 text-center">
                       <input

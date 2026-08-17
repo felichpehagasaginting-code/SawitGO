@@ -25,28 +25,28 @@ interface ActivityStyle {
 function getActionStyle(action: string): ActivityStyle {
   switch (action) {
     case 'REJECT_STALE':
-      return { 
-        icon: AlertTriangle, 
-        iconBg: 'bg-[#FEF3F2] dark:bg-[#7F1D1D]/30', 
-        iconColor: 'text-[#B42318] dark:text-[#F87171]' 
+      return {
+        icon: AlertTriangle,
+        iconBg: 'bg-[#FEF3F2] dark:bg-[#7F1D1D]/30',
+        iconColor: 'text-[#B42318] dark:text-[#F87171]'
       };
     case 'UPDATE_OVERWRITE':
-      return { 
-        icon: Star, 
-        iconBg: 'bg-[#FEF6EE] dark:bg-[#7C2D12]/30', 
-        iconColor: 'text-[#B93815] dark:text-[#FB923C]' 
+      return {
+        icon: Star,
+        iconBg: 'bg-[#FEF6EE] dark:bg-[#7C2D12]/30',
+        iconColor: 'text-[#B93815] dark:text-[#FB923C]'
       };
     case 'INSERT':
-      return { 
-        icon: FileEdit, 
-        iconBg: 'bg-[#EFF8FF] dark:bg-[#1E3A8A]/30', 
-        iconColor: 'text-[#175CD3] dark:text-[#60A5FA]' 
+      return {
+        icon: FileEdit,
+        iconBg: 'bg-[#EFF8FF] dark:bg-[#1E3A8A]/30',
+        iconColor: 'text-[#175CD3] dark:text-[#60A5FA]'
       };
     default:
-      return { 
-        icon: CheckCircle2, 
-        iconBg: 'bg-[#ECFDF3] dark:bg-[#064E3B]/30', 
-        iconColor: 'text-[#027A48] dark:text-[#34D399]' 
+      return {
+        icon: CheckCircle2,
+        iconBg: 'bg-[#ECFDF3] dark:bg-[#064E3B]/30',
+        iconColor: 'text-[#027A48] dark:text-[#34D399]'
       };
   }
 }
@@ -129,11 +129,10 @@ export function ActivityFeedStream() {
               <button
                 key={tab.id}
                 onClick={() => setFilter(tab.id)}
-                className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all cursor-pointer ${
-                  filter === tab.id
+                className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all cursor-pointer ${filter === tab.id
                     ? 'bg-white dark:bg-[#0F172A] text-[#101828] dark:text-[#F8FAFC] shadow-xs'
                     : 'text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC]'
-                }`}
+                  }`}
               >
                 {tab.label}
               </button>

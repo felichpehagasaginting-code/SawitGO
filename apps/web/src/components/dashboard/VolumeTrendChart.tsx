@@ -80,11 +80,10 @@ export function VolumeTrendChart() {
                       setActiveDate(null);
                       setIsRangeOpen(false);
                     }}
-                    className={`w-full text-left px-3.5 py-2 text-xs font-medium hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer ${
-                      range === option
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer ${range === option
                         ? 'text-[#2E7D32] dark:text-[#34D399] font-bold bg-[#E8F5E9]/60 dark:bg-[#064E3B]/40'
                         : 'text-[#344054] dark:text-[#E2E8F0]'
-                    }`}
+                      }`}
                   >
                     {option} hari terakhir
                   </button>
@@ -104,11 +103,10 @@ export function VolumeTrendChart() {
           ≈ {isPending ? '—' : `${formatDecimal(totalTonase)} Ton`}
         </span>
         <span
-          className={`inline-flex items-center gap-0.5 text-xs font-bold px-2 py-0.5 rounded-full border ${
-            trendMetrics.isPositive
+          className={`inline-flex items-center gap-0.5 text-xs font-bold px-2 py-0.5 rounded-full border ${trendMetrics.isPositive
               ? 'text-[#10B981] bg-[#ECFDF5] dark:bg-[#064E3B]/40 border-[#A7F3D0] dark:border-[#059669]/40'
               : 'text-[#EF4444] bg-[#FEF2F2] dark:bg-[#7F1D1D]/40 border-[#FECACA] dark:border-[#DC2626]/40'
-          }`}
+            }`}
         >
           {trendMetrics.isPositive ? (
             <ArrowUpRight className="w-3 h-3" />
@@ -143,11 +141,10 @@ export function VolumeTrendChart() {
               >
                 {/* Tooltip on Hover / Click */}
                 <div
-                  className={`absolute -top-12 z-20 px-2.5 py-1 rounded-lg bg-[#101828] text-white text-[10px] font-semibold whitespace-nowrap pointer-events-none transition-all shadow-md ${
-                    isSelected
+                  className={`absolute -top-12 z-20 px-2.5 py-1 rounded-lg bg-[#101828] text-white text-[10px] font-semibold whitespace-nowrap pointer-events-none transition-all shadow-md ${isSelected
                       ? 'opacity-100 scale-100'
                       : 'opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100'
-                  }`}
+                    }`}
                 >
                   <div className="font-bold">{formatNumber(item.totalJanjang)} Jjg ({formatDecimal(item.tonaseTon)} Ton)</div>
                   <div className="text-[9px] text-[#98A2B3] font-normal">{fullDateLabel(item.date)}</div>
@@ -157,11 +154,10 @@ export function VolumeTrendChart() {
                 <div className="w-full max-w-[32px] bg-[#F8F9FB] dark:bg-[#1E293B] rounded-t-lg overflow-hidden h-36 flex items-end">
                   <div
                     style={{ height: `${heightPercent}%` }}
-                    className={`w-full rounded-t-lg transition-all duration-300 ${
-                      isSelected
+                    className={`w-full rounded-t-lg transition-all duration-300 ${isSelected
                         ? 'bg-[#15803D] dark:bg-[#34D399] shadow-sm'
                         : 'bg-gradient-to-t from-[#2E7D32] to-[#10B981] group-hover:from-[#1B5E20] group-hover:to-[#059669]'
-                    }`}
+                      }`}
                   />
                 </div>
 
