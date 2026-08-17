@@ -10,7 +10,6 @@ import {
   Users,
   Truck,
   MapPin,
-  Share2,
   ShieldAlert,
   BarChart3,
   FileText,
@@ -22,7 +21,6 @@ import {
   LogOut,
   Lock,
   ShieldCheck,
-  Zap,
   Scale
 } from 'lucide-react';
 import { useAuth } from '@/lib/auth/auth-context';
@@ -107,7 +105,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
         <motion.button 
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          aria-label="Collapse sidebar"
+          aria-label="Tutup menu samping"
           onClick={() => onViewChange?.('overview')}
           className="w-7 h-7 rounded-md hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B] text-[#98A2B3] dark:text-[#64748B] hover:text-[#344054] dark:hover:text-[#E2E8F0] flex items-center justify-center transition-colors cursor-pointer"
         >
@@ -142,7 +140,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           className="w-full relative flex items-center bg-[#F8F9FB] dark:bg-[#1E293B] hover:bg-[#F2F4F7] dark:hover:bg-[#334155] border border-[#EAECF0] dark:border-[#334155] rounded-xl pl-9 pr-10 py-2 text-xs text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] text-left transition-all cursor-pointer"
         >
           <Search className="w-4 h-4 text-[#98A2B3] dark:text-[#64748B] absolute left-3 pointer-events-none" />
-          <span>Search anything</span>
+          <span>Cari data &amp; modul...</span>
           <span className="absolute right-2.5 text-[10px] font-semibold text-[#98A2B3] dark:text-[#64748B] bg-white dark:bg-[#0F172A] border border-[#EAECF0] dark:border-[#334155] px-1.5 py-0.5 rounded font-mono shadow-xs">
             ⌘ K
           </span>
@@ -154,7 +152,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
         {/* Group 1: MAIN NAVIGATION */}
         <div className="space-y-1">
           <div className="px-3 pb-1.5 text-[10px] font-bold uppercase tracking-wider text-[#98A2B3] dark:text-[#64748B]">
-            Main Navigation
+            Navigasi Utama
           </div>
 
           {/* Dashboard Page */}
@@ -166,7 +164,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           >
             <div className="flex items-center gap-3">
               <LayoutDashboard className="w-4 h-4" />
-              <span>Dashboard Page</span>
+              <span>Halaman Utama Dashboard</span>
             </div>
           </motion.button>
 
@@ -197,17 +195,17 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
                   onClick={() => handleItemClick('tph-queue', 1, 'Antrean TPH')}
                   className={subNavClass('tph-queue', false, 1)}
                 >
-                  <span>All / TPH Queue</span>
+                  <span>Semua Antrean TPH</span>
                 </motion.button>
 
                 <motion.button
                   whileHover={{ x: 2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => handleItemClick('restan-risk', 3, 'Restan Risk (W3+)')}
+                  onClick={() => handleItemClick('restan-risk', 3, 'Risiko Restan (W3+)')}
                   className={subNavClass('restan-risk', true, 3)}
                 >
                   <div className="flex items-center gap-1.5">
-                    <span>Restan Risk &gt;24h</span>
+                    <span>Risiko Restan &gt;24 Jam</span>
                     {userWeight < 3 && <Lock className="w-3 h-3 text-[#98A2B3]" />}
                   </div>
                   {userWeight >= 3 && <span className="w-2 h-2 rounded-full bg-[#D92D20] animate-pulse"></span>}
@@ -216,11 +214,11 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
                 <motion.button
                   whileHover={{ x: 2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => handleItemClick('conflict', 3, 'Escalations & Conflict (W3+)')}
+                  onClick={() => handleItemClick('conflict', 3, 'Resolusi Konflik (W3+)')}
                   className={subNavClass('conflict', false, 3)}
                 >
                   <div className="flex items-center gap-1.5">
-                    <span>Escalations &amp; Conflict</span>
+                    <span>Eskalasi &amp; Resolusi Konflik</span>
                     {userWeight < 3 && <Lock className="w-3 h-3 text-[#98A2B3]" />}
                   </div>
                 </motion.button>
@@ -232,12 +230,12 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           <motion.button
             whileHover={{ x: 2 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => handleItemClick('pemanen', 2, 'Kemandoran & Tim (W2+)')}
+            onClick={() => handleItemClick('pemanen', 2, 'Kemandoran & Regu (W2+)')}
             className={navClass('pemanen', 2)}
           >
             <div className="flex items-center gap-3">
               <Users className="w-4 h-4" />
-              <span>Kemandoran &amp; Tim</span>
+              <span>Kemandoran &amp; Regu Panen</span>
             </div>
             {userWeight < 2 && <Lock className="w-3.5 h-3.5 text-[#98A2B3]" />}
           </motion.button>
@@ -246,12 +244,12 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           <motion.button
             whileHover={{ x: 2 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => handleItemClick('p2p', 1, 'P2P Data Mule')}
+            onClick={() => handleItemClick('p2p', 1, 'Data Mule P2P')}
             className={navClass('p2p', 1)}
           >
             <div className="flex items-center gap-3">
               <Truck className="w-4 h-4" />
-              <span>P2P Data Mule</span>
+              <span>Jalur Data Mule (P2P Truk)</span>
             </div>
           </motion.button>
 
@@ -264,7 +262,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           >
             <div className="flex items-center gap-3 min-w-0">
               <MapPin className="w-4 h-4 shrink-0 text-[#2E7D32] dark:text-[#34D399]" />
-              <span className="truncate">Peta Spasial EUDR</span>
+              <span className="truncate">Peta Spasial &amp; EUDR</span>
             </div>
             {userWeight >= 4 ? (
               <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#E8F5E9] dark:bg-[#064E3B]/60 text-[#2E7D32] dark:text-[#34D399] border border-[#A7F3D0] dark:border-[#059669]/40 font-mono">
@@ -279,7 +277,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
         {/* Group 2: ANALYTICS & INSIGHTS */}
         <div className="space-y-1">
           <div className="px-3 pb-1.5 text-[10px] font-bold uppercase tracking-wider text-[#98A2B3] dark:text-[#64748B]">
-            Analytics &amp; Insights
+            Analitik &amp; Performa Kebun
           </div>
 
           <motion.button
@@ -290,7 +288,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           >
             <div className="flex items-center gap-3">
               <ShieldAlert className="w-4 h-4" />
-              <span>SLA Restan &amp; FFA</span>
+              <span>Monitoring SLA Restan &amp; ALB</span>
             </div>
             {userWeight < 3 && <Lock className="w-3.5 h-3.5 text-[#98A2B3]" />}
           </motion.button>
@@ -303,7 +301,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           >
             <div className="flex items-center gap-3">
               <BarChart3 className="w-4 h-4" />
-              <span>BJR &amp; Rendemen CPO</span>
+              <span>Tren BJR &amp; Rendemen CPO</span>
             </div>
             {userWeight < 3 && <Lock className="w-3.5 h-3.5 text-[#98A2B3]" />}
           </motion.button>
@@ -316,7 +314,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           >
             <div className="flex items-center gap-3">
               <FileText className="w-4 h-4" />
-              <span>Audit Trail Konsensus</span>
+              <span>Jejak Audit Konsensus Server</span>
             </div>
             {userWeight >= 5 ? (
               <ShieldCheck className="w-3.5 h-3.5 text-[#10B981]" />
@@ -329,7 +327,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
         {/* Group 3: SUPPORT */}
         <div className="space-y-1">
           <div className="px-3 pb-1.5 text-[10px] font-bold uppercase tracking-wider text-[#98A2B3] dark:text-[#64748B]">
-            Support
+            Pusat Bantuan &amp; Pengaturan
           </div>
 
           <motion.button
@@ -340,7 +338,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           >
             <div className="flex items-center gap-3">
               <HelpCircle className="w-4 h-4" />
-              <span>Panduan SOP &amp; Bantuan</span>
+              <span>Buku Panduan &amp; SOP Lapangan</span>
             </div>
           </motion.button>
 
@@ -352,7 +350,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           >
             <div className="flex items-center gap-3">
               <Settings className="w-4 h-4" />
-              <span>Pengaturan Estate</span>
+              <span>Pengaturan Kebun &amp; Sistem</span>
             </div>
           </motion.button>
         </div>
@@ -372,7 +370,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-[#101828] dark:text-[#F8FAFC] truncate">
-                {user?.fullName ?? 'Belum Login'}
+                {user?.fullName ?? 'Belum Masuk'}
               </div>
               <div className="text-[11px] text-[#667085] dark:text-[#94A3B8] truncate">
                 {user ? `${user.role} (W${userWeight})` : 'Silakan masuk'}
@@ -389,7 +387,7 @@ export function Sidebar({ currentView = 'overview', onViewChange, onSearchClick,
           className="mt-1.5 w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-[#B42318] dark:text-[#F87171] hover:bg-[#FEF3F2] dark:hover:bg-[#7F1D1D]/30 transition-colors cursor-pointer"
         >
           <LogOut className="w-4 h-4" />
-          <span>Keluar dari Dashboard</span>
+          <span>Keluar dari Akun</span>
         </motion.button>
       </div>
     </aside>

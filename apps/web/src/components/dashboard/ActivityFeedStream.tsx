@@ -113,7 +113,7 @@ export function ActivityFeedStream() {
               <Clock className="w-3.5 h-3.5" />
             </div>
             <span className="text-xs font-semibold text-[#475467] dark:text-[#94A3B8]">
-              Live Activity Feed
+              Arus Aktivitas Sinkronisasi Lapangan
             </span>
           </div>
 
@@ -121,9 +121,9 @@ export function ActivityFeedStream() {
           <div className="flex items-center gap-1 bg-[#F8F9FB] dark:bg-[#1E293B] p-0.5 rounded-lg border border-[#EAECF0] dark:border-[#334155]">
             {(
               [
-                { id: 'today', label: 'Today' },
-                { id: 'yesterday', label: 'Yesterday' },
-                { id: 'week', label: 'This week' },
+                { id: 'today', label: 'Hari Ini' },
+                { id: 'yesterday', label: 'Kemarin' },
+                { id: 'week', label: 'Minggu Ini' },
               ] as const
             ).map((tab) => (
               <button

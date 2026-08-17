@@ -204,10 +204,10 @@ Restan Overdue: ${kpiQuery.data?.restanOverdueCount ?? 0} TPH`;
             >
               <div>
                 <h1 className="text-2xl lg:text-3xl font-extrabold text-[#101828] dark:text-[#F8FAFC] tracking-tight font-sans">
-                  Hello, {firstName} 👋
+                  Halo, {firstName} 👋
                 </h1>
                 <p className="text-xs lg:text-sm text-[#667085] dark:text-[#94A3B8] mt-1">
-                  Berikut insight operasional perkebunan —{' '}
+                  Berikut ringkasan operasional dan kinerja perkebunan sawit hari ini —{' '}
                   {kpiError
                     ? 'data tidak dapat dimuat dari backend.'
                     : kpi
@@ -277,8 +277,8 @@ Restan Overdue: ${kpiQuery.data?.restanOverdueCount ?? 0} TPH`;
                       setIsMoreActionsOpen(!isMoreActionsOpen);
                       setIsDatePickerOpen(false);
                     }}
-                    aria-label="More actions"
-                    className="w-9 h-9 rounded-xl border border-[#EAECF0] dark:border-[#334155] bg-white dark:bg-[#1E293B] text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F9FAFB] dark:hover:bg-[#334155] flex items-center justify-center shadow-xs transition-colors cursor-pointer"
+                    aria-label="Menu Aksi Tambahan"
+                    className="p-2 rounded-xl border border-[#EAECF0] dark:border-[#334155] bg-white dark:bg-[#1E293B] text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F9FAFB] dark:hover:bg-[#334155] cursor-pointer shadow-xs transition-colors"
                   >
                     <MoreVertical className="w-4 h-4" />
                   </motion.button>
@@ -289,54 +289,58 @@ Restan Overdue: ${kpiQuery.data?.restanOverdueCount ?? 0} TPH`;
                         initial={{ opacity: 0, scale: 0.95, y: -4 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: -4 }}
-                        className="absolute right-0 mt-1.5 w-52 bg-white dark:bg-[#1E293B] rounded-xl shadow-xl border border-[#EAECF0] dark:border-[#334155] py-1.5 z-30 font-sans"
+                        className="absolute right-0 mt-1.5 w-56 bg-white dark:bg-[#1E293B] rounded-xl shadow-xl border border-[#EAECF0] dark:border-[#334155] py-1.5 z-30 font-sans"
                       >
                         <button
                           onClick={handleRefreshAll}
-                          className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-[#344054] dark:text-[#E2E8F0] hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer"
+                          className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-semibold text-[#344054] dark:text-[#E2E8F0] hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer"
                         >
                           <RefreshCw className="w-3.5 h-3.5 text-[#667085] dark:text-[#94A3B8]" />
-                          <span>Muat Ulang Data (Sync)</span>
-                        </button>
-                        <button
-                          onClick={() => {
-                            setIsEudrModalOpen(true);
-                            setIsMoreActionsOpen(false);
-                          }}
-                          className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-[#344054] dark:text-[#E2E8F0] hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer"
-                        >
-                          <MapPin className="w-3.5 h-3.5 text-[#2E7D32] dark:text-[#34D399]" />
-                          <span>Buka Peta Spasial EUDR</span>
+                          <span>Segarkan Data Real-Time</span>
                         </button>
                         <button
                           onClick={handleExportSummary}
-                          className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-[#344054] dark:text-[#E2E8F0] hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer"
+                          className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-semibold text-[#344054] dark:text-[#E2E8F0] hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer"
                         >
-                          <Share2 className="w-3.5 h-3.5 text-[#667085] dark:text-[#94A3B8]" />
-                          <span>Salin Ringkasan KPI</span>
+                          <Download className="w-3.5 h-3.5 text-[#667085] dark:text-[#94A3B8]" />
+                          <span>Unduh Ringkasan Panen</span>
                         </button>
                         <button
                           onClick={() => {
-                            setIsHelpModalOpen(true);
-                            setIsMoreActionsOpen(false);
+                            if (typeof window !== 'undefined') {
+                              navigator.clipboard?.writeText(window.location.href);
+                              showNotification('🔗 Tautan dashboard disalin ke clipboard.');
+                              setIsMoreActionsOpen(false);
+                            }
                           }}
-                          className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-[#344054] dark:text-[#E2E8F0] hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer border-t border-[#EAECF0] dark:border-[#334155] mt-1 pt-1.5"
+                          className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-semibold text-[#344054] dark:text-[#E2E8F0] hover:bg-[#F8F9FB] dark:hover:bg-[#334155] transition-colors cursor-pointer"
                         >
-                          <Sprout className="w-3.5 h-3.5 text-[#667085] dark:text-[#94A3B8]" />
-                          <span>Buka Panduan SOP</span>
+                          <Share2 className="w-3.5 h-3.5 text-[#667085] dark:text-[#94A3B8]" />
+                          <span>Salin Tautan Dashboard</span>
                         </button>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
+                
+                {/* Primary Action Button (EUDR Modal Trigger) */}
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setIsEudrModalOpen(true)}
+                  className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2E7D32] hover:bg-[#1B5E20] text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+                >
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>Ekspor GeoJSON EUDR</span>
+                </motion.button>
               </div>
             </motion.div>
 
-            {/* Row 1: 4 KPI Cards with Motion */}
+            {/* 4 KPI Sparkline Metric Cards with Motion */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
+              transition={{ duration: 0.35, delay: 0.1 }}
               className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5"
             >
               <motion.div
@@ -352,7 +356,7 @@ Restan Overdue: ${kpiQuery.data?.restanOverdueCount ?? 0} TPH`;
                   trend={
                     kpiPending
                       ? '…'
-                      : `${(kpi?.janjangTrendPercent ?? 0) >= 0 ? '+' : ''}${formatDecimal(kpi?.janjangTrendPercent ?? 0)}% vs last week`
+                      : `${(kpi?.janjangTrendPercent ?? 0) >= 0 ? '+' : ''}${formatDecimal(kpi?.janjangTrendPercent ?? 0)}% vs minggu lalu`
                   }
                   isPositive={(kpi?.janjangTrendPercent ?? 0) >= 0}
                   tagIcon={Sprout}
@@ -384,7 +388,7 @@ Restan Overdue: ${kpiQuery.data?.restanOverdueCount ?? 0} TPH`;
                 className="cursor-pointer"
               >
                 <KpiSparklineCard
-                  title="SLA Compliance Rate"
+                  title="Kepatuhan SLA Pengangkutan"
                   value={kpiPending ? '—' : `${formatDecimal(kpi?.slaCompliancePercent ?? 0)}%`}
                   unit=""
                   trend={
@@ -405,13 +409,13 @@ Restan Overdue: ${kpiQuery.data?.restanOverdueCount ?? 0} TPH`;
                 className="cursor-pointer"
               >
                 <KpiSparklineCard
-                  title="Restan Overdue (>24 Jam)"
+                  title="Restan Kadaluarsa (>24 Jam)"
                   value={kpiPending ? '—' : formatNumber(kpi?.restanOverdueCount ?? 0)}
                   unit="TPH"
                   trend={
                     kpiPending
                       ? '…'
-                      : `FFA rata-rata ${formatDecimal(kpi?.averageFfaPercentage ?? 0, 2)}%`
+                      : `ALB rata-rata ${formatDecimal(kpi?.averageFfaPercentage ?? 0, 2)}%`
                   }
                   isPositive={(kpi?.restanOverdueCount ?? 0) === 0}
                   tagIcon={Flame}

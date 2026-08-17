@@ -27,19 +27,19 @@ interface TopNavbarProps {
 }
 
 const VIEW_TITLES: Record<string, string> = {
-  overview: 'Dashboard Page',
+  overview: 'Halaman Utama Dashboard',
   'tph-queue': 'Antrean Panen TPH',
   'restan-risk': 'Risiko Restan >24 Jam',
   conflict: 'Resolusi Konflik & Priority Score',
-  pemanen: 'Kemandoran & Tim',
-  p2p: 'P2P Data Mule & Truk',
+  pemanen: 'Kemandoran & Regu Panen',
+  p2p: 'Data Mule P2P & Truk',
   eudr: 'Peta Spasial EUDR',
-  integrations: 'Integrasi Pabrik PKS',
-  'sla-ffa': 'SLA Restan & FFA',
-  'bjr-cpo': 'BJR & Rendemen CPO',
-  'audit-trail': 'Audit Trail Konsensus',
-  settings: 'Pengaturan',
-  help: 'Bantuan & SOP',
+  integrations: 'Integrasi Pabrik Kelapa Sawit (PKS)',
+  'sla-ffa': 'Monitoring SLA Restan & Asam Lemak Bebas',
+  'bjr-cpo': 'Tren BJR & Rendemen CPO',
+  'audit-trail': 'Jejak Audit Konsensus',
+  settings: 'Pengaturan Sistem & Kebun',
+  help: 'Buku Panduan & SOP',
 };
 
 export function TopNavbar({
@@ -58,7 +58,7 @@ export function TopNavbar({
     return unsubscribe;
   }, []);
 
-  const pageTitle = VIEW_TITLES[currentView] ?? 'Dashboard Page';
+  const pageTitle = VIEW_TITLES[currentView] ?? 'Halaman Utama Dashboard';
 
   return (
     <header className="h-16 bg-white dark:bg-[#111827] border-b border-[#EAECF0] dark:border-[#1F2937] flex items-center justify-between px-6 shrink-0 z-20 font-sans transition-colors">
@@ -66,7 +66,7 @@ export function TopNavbar({
       <div className="flex items-center gap-2 text-xs text-[#667085] dark:text-[#94A3B8]">
         <div className="flex items-center gap-1.5 font-medium text-[#344054] dark:text-[#E2E8F0]">
           <LayoutGrid className="w-3.5 h-3.5 text-[#667085] dark:text-[#94A3B8]" />
-          <span>Dashboard</span>
+          <span>Beranda</span>
         </div>
         <ChevronRight className="w-3 h-3 text-[#D0D5DD] dark:text-[#475467]" />
         <span className="font-semibold text-[#101828] dark:text-[#F8FAFC] capitalize">{pageTitle}</span>
@@ -79,11 +79,11 @@ export function TopNavbar({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={onSearchClick}
-          aria-label="Search"
+          aria-label="Cari data"
           className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#EAECF0] dark:border-[#1F2937] bg-[#F8F9FB] dark:bg-[#1E293B] hover:bg-[#F2F4F7] dark:hover:bg-[#334155] text-xs text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] transition-colors cursor-pointer"
         >
           <Search className="w-3.5 h-3.5" />
-          <span>Cari...</span>
+          <span>Cari cepat...</span>
           <span className="text-[10px] font-mono text-[#98A2B3] dark:text-[#64748B] bg-white dark:bg-[#0F172A] border border-[#EAECF0] dark:border-[#334155] px-1 rounded shadow-xs">
             ⌘K
           </span>
@@ -94,7 +94,7 @@ export function TopNavbar({
           whileHover={{ scale: 1.1, rotate: 15 }}
           whileTap={{ scale: 0.9 }}
           onClick={toggleTheme}
-          aria-label="Toggle Dark/Light Mode"
+          aria-label="Ganti Tema Terang/Gelap"
           className="w-8 h-8 rounded-lg hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B] text-[#667085] dark:text-[#FDE047] hover:text-[#101828] flex items-center justify-center transition-colors cursor-pointer"
           title={resolvedTheme === 'dark' ? 'Beralih ke Mode Terang' : 'Beralih ke Mode Gelap'}
         >
@@ -105,26 +105,26 @@ export function TopNavbar({
           )}
         </motion.button>
 
-        {/* Help Icon */}
+        {/* Help Question Mark */}
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={onHelpClick}
-          aria-label="Help & Documentation"
+          aria-label="Bantuan dan Panduan"
           className="w-8 h-8 rounded-lg hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B] text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] flex items-center justify-center transition-colors cursor-pointer"
-          title="Panduan & SOP"
+          title="Buku Panduan &amp; SOP"
         >
           <HelpCircle className="w-4 h-4" />
         </motion.button>
 
-        {/* Settings Icon */}
+        {/* Quick Settings Icon */}
         <motion.button
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.1, rotate: 45 }}
           whileTap={{ scale: 0.9 }}
           onClick={onSettingsClick}
-          aria-label="Settings"
+          aria-label="Pengaturan"
           className="w-8 h-8 rounded-lg hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B] text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] flex items-center justify-center transition-colors cursor-pointer"
-          title="Pengaturan"
+          title="Pengaturan Kebun &amp; Tema"
         >
           <Settings className="w-4 h-4" />
         </motion.button>
@@ -134,9 +134,9 @@ export function TopNavbar({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={onNotificationClick}
-          aria-label="Notifications"
+          aria-label="Pemberitahuan"
           className="w-8 h-8 rounded-lg hover:bg-[#F2F4F7] dark:hover:bg-[#1E293B] text-[#667085] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] flex items-center justify-center transition-colors relative cursor-pointer"
-          title="Pemberitahuan & Restan"
+          title="Pemberitahuan &amp; Peringatan Restan"
         >
           <Bell className="w-4 h-4" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#D92D20] ring-2 ring-white dark:ring-[#111827]"></span>
@@ -157,12 +157,12 @@ export function TopNavbar({
           {backendOnline ? (
             <>
               <Wifi className="w-3 h-3" />
-              <span className="hidden sm:inline">Backend Online</span>
+              <span className="hidden sm:inline">Backend Terhubung</span>
             </>
           ) : (
             <>
               <WifiOff className="w-3 h-3" />
-              <span className="hidden sm:inline">Backend Offline</span>
+              <span className="hidden sm:inline">Mode Offline</span>
             </>
           )}
         </motion.div>
@@ -177,7 +177,7 @@ export function TopNavbar({
         >
           <span className="w-2 h-2 rounded-full bg-[#10B981]"></span>
           <span>
-            {user ? `${user.role} (W${user.roleWeight})` : 'ASISTEN (W3)'}
+            {user ? `${user.role} (W${user.roleWeight})` : 'MANAGER (W5)'}
           </span>
         </motion.button>
       </div>
