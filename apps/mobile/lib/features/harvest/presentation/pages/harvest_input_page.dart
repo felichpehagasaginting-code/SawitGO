@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../auth/domain/models/user_model.dart';
 import '../../../geospatial/location_service.dart';
+import '../../../sync/presentation/bloc/sync_bloc.dart';
+import '../../../sync/presentation/bloc/sync_event.dart';
 import '../../data/repositories/harvest_repository.dart';
 import 'qr_scanner_page.dart';
 
@@ -110,20 +113,35 @@ class _HarvestInputPageState extends State<HarvestInputPage> {
       );
 
       if (mounted) {
+        // Memicu sinkronisasi instan ke backend server
+        try {
+          context.read<SyncBloc>().add(TriggerAutoSyncEvent('INPUT-${widget.user.role}-${widget.user.nip}'));
+        } catch (_) {}
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: AppColors.primaryPalm,
+            duration: Duration(seconds: 2),
             content: Text(
-              '✅ Data Panen Berhasil Disimpan (Terenkripsi AES-256)!',
+              '✅ Data Panen Berhasil Disimpan & Dikirim ke Server!',
               style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Inter'),
             ),
           ),
         );
+
+        Future.delayed(const Duration(milliseconds: 500), () {
+          if (mounted && Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+        });
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(backgroundColor: AppColors.statusRestan, content: Text('Error: $e')),
+          SnackBar(
+            backgroundColor: AppColors.statusRestan,
+            content: Text('Gagal menyimpan: $e', style: const TextStyle(fontWeight: FontWeight.bold)),
+          ),
         );
       }
     } finally {

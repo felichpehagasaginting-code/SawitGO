@@ -6,15 +6,28 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class LocalCryptoService {
   static const _storage = FlutterSecureStorage();
   static const _keyAlias = 'SAWITGO_LOCAL_MASTER_KEY_V1';
+  static String? _memoryFallbackKey;
 
   static Future<enc.Key> getOrCreateMasterKey() async {
-    String? base64Key = await _storage.read(key: _keyAlias);
-    if (base64Key == null) {
-      final key = enc.Key.fromSecureRandom(32);
-      await _storage.write(key: _keyAlias, value: key.base64);
-      return key;
+    try {
+      String? base64Key = await _storage.read(key: _keyAlias);
+      if (base64Key == null) {
+        final key = enc.Key.fromSecureRandom(32);
+        try {
+          await _storage.write(key: _keyAlias, value: key.base64);
+        } catch (_) {
+          _memoryFallbackKey = key.base64;
+        }
+        return key;
+      }
+      return enc.Key.fromBase64(base64Key);
+    } catch (_) {
+      // Fallback in-memory jika platform storage tidak tersedia (e.g. Windows dev / web)
+      if (_memoryFallbackKey == null) {
+        _memoryFallbackKey = enc.Key.fromSecureRandom(32).base64;
+      }
+      return enc.Key.fromBase64(_memoryFallbackKey!);
     }
-    return enc.Key.fromBase64(base64Key);
   }
 
   static Future<String> encryptPayload(String plainText) async {
